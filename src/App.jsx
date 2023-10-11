@@ -10,33 +10,32 @@ import APIAccess from './services/ApiAccess';
 export default function App() {
 	let [alerts, setAlerts] = useState([]);
 	let [position, setPosition] = useState([31.3791818, 35.4409897]);
+	let [cities, setCities] = useState([]);
 
 	useEffect(() => {
-		const interval = setInterval(async () => {
-			let cities = [];
-			let newAlerts = [];
-
-			if (cities.length === 0) setAlerts([]);
-
-			for (let i = 0; i < cities.length; i++) {
-				let alert;
-				try {
-					alert = await APIAccess.getCity(cities[i]);
-				}
-				catch {
-					i--;
-					await new Promise(res => setTimeout(res, 1000));
-					continue;
-				}
-				newAlerts = [...new Set([...newAlerts, alert[0]].filter(x => x !== undefined))];
-				setAlerts(newAlerts);
-				if (alert[1] || i >= cities.length - 1) continue;
-				await new Promise(res => setTimeout(res, 500));
-			}
-		}, 1000);
-
+		const interval = setInterval(async () => setCities(await APIAccess.getRedAlerts() || cities), 1000);
 		return () => clearInterval(interval);
 	}, []);
+
+	useEffect(() => {
+		async function redrawAlerts() {
+			let newAlerts = [];
+
+			if (cities.length === 0) {
+				setAlerts([]);
+				return;
+			}
+
+			for (const city of cities) {
+				console.log(newAlerts);
+				let alert = await APIAccess.getCity(city);
+				if (alert === undefined || newAlerts.some(i => i.name === alert.name)) continue;
+				newAlerts = [...newAlerts, alert];
+				setAlerts([...newAlerts]);
+			}
+		}
+		redrawAlerts();
+	}, [cities]);
 
     return (
 		<MapContainer center={position} zoom={7} style={{ height: '100vh' }}>

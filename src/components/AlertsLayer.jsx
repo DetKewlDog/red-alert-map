@@ -7,7 +7,7 @@ export default function AlertsLayer({ alerts, color }) {
                 <Circle key={index}
                     pathOptions={{ color: color }}
                     center={alert.center}
-                    radius={alert.radius} />
+                    radius={Math.max(5000, alert.radius)} />
             ))}
         </LayerGroup>
     );
