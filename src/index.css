@@ -1,0 +1,30 @@
+body {
+	margin: 0;
+}
+
+path {
+	fill-opacity: 1;
+}
+svg {
+	opacity: 0.3;
+}
+
+.fas {
+	font-size: 28px;
+	background-size: 44px 44px;
+	width: 44px !important;
+	height: 44px !important;
+}
+
+.fas:before {
+	color: black;
+	position: absolute;
+	margin: 7px 8px;
+	right: 0;
+}
+
+*:has(> .fas) {
+	background-size: 44px 44px;
+	width: 44px;
+	height: 44px;
+}
