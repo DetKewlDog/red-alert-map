@@ -1,5 +1,7 @@
 :root {
-    --dm-bg: #262626;
+    --dm-bg1: #262626;
+	--dm-bg2: #2f2f2f;
+
     --dm-border1: #424242;
     --dm-border2: #4c4c4c;
 
@@ -44,21 +46,25 @@ body:has(input[type=checkbox]:checked):has(label:last-of-type input[type=radio]:
     filter: var(--dm-tile-filter, none) !important;
 }
 
-body:has(input[type=checkbox]:checked):has(input[type=radio]:not(:checked)) .leaflet-container {
+body:has(input[type=checkbox]:checked) .leaflet-container {
     background: var(--dm-tile-border) !important;
 }
 
-body:has(input[type=checkbox]:checked):has(input[type=radio]:not(:checked)) .leaflet-control,
-body:has(input[type=checkbox]:checked):has(input[type=radio]:not(:checked)) .leaflet-bar a {
-    background: var(--dm-bg) !important;
+body:has(input[type=checkbox]:checked) .leaflet-control,
+body:has(input[type=checkbox]:checked) .leaflet-bar a {
+    background: var(--dm-bg1) !important;
     color: var(--dm-text) !important;
     border: 1px solid var(--dm-border1) !important;
 }
 
-body:has(input[type=checkbox]:checked):has(input[type=radio]:not(:checked)) .leaflet-control:hover > :not(a),
-body:has(input[type=checkbox]:checked):has(input[type=radio]:not(:checked)) .leaflet-bar a:hover {
-    background: var(--hl1) !important;
+body:has(input[type=checkbox]:checked) .leaflet-control:hover,
+body:has(input[type=checkbox]:checked) .leaflet-bar a:hover {
+    background: var(--dm-bg2) !important;
     border: 1px solid var(--dm-border2) !important;
+}
+
+body:has(input[type=checkbox]:checked) .fas:before {
+    color: var(--dm-text) !important;
 }
 
 input[type=checkbox] + span,
