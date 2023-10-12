@@ -1,3 +1,14 @@
+:root {
+    --dm-bg: #262626;
+    --dm-border1: #424242;
+    --dm-border2: #4c4c4c;
+
+    --dm-text: #aaaaaa;
+
+	--dm-tile-border: #303030;
+    --dm-tile-filter: brightness(0.6) invert(1) contrast(5) hue-rotate(180deg) saturate(0.6) brightness(0.7);
+}
+
 body {
 	margin: 0;
 }
@@ -27,4 +38,30 @@ svg {
 	background-size: 44px 44px;
 	width: 44px;
 	height: 44px;
+}
+
+body:has(input[type=checkbox]:checked):has(label:last-of-type input[type=radio]:not(:checked)) .leaflet-tile {
+    filter: var(--dm-tile-filter, none) !important;
+}
+
+body:has(input[type=checkbox]:checked):has(input[type=radio]:not(:checked)) .leaflet-container {
+    background: var(--dm-tile-border) !important;
+}
+
+body:has(input[type=checkbox]:checked):has(input[type=radio]:not(:checked)) .leaflet-control,
+body:has(input[type=checkbox]:checked):has(input[type=radio]:not(:checked)) .leaflet-bar a {
+    background: var(--dm-bg) !important;
+    color: var(--dm-text) !important;
+    border: 1px solid var(--dm-border1) !important;
+}
+
+body:has(input[type=checkbox]:checked):has(input[type=radio]:not(:checked)) .leaflet-control:hover > :not(a),
+body:has(input[type=checkbox]:checked):has(input[type=radio]:not(:checked)) .leaflet-bar a:hover {
+    background: var(--hl1) !important;
+    border: 1px solid var(--dm-border2) !important;
+}
+
+input[type=checkbox] + span,
+input[type=radio] + span {
+    user-select: none;
 }

@@ -1,11 +1,20 @@
 import { useState, useEffect } from 'react';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { MapContainer, LayersControl, LayerGroup, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import PanToLocation from './components/PanToLocation';
 import AlertsLayer from './components/AlertsLayer';
 
 import APIAccess from './services/ApiAccess';
+
+function MapLayer({ name, url, subdomains, checked=false }) {
+    return (
+        <LayersControl.BaseLayer name={name} checked={checked}>
+            <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url={url} subdomains={subdomains || ['a', 'b', 'c']} />
+        </LayersControl.BaseLayer>
+    );
+}
 
 export default function App() {
 	let [alertedCities, setAlertedCities] = useState([]);
@@ -15,7 +24,9 @@ export default function App() {
 	useEffect(() => {
 		const interval = setInterval(async () => {
 			let results = await APIAccess.getRedAlerts() || [];
-			if (results.filter(x => !alerts.includes(x)).length === 0) return;
+			if (results.length === alerts.length
+				&& results.every((val, index) => val === alerts[index])
+				&& (results.length !== 0 || alertedCities.length === 0)) return;
 			updateAlerts(results);
 		}, 1000);
 
@@ -29,7 +40,7 @@ export default function App() {
 			// get all alerts that are not already displayed on the map
 			alerts = alerts.filter(alert => !alertedCities.some(city => city.name === alert));
 
-			console.log('Received', alerts.length, 'new alerts');
+			console.log('Alert count: ', alerts.length + cities.length);
 			updateAlertedCities([...cities]);
 
 			for (const alert of alerts) {
@@ -49,6 +60,10 @@ export default function App() {
 		redrawAlerts();
 	}, [alerts]);
 
+	useEffect(() => {
+
+	}, [alertedCities]);
+
 	function updateAlertedCities(arr) {
 		alertedCities = arr;
 		setAlertedCities(arr);
@@ -61,7 +76,26 @@ export default function App() {
 
     return (
 		<MapContainer center={position} zoom={7} style={{ height: '100vh' }}>
-			<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+			<LayersControl position="bottomleft">
+				<MapLayer name="Default" checked
+					subdomains={['mt0', 'mt1', 'mt2', 'mt3']}
+					url='https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}' />
+
+				<MapLayer name="Leaflet"
+					url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' />
+
+				<MapLayer name="Terrain"
+					subdomains={['mt0', 'mt1','mt2','mt3']}
+					url='https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}' />
+
+				<MapLayer name="Satellite"
+					subdomains={['mt0', 'mt1','mt2','mt3']}
+					url='https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}' />
+
+				<LayersControl.Overlay name='Dark Mode'>
+					<LayerGroup></LayerGroup>
+				</LayersControl.Overlay>
+			</LayersControl>
 
 			<PanToLocation align="topright" setPosition={setPosition} />
 			<AlertsLayer alerts={alertedCities} color='red' />
