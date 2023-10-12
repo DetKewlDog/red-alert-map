@@ -1,5 +1,8 @@
+import { useEffect } from 'react';
 import { useMapEvents } from 'react-leaflet';
 import '../index.css';
+
+import APIAccess from '../services/ApiAccess';
 
 const ALIGN_CLASSES = {
     bottomleft: 'leaflet-bottom leaflet-left',
@@ -8,7 +11,7 @@ const ALIGN_CLASSES = {
     topright: 'leaflet-top leaflet-right',
 };
 
-export default function PanToLocation({ align, setPosition }) {
+export default function PanToLocation({ align = 'topright', setPosition }) {
     const map = useMapEvents({
         locationfound(e) {
             setPosition(Object.values(e.latlng));
@@ -16,9 +19,15 @@ export default function PanToLocation({ align, setPosition }) {
         },
     });
 
-    const positionClass = (align && ALIGN_CLASSES[align]) || ALIGN_CLASSES.topright;
+    useEffect(() => {
+        APIAccess.getPosition('israel')
+            .then(([ res, _ ]) => {
+                map.panTo(res.center, 7);
+            });
+    }, []);
+
     return (
-        <div className={positionClass}>
+        <div className={ALIGN_CLASSES[align]}>
             <div className="leaflet-control leaflet-bar">
                 <a className="fas fa-crosshairs" onClick={() => map.locate()}></a>
             </div>
