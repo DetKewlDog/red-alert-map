@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import { MapContainer, LayersControl, LayerGroup, TileLayer } from 'react-leaflet';
+import { MapContainer, LayersControl, LayerGroup, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import PanToLocation from './components/PanToLocation';
-import AlertsLayer from './components/AlertsLayer';
 
 import APIAccess from './services/ApiAccess';
 
@@ -92,13 +91,31 @@ export default function App() {
 					subdomains={['mt0', 'mt1','mt2','mt3']}
 					url='https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}' />
 
-				<LayersControl.Overlay name='Dark Mode'>
-					<LayerGroup></LayerGroup>
-				</LayersControl.Overlay>
+				<LayersControl.Overlay name='Dark Mode'><LayerGroup /></LayersControl.Overlay>
+
+				<LayersControl.Overlay name='Show Circles' checked><LayerGroup>
+					{alertedCities.map((alert, index) => (
+						<Circle key={index}
+							pathOptions={{ color: 'red' }}
+							center={alert.center}
+							radius={alert.radius}
+						>
+							<Popup>{alert.name}</Popup>
+						</Circle>
+					))}
+				</LayerGroup></LayersControl.Overlay>
+
+				<LayersControl.Overlay name='Show Markers'><LayerGroup>
+					{alertedCities.map((alert, index) => (
+						<Marker key={index} position={alert.center}>
+							<Popup>{alert.name}</Popup>
+						</Marker>
+					))}
+				</LayerGroup></LayersControl.Overlay>
+
 			</LayersControl>
 
 			<PanToLocation align="topright" setPosition={setPosition} />
-			<AlertsLayer alerts={alertedCities} color='red' />
 		</MapContainer>
     );
 };
