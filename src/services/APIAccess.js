@@ -2,6 +2,7 @@ import axios from 'axios';
 import { LatLng } from 'leaflet';
 
 const headers = {
+    'Accept': 'application/json',
     'Content-Type': 'application/json;charset=UTF-8',
     'Access-Control-Allow-Origin': "*"
 };
@@ -13,7 +14,14 @@ class APIAccess {
             .then(data => data?.data);
     }
 
-    static async getCity(city) {
+    // TODO: add headers to bypass the "access denied" error
+    static async getRedAlertsHistory() {
+        return axios.get('https://www.oref.org.il//Shared/Ajax/GetAlarmsHistory.aspx?lang=en&mode=1', headers)
+            .then(result => result.data)
+            .then(data => data.map(i => i.data));
+    }
+
+    static async getCityPosition(city) {
         city = city.split(' - ')[0];
         let cachedCity = localStorage.getItem(city);
         if (cachedCity !== null) return JSON.parse(cachedCity);

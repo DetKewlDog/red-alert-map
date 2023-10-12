@@ -8,41 +8,42 @@ import AlertsLayer from './components/AlertsLayer';
 import APIAccess from './services/ApiAccess';
 
 export default function App() {
-	let [alerts, setAlerts] = useState([]);
+	let [alertedCities, setAlertedCities] = useState([]);
 	let [position, setPosition] = useState([31.3791818, 35.4409897]);
-	let [cities, setCities] = useState([]);
+	let [alerts, setAlerts] = useState([]);
 
 	useEffect(() => {
-		const interval = setInterval(async () => setCities(await APIAccess.getRedAlerts() || cities), 1000);
+		const interval = setInterval(async () => {
+			setAlerts(await APIAccess.getRedAlerts() || alerts);
+		}, 1000);
 		return () => clearInterval(interval);
 	}, []);
 
 	useEffect(() => {
 		async function redrawAlerts() {
-			let newAlerts = [];
+			let cities = [];
 
-			if (cities.length === 0) {
-				setAlerts([]);
+			if (alerts.length === 0) {
+				setAlertedCities([]);
 				return;
 			}
 
-			for (const city of cities) {
-				console.log(newAlerts);
-				let alert = await APIAccess.getCity(city);
-				if (alert === undefined || newAlerts.some(i => i.name === alert.name)) continue;
-				newAlerts = [...newAlerts, alert];
-				setAlerts([...newAlerts]);
+			for (const alert of alerts) {
+				const city = await APIAccess.getCityPosition(alert);
+				if (city === undefined || cities.some(i => i.name === city.name)) continue;
+				cities.push(city);
+				setAlertedCities([...cities]);
 			}
 		}
 		redrawAlerts();
-	}, [cities]);
+	}, [alerts]);
 
     return (
 		<MapContainer center={position} zoom={7} style={{ height: '100vh' }}>
 			<TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
 			<PanToLocation align="topright" setPosition={setPosition} />
-			<AlertsLayer alerts={alerts} color='red' />
+			<AlertsLayer alerts={alertedCities} color='red' />
 		</MapContainer>
     );
 };
