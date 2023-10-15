@@ -39,7 +39,7 @@ class APIAccess {
 
                 let result = {
                     name: city,
-                    center: new LatLng( [foundCity.lat, foundCity.lon].map(parseFloat) ),
+                    center: new LatLng( parseFloat(foundCity.lat), parseFloat(foundCity.lon) ),
                     radius: bound1.distanceTo(bound2) / 2
                 };
                 localStorage.setItem(city, JSON.stringify(result));
