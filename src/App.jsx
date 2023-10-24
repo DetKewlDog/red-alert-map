@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
-import { MapContainer, LayersControl, LayerGroup, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
+import { useMap, MapContainer, LayersControl, LayerGroup, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-
-import PanToLocation from './components/PanToLocation';
 
 import APIAccess from './services/APIAccess';
 
@@ -13,6 +11,17 @@ function MapLayer({ name, url, subdomains, checked = false }) {
                 url={url} subdomains={subdomains?.split('') || ['mt0', 'mt1', 'mt2', 'mt3']} />
         </LayersControl.BaseLayer>
     );
+}
+
+function PanToIsrael() {
+	const map = useMap();
+	useEffect(() => {
+		APIAccess.getPosition('israel')
+			.then(([res, _]) => {
+				map.panTo(res.center, 7);
+			});
+	}, []);
+	return null;
 }
 
 export default function App() {
@@ -81,7 +90,8 @@ export default function App() {
 
     return (
 		<MapContainer center={position} zoom={7} style={{ height: '100vh' }}>
-			<LayersControl position="bottomleft">
+			<PanToIsrael />
+			<LayersControl position="topright">
 				<MapLayer name="Default"   		 url='https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}' checked 		   />
 				<MapLayer name="Open Street Map" url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' subdomains='abc' />
 				<MapLayer name="Terrain"   		 url='https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}'   			   />
@@ -110,8 +120,6 @@ export default function App() {
 				</LayerGroup></LayersControl.Overlay>
 
 			</LayersControl>
-
-			<PanToLocation align="topright" setPosition={setPosition} />
 		</MapContainer>
     );
 };
