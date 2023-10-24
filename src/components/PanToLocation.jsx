@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useMapEvents } from 'react-leaflet';
 import '../index.css';
 
-import APIAccess from '../services/ApiAccess';
+import APIAccess from '../services/APIAccess';
 
 const ALIGN_CLASSES = {
     bottomleft: 'leaflet-bottom leaflet-left',

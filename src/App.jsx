@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 
 import PanToLocation from './components/PanToLocation';
 
-import APIAccess from './services/ApiAccess';
+import APIAccess from './services/APIAccess';
 
 function MapLayer({ name, url, subdomains, checked = false }) {
     return (
