@@ -32,10 +32,30 @@ function PanToIsrael() {
 	return null;
 }
 
+function AlertPopup({ name, name_en, time, evac_time }) {
+	let [temp, setTemp] = useState(undefined);
+	useEffect(() => {
+		setTimeout(() => setTemp(new Date()), 1000);
+	}, [temp]);
+
+	return (
+		<Popup>
+			<b>{name_en !== undefined && `${name_en} - `}{name}</b>
+			<br />
+			{time.toLocaleTimeString()}
+			<br />
+			({new Date(new Date() - time).toISOString().slice(14, 19)} ago)
+			<br />
+			Evacuation time: {new Date(evac_time * 1000).toISOString().slice(14, 19)}
+		</Popup>
+	);
+}
+
 export default function App() {
 	let [alertedCities, setAlertedCities] = useState([]);
 	let [position, setPosition] = useState([0, 0]);
 	let [alerts, setAlerts] = useState([]);
+	let [alertTimes, setAlertTimes] = useState({});
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -53,6 +73,11 @@ export default function App() {
 
 	useEffect(() => {
 		async function redrawAlerts() {
+			// update alert times to only contain the currently alerted cities
+			alertTimes = Object.fromEntries(Object.entries(alertTimes).filter(([cityName, _]) => {
+				return alerts.some(alert => cityName === alert);
+			}));
+
 			// get all cities that were already displayed as alerted cities (no need to redraw those cities)
 			let cities = alertedCities.filter(city => {
 				return alerts.some(alert => city.name === alert);
@@ -64,6 +89,7 @@ export default function App() {
 
 			console.log('Alert count: ', alerts.length + cities.length);
 			updateAlertedCities([...cities]);
+			updateAlertTimes({ ...alertTimes });
 
 			for (const alert of alerts) {
 				const [city, usedCache] = await APIAccess.getPosition(alert);
@@ -71,6 +97,7 @@ export default function App() {
 				if (city !== undefined && !cities.some(i => i.name === city.name)) {
 					cities = [...cities, city];
 					updateAlertedCities([...cities]);
+					updateAlertTimes({...alertTimes, [city.name]: new Date()})
 				}
 
 				if (usedCache) continue;
@@ -95,6 +122,10 @@ export default function App() {
 		alerts = arr;
 		setAlerts(arr);
 	}
+	function updateAlertTimes(obj) {
+		alertTimes = obj;
+		setAlertTimes(obj);
+	}
 
     return (
 		<MapContainer center={position} zoom={7} style={{ height: '100vh' }}>
@@ -114,7 +145,7 @@ export default function App() {
 							center={alert.center}
 							radius={alert.radius}
 						>
-							<Popup>{alert.name}</Popup>
+							<AlertPopup {...alert} time={alertTimes[alert.name]} />
 						</Circle>
 					))}
 				</LayerGroup></LayersControl.Overlay>
@@ -122,7 +153,7 @@ export default function App() {
 				<LayersControl.Overlay name='Show Markers'><LayerGroup>
 					{alertedCities.map((alert, index) => (
 						<Marker key={index} position={alert.center} icon={icon}>
-							<Popup>{alert.name}</Popup>
+							<AlertPopup {...alert} time={alertTimes[alert.name]} />
 						</Marker>
 					))}
 				</LayerGroup></LayersControl.Overlay>
