@@ -1,8 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useMap, MapContainer, LayersControl, LayerGroup, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
 import APIAccess from './services/APIAccess';
+
+const icon = new L.Icon({
+    iconUrl: 'https://cdn.discordapp.com/attachments/801426473059614730/1131176188300242985/marker-icon-dest.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [0, -41],
+});
 
 function MapLayer({ name, url, subdomains, checked = false }) {
     return (
@@ -113,7 +121,7 @@ export default function App() {
 
 				<LayersControl.Overlay name='Show Markers'><LayerGroup>
 					{alertedCities.map((alert, index) => (
-						<Marker key={index} position={alert.center}>
+						<Marker key={index} position={alert.center} icon={icon}>
 							<Popup>{alert.name}</Popup>
 						</Marker>
 					))}
