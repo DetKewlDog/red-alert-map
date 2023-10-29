@@ -46,7 +46,7 @@ function AlertPopup({ name, name_en, time, evac_time }) {
 			<br />
 			({new Date(new Date() - time).toISOString().slice(14, 19)} ago)
 			<br />
-			Evacuation time: {new Date(evac_time * 1000).toISOString().slice(14, 19)}
+			{evac_time !== undefined && `Evacuation time: ${new Date(evac_time * 1000).toISOString().slice(14, 19)}`}
 		</Popup>
 	);
 }
