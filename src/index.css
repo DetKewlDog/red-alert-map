@@ -40,20 +40,42 @@ svg {
 body {
 	margin: 0;
 
+	&:has(label:first-of-type input[type=checkbox]:not(:checked)) {
+		.leaflet-tile {
+			filter: none !important;
+			transition: all 0.5s;
+		}
+
+		.leaflet-container {
+			transition: all 0.5s;
+		}
+	
+		.leaflet-control, .leaflet-bar a {
+			transition: background 0.5s, color 0.5s, border 0.5s;		
+		}
+	
+		.fas:before {
+			transition: all 0.5s;		
+		}
+	}
+
 	&:has(label:first-of-type input[type=checkbox]:checked) {
 		&:has(label:last-of-type input[type=radio]:not(:checked)) .leaflet-tile {
 			filter: var(--dm-tile-filter, none) !important;
+			transition: all 0.5s;
 		}
 
 		.leaflet-container {
 			background: var(--dm-tile-border) !important;
+			transition: all 0.5s;
 		}
 	
 		.leaflet-control, .leaflet-bar a {
 			background: var(--dm-bg1) !important;
 			color: var(--dm-text) !important;
 			border: 1px solid var(--dm-border1) !important;
-
+			transition: background 0.5s, color 0.5s, border 0.5s;		
+			
 			&:not(input):hover {
 				background: var(--dm-bg2) !important;
 				border: 1px solid var(--dm-border2) !important;
@@ -62,6 +84,7 @@ body {
 	
 		.fas:before {
 			color: var(--dm-text) !important;
+			transition: all 0.5s;		
 		}
 	}
 }
