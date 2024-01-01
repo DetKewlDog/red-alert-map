@@ -41,7 +41,7 @@ body {
 	margin: 0;
 
 	&:has(label:first-of-type input[type=checkbox]:checked) {
-		&:has(label:last-of-type>input[type=radio]:not(:checked)) .leaflet-tile {
+		&:has(label:last-of-type input[type=radio]:not(:checked)) .leaflet-tile {
 			filter: var(--dm-tile-filter, none) !important;
 		}
 
