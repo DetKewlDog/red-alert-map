@@ -1,25 +1,30 @@
 import axios from 'axios';
 import { LatLng } from 'leaflet';
 
+const BACKEND_URL = 'https://red-alert-server.detkewldog.repl.co/api'
+
 const headers = {
   'Content-Type': 'application/json',
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type',
+}
+
+const args = {
+  headers: headers,
   withCredentials: false, 
-  crossdomain: true
+  crossdomain: true,
+  mode: 'cors'
 };
 
 class APIAccess {
   static cities = undefined;
 
   static async getRedAlerts() {
-    return axios.get('https://www.kore.co.il/redAlert.json', headers)
+    return await axios.get(`${BACKEND_URL}/realtime`, args)
       .then(result => result.data?.data?.map(i => i.split(', ')[0]))
   }
 
   static async getPosition(city) {
     if (APIAccess.cities === undefined) {
-      APIAccess.cities = axios.get('cities.json', headers)
+      APIAccess.cities = axios.get(`${BACKEND_URL}/cities`, args)
         .then(result => result.data)
         .catch(err => console.error('Couldn\'t access cities.json!'));
     }
@@ -29,10 +34,9 @@ class APIAccess {
       return [ JSON.parse(cachedCity), true ];
     }
 
-    return axios.get(`https://geocode.maps.co/search?q=${city}&api_key=${import.meta.env.VITE_GEOCODE_API_KEY}`, headers)
+    return axios.get(`${BACKEND_URL}/geocode/${city}`, args)
       .then(result => result.json())
       .then(async data => {
-        console.log(data);
         const foundCity = data.find(i => i.display_name.includes('Israel'));
         if (foundCity === undefined) {
           return await getPositionFromLocalArchive(city);
@@ -53,8 +57,8 @@ class APIAccess {
         return [ result, false ];
       })
       .catch(err => {
-        console.log(err);
-        return  [ undefined, false ]
+        console.error(err);
+        return [ undefined, false ]
       });
   }
 
