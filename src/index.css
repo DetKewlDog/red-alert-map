@@ -10,12 +10,14 @@
 	--dm-tile-border: #303030;
 	--dm-tile-filter: invert(100%) hue-rotate(190deg) brightness(100%) contrast(90%) blur(0px);
 }
-
-path {
-	fill-opacity: 1;
-}
-svg {
+svg:has(path[stroke=red]) {
 	opacity: 0.3;
+	path { fill-opacity: 1; }
+}
+
+path:not([stroke=red]) {
+	opacity: 0.8;
+	fill-opacity: 0.35;
 }
 
 .fas {
@@ -90,6 +92,6 @@ body {
 }
 
 input[type=checkbox] + span,
-input[type=radio] + span {
+input[type=radio	 ] + span {
 	user-select: none;
 }

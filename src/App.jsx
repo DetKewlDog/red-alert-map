@@ -3,7 +3,7 @@ import { useMap, MapContainer, LayersControl, LayerGroup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import APIAccess from './services/APIAccess';
-import { MarkerAlert, CircleAlert } from './components/Alert';
+import { MarkerAlert, CircleAlert, PolygonAlert } from './components/Alert';
 import { MapLayer } from './components/MapLayer';
 import { AlertLayer } from './components/AlertLayer';
 
@@ -95,8 +95,9 @@ export default function App() {
 					<LayerGroup />
 				</LayersControl.Overlay>
 
-				<AlertLayer name='Show Circles' alerts={alertedCities} alertTemplate={CircleAlert} checked />
-				<AlertLayer name='Show Markers' alerts={alertedCities} alertTemplate={MarkerAlert} />
+				<AlertLayer name='Show Circles'        alerts={alertedCities} alertTemplate={CircleAlert } checked />
+				<AlertLayer name='Show Markers'        alerts={alertedCities} alertTemplate={MarkerAlert } />
+				<AlertLayer name='Show Geometry (WIP)' alerts={alertedCities} alertTemplate={PolygonAlert} />
 			</LayersControl>
 		</MapContainer>
 	);

@@ -1,7 +1,8 @@
 import { Component } from "react";
-import { Circle, Marker, Popup } from 'react-leaflet';
+import { Circle, Marker, Popup, Polygon } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import APIAccess from "../services/APIAccess";
 
 const icon = new L.Icon({
 	iconUrl:     './marker.png',
@@ -45,6 +46,24 @@ export class CircleAlert extends BaseAlert {
 			>
 				{super.render()}
 			</Circle>
+		);
+	}
+}
+
+export class PolygonAlert extends BaseAlert {
+	render() {
+		const { polygon } = this.props;
+
+		if (!polygon) {
+			return undefined;
+		}
+
+		return (
+			<Polygon pathOptions={{ color: '#ff0000' }} 
+				positions={polygon}
+			>
+				{super.render()}
+			</Polygon>
 		);
 	}
 }
