@@ -89,7 +89,6 @@ export default function App() {
 				<MapLayer name="Default"   		   url='https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}' checked 		     			 />
 				<MapLayer name="Open Street Map" url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' subs='abc' 			 			 />
 				<MapLayer name="Terrain"   		   url='https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}'   			   	 		 			 />
-				<MapLayer name="Smooth Dark" 	   url='https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png' />
 				<MapLayer name="Satellite" 		   url='https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}' 			   			 			 />
 
 				<LayersControl.Overlay name='Dark Mode' checked={window.matchMedia('(prefers-color-scheme: dark)').matches}>
