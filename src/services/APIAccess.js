@@ -35,7 +35,7 @@ class APIAccess {
     }
 
     return axios.get(`${BACKEND_URL}/geocode/${city}`, args)
-      .then(result => result.json())
+      .then(result => result.data)
       .then(async data => {
         const foundCity = data.find(i => i.display_name.includes('Israel'));
         if (foundCity === undefined) {
