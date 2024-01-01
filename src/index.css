@@ -8,7 +8,7 @@
 	--dm-text: #aaaaaa;
 
 	--dm-tile-border: #303030;
-	--dm-tile-filter: brightness(0.6) invert(1) contrast(4) hue-rotate(190deg) saturate(0.45) brightness(0.7) blur(0px);
+	--dm-tile-filter: invert(100%) hue-rotate(190deg) brightness(100%) contrast(90%) blur(0px);
 }
 
 path {
