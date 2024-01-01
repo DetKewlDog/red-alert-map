@@ -2,7 +2,6 @@ import { Component } from "react";
 import { Circle, Marker, Popup, Polygon } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-import APIAccess from "../services/APIAccess";
 
 const icon = new L.Icon({
 	iconUrl:     './marker.png',
