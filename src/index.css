@@ -1,18 +1,14 @@
 :root {
-    --dm-bg1: #262626;
+	--dm-bg1: #262626;
 	--dm-bg2: #2f2f2f;
 
-    --dm-border1: #424242;
-    --dm-border2: #4c4c4c;
+	--dm-border1: #424242;
+	--dm-border2: #4c4c4c;
 
-    --dm-text: #aaaaaa;
+	--dm-text: #aaaaaa;
 
 	--dm-tile-border: #303030;
-    --dm-tile-filter: brightness(0.6) invert(1) contrast(5) hue-rotate(180deg) saturate(0.6) brightness(0.7);
-}
-
-body {
-	margin: 0;
+	--dm-tile-filter: brightness(0.6) invert(1) contrast(4) hue-rotate(190deg) saturate(0.45) brightness(0.7) blur(0px);
 }
 
 path {
@@ -27,13 +23,12 @@ svg {
 	background-size: 44px 44px;
 	width: 44px !important;
 	height: 44px !important;
-}
-
-.fas:before {
-	color: black;
-	position: absolute;
-	margin: 7px 8px;
-	right: 0;
+	&:before {
+		color: black;
+		position: absolute;
+		margin: 7px 8px;
+		right: 0;
+	}
 }
 
 *:has(> .fas) {
@@ -42,32 +37,36 @@ svg {
 	height: 44px;
 }
 
-body:has(label:first-of-type input[type=checkbox]:checked):has(label:last-of-type input[type=radio]:not(:checked)) .leaflet-tile {
-    filter: var(--dm-tile-filter, none) !important;
-}
+body {
+	margin: 0;
 
-body:has(label:first-of-type input[type=checkbox]:checked) .leaflet-container {
-    background: var(--dm-tile-border) !important;
-}
+	&:has(label:first-of-type input[type=checkbox]:checked) {
+		&:has(label:last-of-type>input[type=radio]:not(:checked), label:nth-last-of-type(2)>input[type=radio]:not(:checked)) .leaflet-tile {
+			filter: var(--dm-tile-filter, none) !important;
+		}
 
-body:has(label:first-of-type input[type=checkbox]:checked) .leaflet-control,
-body:has(label:first-of-type input[type=checkbox]:checked) .leaflet-bar a {
-    background: var(--dm-bg1) !important;
-    color: var(--dm-text) !important;
-    border: 1px solid var(--dm-border1) !important;
-}
+		.leaflet-container {
+			background: var(--dm-tile-border) !important;
+		}
+	
+		.leaflet-control, .leaflet-bar a {
+			background: var(--dm-bg1) !important;
+			color: var(--dm-text) !important;
+			border: 1px solid var(--dm-border1) !important;
 
-body:has(label:first-of-type input[type=checkbox]:checked) .leaflet-control:hover,
-body:has(label:first-of-type input[type=checkbox]:checked) .leaflet-bar a:hover {
-    background: var(--dm-bg2) !important;
-    border: 1px solid var(--dm-border2) !important;
-}
-
-body:has(label:first-of-type input[type=checkbox]:checked) .fas:before {
-    color: var(--dm-text) !important;
+			&:not(input):hover {
+				background: var(--dm-bg2) !important;
+				border: 1px solid var(--dm-border2) !important;
+			}
+		}
+	
+		.fas:before {
+			color: var(--dm-text) !important;
+		}
+	}
 }
 
 input[type=checkbox] + span,
 input[type=radio] + span {
-    user-select: none;
+	user-select: none;
 }

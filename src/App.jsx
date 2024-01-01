@@ -1,45 +1,21 @@
 import { useState, useEffect } from 'react';
-import { useMap, MapContainer, LayersControl, LayerGroup, TileLayer, Circle, Marker, Popup } from 'react-leaflet';
+import { useMap, MapContainer, LayersControl, LayerGroup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import L from 'leaflet';
 
 import APIAccess from './services/APIAccess';
-
-const icon = new L.Icon({
-    iconUrl: 'https://cdn.discordapp.com/attachments/801426473059614730/1131176188300242985/marker-icon-dest.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [0, -41],
-});
-
-function MapLayer({ name, url, subdomains, checked = false }) {
-    return (
-        <LayersControl.BaseLayer name={name} checked={checked}>
-            <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url={url} subdomains={subdomains?.split('') || ['mt0', 'mt1', 'mt2', 'mt3']} />
-        </LayersControl.BaseLayer>
-    );
-}
+import { MarkerAlert, CircleAlert } from './components/Alert';
+import { MapLayer } from './components/MapLayer';
+import { AlertLayer } from './components/AlertLayer';
 
 function PanToIsrael() {
 	const map = useMap();
 	useEffect(() => {
 		APIAccess.getPosition('israel')
-			.then(([res, _]) => {
+			.then(([ res, _ ]) => {
 				map.panTo(res.center, 7);
 			});
 	}, []);
 	return null;
-}
-
-function AlertPopup({ name, name_en, evac_time }) {
-	return (
-		<Popup>
-			<b>{name_en !== undefined && `${name_en} - `}{name}</b>
-			<br />
-			{evac_time !== undefined && `Evacuation time: ${new Date(evac_time * 1000).toISOString().slice(14, 19)}`}
-		</Popup>
-	);
 }
 
 export default function App() {
@@ -84,7 +60,7 @@ export default function App() {
 				}
 
 				if (usedCache) continue;
-				await new Promise(resolve => setTimeout(resolve, 500));
+				await new Promise(resolve => setTimeout(resolve, 1000));
 			}
 
 			console.log('Done');
@@ -110,34 +86,19 @@ export default function App() {
 		<MapContainer center={position} zoom={7} style={{ height: '100vh' }}>
 			<PanToIsrael />
 			<LayersControl position="topright">
-				<MapLayer name="Default"   		 url='https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}' checked 		   />
-				<MapLayer name="Open Street Map" url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' subdomains='abc' />
-				<MapLayer name="Terrain"   		 url='https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}'   			   />
-				<MapLayer name="Satellite" 		 url='https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}' 			   />
+				<MapLayer name="Default"   		   url='https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}' checked 		     									/>
+				<MapLayer name="Open Street Map" url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' subs='abc' 			 									/>
+				<MapLayer name="Terrain"   		   url='https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}'   			   	 		 									/>
+				<MapLayer name="Smooth Dark" 	   url='https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png' subs='abc' />
+				<MapLayer name="Satellite" 		   url='https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}' 			   			 									/>
 
-				<LayersControl.Overlay name='Dark Mode'><LayerGroup /></LayersControl.Overlay>
+				<LayersControl.Overlay name='Dark Mode' checked={window.matchMedia('(prefers-color-scheme: dark)').matches}>
+					<LayerGroup />
+				</LayersControl.Overlay>
 
-				<LayersControl.Overlay name='Show Circles' checked><LayerGroup>
-					{alertedCities.map((alert, index) => (
-						<Circle key={index}
-							pathOptions={{ color: 'red' }}
-							center={alert.center}
-							radius={alert.radius}
-						>
-							<AlertPopup {...alert} />
-						</Circle>
-					))}
-				</LayerGroup></LayersControl.Overlay>
-
-				<LayersControl.Overlay name='Show Markers'><LayerGroup>
-					{alertedCities.map((alert, index) => (
-						<Marker key={index} position={alert.center} icon={icon}>
-							<AlertPopup {...alert} />
-						</Marker>
-					))}
-				</LayerGroup></LayersControl.Overlay>
-
+				<AlertLayer name='Show Circles' alerts={alertedCities} alertTemplate={CircleAlert} checked />
+				<AlertLayer name='Show Markers' alerts={alertedCities} alertTemplate={MarkerAlert} />
 			</LayersControl>
 		</MapContainer>
-    );
+	);
 };
