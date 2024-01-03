@@ -11,7 +11,8 @@ const args = {
   headers: headers,
   withCredentials: false, 
   crossdomain: true,
-  mode: 'cors'
+  mode: 'cors',
+  timeout: 5000,
 };
 
 class APIAccess {
