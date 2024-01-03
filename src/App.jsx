@@ -95,9 +95,9 @@ export default function App() {
 					<LayerGroup />
 				</LayersControl.Overlay>
 
-				<AlertLayer name='Show Circles'        alerts={alertedCities} alertTemplate={CircleAlert } checked />
+				<AlertLayer name='Show Circles'        alerts={alertedCities} alertTemplate={CircleAlert } />
 				<AlertLayer name='Show Markers'        alerts={alertedCities} alertTemplate={MarkerAlert } />
-				<AlertLayer name='Show Geometry (WIP)' alerts={alertedCities} alertTemplate={PolygonAlert} />
+				<AlertLayer name='Show Geometry (WIP)' alerts={alertedCities} alertTemplate={PolygonAlert} checked />
 			</LayersControl>
 		</MapContainer>
 	);
