@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { LatLng } from 'leaflet';
 
-const BACKEND_URL = 'https://red-alert-server.vercel.app'
+const BACKEND_URL = 'https://red-alert-server.onrender.com'
 
 const headers = {
   'Content-Type': 'application/json',
