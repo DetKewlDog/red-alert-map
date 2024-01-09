@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { LatLng } from 'leaflet';
 
-const BACKEND_URL = 'https://red-alert-server.detkewldog.repl.co/api'
+const BACKEND_URL = 'https://red-alert-server.vercel.app'
 
 const headers = {
   'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ class APIAccess {
     node["name"="${city}"]["place"];
     );
     out geom;`
-    return axios.get("https://lz4.overpass-api.de/api/interpreter", { ...args, params: { data: query } })
+    return axios.get(`${BACKEND_URL}/geometry`, { ...args, params: { data: query } })
       .then(result => result.data)
       .then(data => {
         let result = data.elements.map(element => {
