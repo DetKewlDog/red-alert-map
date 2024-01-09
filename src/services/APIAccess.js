@@ -22,6 +22,15 @@ class APIAccess {
       .then(result => result.data?.data?.map(i => i.split(', ')[0]))
   }
 
+  static async getRedAlertsHistory(id) {
+    return await axios.get(`${BACKEND_URL}/history`, args)
+      .then(result =>
+        result.data?.find(i => i.id === id)?.alerts?.flatMap(
+          alert => alert.cities
+        )
+      );
+  }
+
   static async getPosition(city) {
     if (APIAccess.cities === undefined) {
       APIAccess.cities = axios.get(`${BACKEND_URL}/cities`, args)
@@ -39,14 +48,14 @@ class APIAccess {
       .then(async data => {
         const foundCity = data.find(i => i.display_name.includes('Israel'));
         if (foundCity === undefined) {
-          return await getPositionFromLocalArchive(city);
+          return await APIAccess.getPositionFromLocalArchive(city);
         }
 
         const bounding = foundCity.boundingbox;
         const [ lat1, lat2, lon1, lon2 ] = bounding.map(parseFloat);
         const bound1 = new LatLng(lat1, lon1), bound2 = new LatLng(lat2, lon2);
 
-        const polygon = city == 'israel' ? [] : await this.fetchCityGeometry(city);
+        const polygon = city == 'israel' ? [] : await APIAccess.fetchCityGeometry(city);
 
         const result = {
           name: city,
