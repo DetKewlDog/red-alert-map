@@ -91,15 +91,7 @@ class APIAccess {
   }
 
   static async fetchCityGeometry(city) {
-    const query = `[out:json];
-    (
-    rel["name"="${city}"]["place"];
-    area["name"="${city}"]["place"];
-    way["name"="${city}"]["place"];
-    node["name"="${city}"]["place"];
-    );
-    out geom;`
-    return axios.get(`${BACKEND_URL}/geometry`, { ...args, data: query })
+    return axios.get(`${BACKEND_URL}/geometry/${city}`, args)
       .then(result => result.data)
       .then(data => {
         let result = data.elements.map(element => {
