@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useMap, MapContainer, LayersControl, LayerGroup } from 'react-leaflet';
+import { useMap, MapContainer, LayersControl, LayerGroup, ImageOverlay } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import APIAccess from './services/APIAccess';

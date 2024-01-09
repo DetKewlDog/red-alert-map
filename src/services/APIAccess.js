@@ -9,7 +9,7 @@ const headers = {
 
 const args = {
   headers: headers,
-  withCredentials: false, 
+  withCredentials: false,
   crossdomain: true,
   mode: 'cors',
 };
@@ -24,8 +24,13 @@ class APIAccess {
 
   static async getRedAlertsHistory(id) {
     return await axios.get(`${BACKEND_URL}/history`, args)
+      .then(result => result.data?.find(i => i.id === id)?.alerts);
+  }
+
+  static async getRedAlertsHistoryById(id) {
+    return await axios.get(`${BACKEND_URL}/history/${id}`, args)
       .then(result =>
-        result.data?.find(i => i.id === id)?.alerts?.flatMap(
+        result.data?.alerts?.flatMap(
           alert => alert.cities
         )
       );
@@ -33,7 +38,7 @@ class APIAccess {
 
   static async getPosition(city) {
     if (APIAccess.cities === undefined) {
-      APIAccess.cities = axios.get(`${BACKEND_URL}/cities`, args)
+      APIAccess.cities = await axios.get(`${BACKEND_URL}/cities`, args)
         .then(result => result.data)
         .catch(err => console.error('Couldn\'t access cities.json!'));
     }
@@ -55,14 +60,16 @@ class APIAccess {
         const [ lat1, lat2, lon1, lon2 ] = bounding.map(parseFloat);
         const bound1 = new LatLng(lat1, lon1), bound2 = new LatLng(lat2, lon2);
 
-        const polygon = city == 'israel' ? [] : await APIAccess.fetchCityGeometry(city);
+        const id = APIAccess.cities?.[city]?.id;
+        const polygon = city === 'israel' && id !== undefined ? [] : await APIAccess.fetchCityGeometry(id);
 
         const result = {
+          id: id,
           name: city,
-          name_en:   (APIAccess.cities !== undefined && city in APIAccess.cities ? APIAccess.cities[city].name_en   : undefined),
+          name_en: APIAccess.cities?.[city]?.name_en,
           center: new LatLng( parseFloat(foundCity.lat), parseFloat(foundCity.lon) ),
           radius: Math.max(bound1.distanceTo(bound2) / 2, 250),
-          evac_time: (APIAccess.cities !== undefined && city in APIAccess.cities ? APIAccess.cities[city].evac_time : undefined),
+          evac_time: APIAccess.cities?.[city]?.evac_time,
           polygon: polygon || []
         };
         localStorage.setItem(city, JSON.stringify(result));
@@ -90,31 +97,9 @@ class APIAccess {
     return [ result, false ];
   }
 
-  static async fetchCityGeometry(city) {
-    return axios.get(`${BACKEND_URL}/geometry/${city}`, args)
-      .then(result => result.data)
-      .then(data => {
-        let result = data.elements.map(element => {
-          function getGeometry(member) {
-            return member?.geometry?.map(i => [i.lat, i.lon])
-              .filter(i => i !== undefined)?.reverse();
-          }
-
-          if (element.type === 'relation') {
-            return element.members.map(i => getGeometry(i))
-              .flat(1).filter(i => i !== undefined);
-          }
-
-          return getGeometry(element);
-        }).filter(i => i !== undefined);
-
-        if (result.length > 1) {
-          const lengths = result.map(i => i.length);
-          const index = lengths.indexOf(Math.max(...lengths));
-          result = [ result[index] ];
-        }
-        return result;
-			});
+  static async fetchCityGeometry(id) {
+    return axios.get(`${BACKEND_URL}/geometry/${id}`, args)
+      .then(result => result.data?.[id]);
   }
 }
 
