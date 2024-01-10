@@ -13,12 +13,14 @@ const icon = new L.Icon({
 
 class BaseAlert extends Component {
 	render() {
-		const { name, name_en, evac_time } = this.props;
+		let { name, name_en, evac_time } = this.props;
+		const evac_date = new Date(evac_time * 1000);
+		evac_time = evac_time != 0 ? `${evac_date.getMinutes()}m ${evac_date.getSeconds()}s` : "Immediate";
 		return (
 			<Popup>
 				<b>{name_en && `${name_en} - `}{name}</b>
 				<br />
-				{evac_time && `Evacuation time: ${new Date(evac_time * 1000).toISOString().slice(14, 19)}`}
+				{evac_time && `Evacuation time: ${evac_time}`}
 			</Popup>
 		);
 	}
