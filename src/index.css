@@ -194,7 +194,7 @@ body {
 		div.p-buttonset {
 			border-color: var(--wm-border1) !important;
 
-			button.p-button:first-of-type, .p-button:last-of-type {
+			button.p-button:first-of-type, button.p-button:last-of-type {
 				background: var(--wm-bg1) !important;
 				color: var(--wm-icon) !important;
 		
@@ -209,7 +209,7 @@ body {
 		div.p-buttonset {
 			border-color: var(--dm-border1) !important;
 
-			button.p-button:first-of-type, .p-button:last-of-type {
+			button.p-button:first-of-type, button.p-button:last-of-type {
 				background: var(--dm-bg1) !important;
 				color: var(--dm-text) !important;
 		
