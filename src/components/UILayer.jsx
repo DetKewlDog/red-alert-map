@@ -49,7 +49,7 @@ export function UILayer({ setLocation }) {
         </p>
       </Sidebar>
       <section>
-        <div className="p-buttonset ui">
+        <div className="p-buttonset">
           <Button size="large" onClick={() => setSearchVisible(true)}>
             <span className='p-button-label p-c'>
               <span className='pi pi-search' style={{ margin: '8px'}} />

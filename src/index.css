@@ -68,72 +68,6 @@ body {
 		border-color: var(--wm-border1) !important;
 		transition: background 0.5s, color 0.5s, border-color 0.5s;
 	}
-
-	&[theme=light] {
-		.leaflet-control-zoom span {
-			color: var(--wm-icon) !important;
-		}
-
-		.p-buttonset.ui {
-			border-color: var(--wm-border1) !important;
-
-			.p-button:first-of-type.ui, .p-button:last-of-type.ui {
-				background: var(--wm-bg1) !important;
-				color: var(--wm-icon) !important;
-		
-				&:not(:disabled):hover { 
-					background: var(--wm-bg2) !important;
-				}
-			}
-		}
-	}
-
-	&[theme=dark] {
-		&:has(label:last-of-type input[type=radio]:not(:checked)) .leaflet-tile {
-			filter: var(--dm-tile-filter, none) !important;
-		}
-
-		.leaflet-container {
-			background: var(--dm-tile-border) !important;
-		}
-	
-		.leaflet-control, .leaflet-bar a {
-			background: var(--dm-bg1) !important;
-			color: var(--dm-text) !important;
-			border-color: var(--dm-border1) !important;
-			
-			&:not(input):hover {
-				background: var(--dm-bg2) !important;
-				border-color: var(--dm-border2) !important;
-			}
-		}
-	
-		.fas:before {
-			color: var(--dm-text) !important;
-		}
-
-		.p-buttonset.ui {
-			border-color: var(--dm-border1) !important;
-
-			.p-button:first-of-type.ui, .p-button:last-of-type.ui {
-				background: var(--dm-bg1) !important;
-				color: var(--dm-text) !important;
-		
-				&:not(:disabled):hover { 
-					background: var(--dm-bg2) !important;
-				}
-			}
-		}
-
-		.p-sidebar.ui {
-			background: var(--dm-bg2) !important;
-			color: var(--dm-text) !important;
-			
-			h2 {
-				color: white !important;
-			}
-		}
-	}
 }
 
 input[type=checkbox] + span,
@@ -155,8 +89,144 @@ section:has(section) {
 	* {
 		pointer-events: auto;
 	}
+}
 
-	.p-button {
+/* LIGHT */
+body[theme=light] {
+  .leaflet-control-zoom span {
+    color: var(--wm-icon) !important;
+  }
+
+  .p-buttonset {
+    border-color: var(--wm-border1) !important;
+
+    .p-button:first-of-type, .p-button:last-of-type {
+      background: var(--wm-bg1) !important;
+      color: var(--wm-icon) !important;
+  
+      &:not(:disabled):hover { 
+        background: var(--wm-bg2) !important;
+      }
+    }
+  }
+  
+  /* UI */
+  .p-button {
+		background: var(--col-btn);
+		border: var(--col-btn);
+		width: 4rem;
+		height: 4rem;
+		box-shadow: none !important;
+		justify-content: center;
+
+		&:not(:disabled):hover { 
+			background: var(--col-btn-hl);
+		}
+
+		.fas {
+			width: 48px !important;
+			height: 48px !important;
+			font-size: 48px !important;
+			margin: calc((80px - 48px) / 2);
+			text-align: center;
+		}
+		.fas:before {
+			position: relative;
+			margin: 0px;
+			color: white !important;
+		}
+	}
+
+	section {
+		justify-content: center;
+		display: flex;
+
+		&:has(.p-buttonset) {
+			position: fixed;
+			right: 0;
+			left: 0;
+		}
+	}
+
+	.p-buttonset {
+		position: fixed;
+		bottom: 0;
+		margin: 32px;
+		margin-inline: 0px;
+
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 120px;
+		overflow: hidden;
+		
+		.p-button:first-of-type, .p-button:last-of-type {
+			width: 48vw;
+			max-width: 400px;
+		}
+
+		.p-button-rounded {
+			border-radius: 10rem !important;
+			position: fixed;
+			z-index: 4;
+			width: 80px !important;
+			height: 80px !important;
+			transform: translate(-32px, -40px);
+		}
+
+		.p-button:first-child { transform: translateX( 1px); }
+		.p-button:last-child  { transform: translateX(-1px); }
+	}
+}
+
+/* DARK */
+body[theme=dark] {
+  &:has(label:last-of-type input[type=radio]:not(:checked)) .leaflet-tile {
+    filter: var(--dm-tile-filter, none) !important;
+  }
+
+  .leaflet-container {
+    background: var(--dm-tile-border) !important;
+  }
+
+  .leaflet-control, .leaflet-bar a {
+    background: var(--dm-bg1) !important;
+    color: var(--dm-text) !important;
+    border-color: var(--dm-border1) !important;
+    
+    &:not(input):hover {
+      background: var(--dm-bg2) !important;
+      border-color: var(--dm-border2) !important;
+    }
+  }
+
+  .fas:before {
+    color: var(--dm-text) !important;
+  }
+
+  .p-buttonset {
+    border-color: var(--dm-border1) !important;
+
+    .p-button:first-of-type, .p-button:last-of-type {
+      background: var(--dm-bg1) !important;
+      color: var(--dm-text) !important;
+  
+      &:not(:disabled):hover { 
+        background: var(--dm-bg2) !important;
+      }
+    }
+  }
+
+  .p-sidebar {
+    background: var(--dm-bg2) !important;
+    color: var(--dm-text) !important;
+    
+    h2 {
+      color: white !important;
+    }
+  }
+
+  /* UI */
+  .p-button {
 		background: var(--col-btn);
 		border: var(--col-btn);
 		width: 4rem;
