@@ -191,10 +191,10 @@ section:has(section) {
 /* UI THEMES */
 body {
 	&[theme=light] {
-		.p-buttonset {
+		div.p-buttonset {
 			border-color: var(--wm-border1) !important;
 
-			.p-button:first-of-type, .p-button:last-of-type {
+			button.p-button:first-of-type, .p-button:last-of-type {
 				background: var(--wm-bg1) !important;
 				color: var(--wm-icon) !important;
 		
@@ -206,10 +206,10 @@ body {
 	}
 
 	&[theme=dark] {
-		.p-buttonset {
+		div.p-buttonset {
 			border-color: var(--dm-border1) !important;
 
-			.p-button:first-of-type, .p-button:last-of-type {
+			button.p-button:first-of-type, .p-button:last-of-type {
 				background: var(--dm-bg1) !important;
 				color: var(--dm-text) !important;
 		
@@ -219,7 +219,7 @@ body {
 			}
 		}
 
-		.p-sidebar {
+		div.p-sidebar {
 			background: var(--dm-bg2) !important;
 			color: var(--dm-text) !important;
 			
