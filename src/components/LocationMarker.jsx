@@ -10,7 +10,7 @@ const icon = new L.Icon({
 });
 
 export function LocationMarker({ getLocation }) {
-  const [location, setLocation] = useState([0, 0]);
+  const [location, setLocation] = useState(undefined);
   
   useEffect(() => {
     getLocation.then(res => {
@@ -18,6 +18,10 @@ export function LocationMarker({ getLocation }) {
       setLocation(res[0].center);
     });
   });
+
+  if (location === undefined) {
+    return undefined;
+  }
 
   return (
     <Marker position={location} icon={icon} />
