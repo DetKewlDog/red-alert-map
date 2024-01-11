@@ -78,6 +78,17 @@ section:has(section) {
 	}
 }
 
+#dock {
+	justify-content: center;
+	display: flex;
+
+	&:has(.p-buttonset) {
+		position: fixed;
+		right: 0;
+		left: 0;
+	}
+}
+
 /* LIGHT */
 body[theme=light] {
   .leaflet-control-zoom span {
@@ -158,17 +169,6 @@ body[theme=light] {
 			position: relative;
 			margin: 0px;
 			color: white !important;
-		}
-	}
-
-	#dock {
-		justify-content: center;
-		display: flex;
-
-		&:has(.p-buttonset) {
-			position: fixed;
-			right: 0;
-			left: 0;
 		}
 	}
 }
@@ -277,17 +277,6 @@ body[theme=dark] {
 			position: relative;
 			margin: 0px;
 			color: white !important;
-		}
-	}
-
-	#dock {
-		justify-content: center;
-		display: flex;
-
-		&:has(.p-buttonset) {
-			position: fixed;
-			right: 0;
-			left: 0;
 		}
 	}
 }
