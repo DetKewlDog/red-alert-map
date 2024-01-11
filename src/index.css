@@ -161,7 +161,7 @@ body[theme=light] {
 		}
 	}
 
-	section:not(:has(.leaflet-container)) {
+	#dock {
 		justify-content: center;
 		display: flex;
 
@@ -280,7 +280,7 @@ body[theme=dark] {
 		}
 	}
 
-	section:not(:has(.leaflet-container)) {
+	#dock {
 		justify-content: center;
 		display: flex;
 

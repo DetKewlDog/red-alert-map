@@ -48,7 +48,7 @@ export function UILayer({ setLocation }) {
           Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
       </Sidebar>
-      <section>
+      <section id='dock'>
         <div className="p-buttonset">
           <Button size="large" onClick={() => setSearchVisible(true)}>
             <span className='p-button-label p-c'>
