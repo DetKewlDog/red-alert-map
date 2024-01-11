@@ -15,7 +15,7 @@ export function UILayer({ setLocation }) {
   const [searchVisible, setSearchVisible] = useState(false);
 
   return (
-    <section id="ui" className='ui'>
+    <section id="ui">
       <Button size='large' icon="pi pi-bars" onClick={() => setMenuVisible(true)} rounded />
       <Sidebar visible={menuVisible} position='left' onHide={() => setMenuVisible(false)}>
         <h2>Red Alert</h2>
@@ -49,7 +49,7 @@ export function UILayer({ setLocation }) {
         </p>
       </Sidebar>
       <section>
-        <div className="p-buttonset">
+        <div className="p-buttonset ui">
           <Button size="large" onClick={() => setSearchVisible(true)}>
             <span className='p-button-label p-c'>
               <span className='pi pi-search' style={{ margin: '8px'}} />
