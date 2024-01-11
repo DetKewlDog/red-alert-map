@@ -158,7 +158,7 @@ section:has(section) {
 		}
 	}
 
-	* .p-buttonset {
+	.p-buttonset {
 		position: fixed;
 		bottom: 0;
 		margin: 32px;
@@ -191,10 +191,10 @@ section:has(section) {
 /* UI THEMES */
 body {
 	&[theme=light] {
-		div.p-buttonset {
+		.p-buttonset.ui {
 			border-color: var(--wm-border1) !important;
 
-			button.p-button:first-of-type, button.p-button:last-of-type {
+			.p-button:first-of-type.ui, .p-button:last-of-type.ui {
 				background: var(--wm-bg1) !important;
 				color: var(--wm-icon) !important;
 		
@@ -206,10 +206,10 @@ body {
 	}
 
 	&[theme=dark] {
-		div.p-buttonset {
+		.p-buttonset.ui {
 			border-color: var(--dm-border1) !important;
 
-			button.p-button:first-of-type, button.p-button:last-of-type {
+			.p-button:first-of-type.ui, .p-button:last-of-type.ui {
 				background: var(--dm-bg1) !important;
 				color: var(--dm-text) !important;
 		
@@ -219,7 +219,7 @@ body {
 			}
 		}
 
-		div.p-sidebar {
+		.p-sidebar.ui {
 			background: var(--dm-bg2) !important;
 			color: var(--dm-text) !important;
 			
