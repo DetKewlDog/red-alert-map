@@ -158,7 +158,7 @@ section:has(section) {
 		}
 	}
 
-	.p-buttonset {
+	* .p-buttonset {
 		position: fixed;
 		bottom: 0;
 		margin: 32px;
