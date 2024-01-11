@@ -55,19 +55,6 @@ path:not([stroke=red]) {
 
 body {
 	margin: 0;
-
-	.leaflet-tile,
-	.leaflet-container,
-	.fas:before {
-		transition: all 0.5s;
-	}
-
-	.leaflet-control, .leaflet-bar a {
-		border-width: 1px !important;
-		border-style: solid !important;
-		border-color: var(--wm-border1) !important;
-		transition: background 0.5s, color 0.5s, border-color 0.5s;
-	}
 }
 
 input[type=checkbox] + span,
@@ -97,10 +84,25 @@ body[theme=light] {
     color: var(--wm-icon) !important;
   }
 
+	.leaflet-tile,
+	.leaflet-container,
+	.fas:before {
+		transition: all 0.5s;
+	}
+
+	.leaflet-control, .leaflet-bar a {
+		border-width: 1px !important;
+		border-style: solid !important;
+		border-color: var(--wm-border1) !important;
+		transition: background 0.5s, color 0.5s, border-color 0.5s;
+	}
+
   .p-buttonset {
     border-color: var(--wm-border1) !important;
 
     .p-button:first-of-type, .p-button:last-of-type {
+			width: 48vw;
+			max-width: 400px;
       background: var(--wm-bg1) !important;
       color: var(--wm-icon) !important;
   
@@ -108,6 +110,28 @@ body[theme=light] {
         background: var(--wm-bg2) !important;
       }
     }
+
+		position: fixed;
+		bottom: 0;
+		margin: 32px;
+		margin-inline: 0px;
+
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 120px;
+		overflow: hidden;
+		
+		.p-button-rounded {
+			border-radius: 10rem !important;
+			position: fixed;
+			z-index: 4;
+			width: 80px !important;
+			height: 80px !important;
+			transform: translate(-32px, -40px);
+		}
+
+		.p-button:first-child { transform: translateX( 1px); }
+		.p-button:last-child  { transform: translateX(-1px); }
   }
   
   /* UI */
@@ -137,7 +161,7 @@ body[theme=light] {
 		}
 	}
 
-	section {
+	section:not(:has(.leaflet-container)) {
 		justify-content: center;
 		display: flex;
 
@@ -146,35 +170,6 @@ body[theme=light] {
 			right: 0;
 			left: 0;
 		}
-	}
-
-	.p-buttonset {
-		position: fixed;
-		bottom: 0;
-		margin: 32px;
-		margin-inline: 0px;
-
-		border-width: 1px;
-		border-style: solid;
-		border-radius: 120px;
-		overflow: hidden;
-		
-		.p-button:first-of-type, .p-button:last-of-type {
-			width: 48vw;
-			max-width: 400px;
-		}
-
-		.p-button-rounded {
-			border-radius: 10rem !important;
-			position: fixed;
-			z-index: 4;
-			width: 80px !important;
-			height: 80px !important;
-			transform: translate(-32px, -40px);
-		}
-
-		.p-button:first-child { transform: translateX( 1px); }
-		.p-button:last-child  { transform: translateX(-1px); }
 	}
 }
 
@@ -186,12 +181,16 @@ body[theme=dark] {
 
   .leaflet-container {
     background: var(--dm-tile-border) !important;
+		transition: all 0.5s;
   }
 
   .leaflet-control, .leaflet-bar a {
     background: var(--dm-bg1) !important;
     color: var(--dm-text) !important;
     border-color: var(--dm-border1) !important;
+		border-width: 1px !important;
+		border-style: solid !important;
+		transition: background 0.5s, color 0.5s, border-color 0.5s;
     
     &:not(input):hover {
       background: var(--dm-bg2) !important;
@@ -199,8 +198,13 @@ body[theme=dark] {
     }
   }
 
+	.leaflet-tile {
+		transition: all 0.5s;
+	}
+
   .fas:before {
     color: var(--dm-text) !important;
+		transition: all 0.5s;
   }
 
   .p-buttonset {
@@ -209,11 +213,35 @@ body[theme=dark] {
     .p-button:first-of-type, .p-button:last-of-type {
       background: var(--dm-bg1) !important;
       color: var(--dm-text) !important;
+			width: 48vw;
+			max-width: 400px;
   
       &:not(:disabled):hover { 
         background: var(--dm-bg2) !important;
       }
     }
+
+		position: fixed;
+		bottom: 0;
+		margin: 32px;
+		margin-inline: 0px;
+
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 120px;
+		overflow: hidden;
+		
+		.p-button-rounded {
+			border-radius: 10rem !important;
+			position: fixed;
+			z-index: 4;
+			width: 80px !important;
+			height: 80px !important;
+			transform: translate(-32px, -40px);
+		}
+
+		.p-button:first-child { transform: translateX( 1px); }
+		.p-button:last-child  { transform: translateX(-1px); }
   }
 
   .p-sidebar {
@@ -252,7 +280,7 @@ body[theme=dark] {
 		}
 	}
 
-	section {
+	section:not(:has(.leaflet-container)) {
 		justify-content: center;
 		display: flex;
 
@@ -261,34 +289,5 @@ body[theme=dark] {
 			right: 0;
 			left: 0;
 		}
-	}
-
-	.p-buttonset {
-		position: fixed;
-		bottom: 0;
-		margin: 32px;
-		margin-inline: 0px;
-
-		border-width: 1px;
-		border-style: solid;
-		border-radius: 120px;
-		overflow: hidden;
-		
-		.p-button:first-of-type, .p-button:last-of-type {
-			width: 48vw;
-			max-width: 400px;
-		}
-
-		.p-button-rounded {
-			border-radius: 10rem !important;
-			position: fixed;
-			z-index: 4;
-			width: 80px !important;
-			height: 80px !important;
-			transform: translate(-32px, -40px);
-		}
-
-		.p-button:first-child { transform: translateX( 1px); }
-		.p-button:last-child  { transform: translateX(-1px); }
 	}
 }
