@@ -73,6 +73,19 @@ body {
 		.leaflet-control-zoom span {
 			color: var(--wm-icon) !important;
 		}
+
+		.p-buttonset.ui {
+			border-color: var(--wm-border1) !important;
+
+			.p-button:first-of-type.ui, .p-button:last-of-type.ui {
+				background: var(--wm-bg1) !important;
+				color: var(--wm-icon) !important;
+		
+				&:not(:disabled):hover { 
+					background: var(--wm-bg2) !important;
+				}
+			}
+		}
 	}
 
 	&[theme=dark] {
@@ -98,24 +111,7 @@ body {
 		.fas:before {
 			color: var(--dm-text) !important;
 		}
-	}
 
-	&[theme=light] {
-		.p-buttonset.ui {
-			border-color: var(--wm-border1) !important;
-
-			.p-button:first-of-type.ui, .p-button:last-of-type.ui {
-				background: var(--wm-bg1) !important;
-				color: var(--wm-icon) !important;
-		
-				&:not(:disabled):hover { 
-					background: var(--wm-bg2) !important;
-				}
-			}
-		}
-	}
-
-	&[theme=dark] {
 		.p-buttonset.ui {
 			border-color: var(--dm-border1) !important;
 
