@@ -31,22 +31,15 @@ export default function useAlertDisplay(fetcher) {
       return !alertedCities.some(city => city.name === alert);
     });
 
-    console.log('Alert count: ', alerts.length + cities.length);
-    updateAlertedCities([...cities]);
-
     for (const alert of alerts) {
-      const [city, usedCache] = await APIAccess.getPosition(alert);
+      const city = await APIAccess.getPosition(alert);
 
-      if (city !== undefined && !cities.some(i => i.name === city.name)) {
-        cities = [...cities, city];
-        updateAlertedCities([...cities]);
-      }
+      if (city === undefined) continue;
+      if (cities.some(i => i.name === city.name)) continue;
 
-      if (usedCache) continue;
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      cities = [...cities, city];
     }
-
-    console.log('Done');
+    setAlertedCities([...cities]);
   }
 
 	useEffect(() => {
@@ -55,12 +48,7 @@ export default function useAlertDisplay(fetcher) {
 
 	useEffect(() => {
 
-	}, [alertedCities]);
-
-	function updateAlertedCities(arr) {
-		alertedCities = arr;
-		setAlertedCities(arr);
-	}
+  }, [alertedCities]);
 
 	function updateAlerts(arr) {
 		alerts = arr;

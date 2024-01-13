@@ -14,8 +14,8 @@ export function LocationMarker({ getLocation }) {
   
   useEffect(() => {
     getLocation.then(res => {
-      if (res === undefined || res[0].name === 'israel') return;
-      setLocation(res[0].center);
+      if (res === undefined || res.name === 'israel') return;
+      setLocation(res.center);
     });
   });
 

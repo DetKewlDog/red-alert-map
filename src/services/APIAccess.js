@@ -15,7 +15,8 @@ const args = {
 };
 
 class APIAccess {
-  static cities = undefined;
+  static cities   = undefined;
+  static polygons = undefined;
 
   static async getRedAlerts() {
     return await axios.get(`${BACKEND_URL}/realtime`, args)
@@ -37,69 +38,41 @@ class APIAccess {
   }
 
   static async getPosition(city) {
+    if (city === 'israel') {
+      return { name: 'israel', center: [30.8124247, 34.8594762] };
+    }
+
     if (APIAccess.cities === undefined) {
       APIAccess.cities = await axios.get(`${BACKEND_URL}/cities`, args)
         .then(result => result.data)
-        .catch(err => console.error('Couldn\'t access cities.json!'));
+        .catch(err => console.error('Couldn\'t access cities!'));
     }
 
-    const cachedCity = localStorage.getItem(city);
-    if (cachedCity !== null) {
-      return [ JSON.parse(cachedCity), true ];
+    if (APIAccess.polygons === undefined) {
+      APIAccess.polygons = await axios.get(`${BACKEND_URL}/geometry`, args)
+        .then(result => result.data)
+        .catch(err => console.error('Couldn\'t access polygons!'));
     }
 
-    return axios.get(`${BACKEND_URL}/geocode/${city}`, args)
-      .then(result => result.data)
-      .then(async data => {
-        const foundCity = data.find(i => i.display_name.includes('Israel'));
-        if (foundCity === undefined) {
-          return await APIAccess.getPositionFromLocalArchive(city);
-        }
+    const data = APIAccess.cities[city];
+    const id = data?.id;
+    const center = data?.center;
+    const coord = new LatLng(...center);
+    const polygon = APIAccess.polygons[id] || [];
 
-        const bounding = foundCity.boundingbox;
-        const [ lat1, lat2, lon1, lon2 ] = bounding.map(parseFloat);
-        const bound1 = new LatLng(lat1, lon1), bound2 = new LatLng(lat2, lon2);
+    const radius = polygon.length !== 0
+      ? Math.max(...polygon.map(pos => coord.distanceTo(new LatLng(...pos))))
+      : 250;
 
-        const id = APIAccess.cities?.[city]?.id;
-        const polygon = city === 'israel' && id !== undefined ? [] : await APIAccess.fetchCityGeometry(id);
-
-        const result = {
-          id: id,
-          name: city,
-          name_en: APIAccess.cities?.[city]?.name_en,
-          center: new LatLng( parseFloat(foundCity.lat), parseFloat(foundCity.lon) ),
-          radius: Math.max(bound1.distanceTo(bound2) / 2, 250),
-          evac_time: APIAccess.cities?.[city]?.evac_time,
-          polygon: polygon || []
-        };
-        localStorage.setItem(city, JSON.stringify(result));
-        return [ result, false ];
-      })
-      .catch(err => {
-        console.error(err);
-        return [ undefined, false ]
-      });
-  }
-
-  static async getPositionFromLocalArchive(city) {
-    if (APIAccess.cities === undefined || !(city in APIAccess.cities)) {
-      return [undefined, false];
-    }
-    const foundCity = APIAccess.cities[city];
-    const result = {
+    return {
+      id: id,
       name: city,
-      name_en: foundCity.name_en,
-      center: new LatLng(...foundCity.center),
-      radius: 3500,
-      evac_time: foundCity.evac_time,
+      name_en: data?.name_en,
+      center: center,
+      radius: radius,
+      evac_time: data?.evac_time,
+      polygon: polygon
     };
-    localStorage.setItem(city, JSON.stringify(result));
-    return [ result, false ];
-  }
-
-  static async fetchCityGeometry(id) {
-    return axios.get(`${BACKEND_URL}/geometry/${id}`, args)
-      .then(result => result.data?.[id]);
   }
 }
 

@@ -8,13 +8,13 @@ export function PanButton({ setLocation }) {
       icon="fas fa-crosshairs" 
       rounded 
       onClick={() => navigator.geolocation.getCurrentPosition(
-        res => setLocation(async () => [{ 
+        res => setLocation(async () => ({
             center: new LatLng(
               res.coords.latitude, 
               res.coords.longitude
             ),
             zoom: 12,
-          }, null]
+          })
         )
       )}
     />

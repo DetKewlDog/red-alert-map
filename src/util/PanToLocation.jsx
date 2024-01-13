@@ -6,7 +6,7 @@ export function PanToLocation({ getLocation }) {
 
 	useEffect(() => {
 		getLocation
-			.then(([ res, _ ]) => {
+			.then(res => {
 				if (res.zoom) {
 					map.flyTo(res.center, res.zoom);
 				} else {
