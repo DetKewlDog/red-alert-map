@@ -57,12 +57,12 @@ class APIAccess {
     const data = APIAccess.cities[city];
     const id = data?.id;
     const center = data?.center;
-    const coord = new LatLng(...center);
+    const coord = center && new LatLng(...center);
     const polygon = APIAccess.polygons[id] || [];
 
     const radius = polygon.length !== 0
-      ? Math.max(...polygon.map(pos => coord.distanceTo(new LatLng(...pos))))
-      : 250;
+      && Math.max(...polygon.map(pos => coord?.distanceTo(new LatLng(...pos))))
+      || 250;
 
     return {
       id: id,

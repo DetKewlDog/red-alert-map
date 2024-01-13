@@ -23,14 +23,17 @@ export default function useAlertDisplay(fetcher) {
 
   async function redrawAlerts() {
     // get all cities that were already displayed as alerted cities (no need to redraw those cities)
-    let cities = alertedCities.filter(city => {
-      return alerts.some(alert => city.name === alert);
-    });
+    let cities = alertedCities.filter(city =>
+      alerts.some(alert => city.name === alert)
+    );
     // get all alerts that are not already displayed on the map
-    alerts = alerts.filter(alert => {
-      return !alertedCities.some(city => city.name === alert);
-    });
+    alerts = alerts.filter(alert =>
+      !alertedCities.some(city => city.name === alert)
+    );
 
+    if (alerts.length === 0) return;
+
+    updateAlertedCities([...cities]);
     for (const alert of alerts) {
       const city = await APIAccess.getPosition(alert);
 
@@ -38,8 +41,9 @@ export default function useAlertDisplay(fetcher) {
       if (cities.some(i => i.name === city.name)) continue;
 
       cities = [...cities, city];
+      updateAlertedCities([...cities]);
     }
-    setAlertedCities([...cities]);
+    updateAlertedCities([...cities]);
   }
 
 	useEffect(() => {
@@ -53,6 +57,11 @@ export default function useAlertDisplay(fetcher) {
 	function updateAlerts(arr) {
 		alerts = arr;
 		setAlerts(arr);
+  }
+
+  function updateAlertedCities(arr) {
+		alertedCities = arr;
+		setAlertedCities(arr);
 	}
 
   return { alertedCities: alertedCities };

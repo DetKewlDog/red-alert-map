@@ -15,7 +15,9 @@ class BaseAlert extends Component {
 	render() {
 		let { name, name_en, evac_time } = this.props;
 		const evac_date = new Date(evac_time * 1000);
+
 		evac_time = evac_time != 0 ? `${evac_date.getMinutes()}m ${evac_date.getSeconds()}s` : "Immediate";
+
 		return (
 			<Popup>
 				<b>{name_en && `${name_en} - `}{name}</b>
@@ -29,6 +31,11 @@ class BaseAlert extends Component {
 export class MarkerAlert extends BaseAlert {
 	render() {
 		const { center } = this.props;
+
+		if (!center) {
+			return undefined;
+		}
+
 		return (
 			<Marker position={center} icon={icon}>
 				{super.render()}
@@ -40,6 +47,11 @@ export class MarkerAlert extends BaseAlert {
 export class CircleAlert extends BaseAlert {
 	render() {
 		const { center, radius } = this.props;
+
+		if (!center || !radius) {
+			return undefined;
+		}
+
 		return (
 			<Circle pathOptions={{ color: 'red' }}
 				center={center}
