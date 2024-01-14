@@ -11,10 +11,34 @@ import { UILayer } from './components/UILayer';
 import { ThemeProvider } from './util/ThemeProvider';
 import { useState } from 'react';
 import { LocationMarker } from './components/LocationMarker';
+import { ProgressSpinner } from 'primereact/progressspinner';
 
 export default function App() {
 	const { alertedCities } = useAlertDisplay(() => APIAccess.getRedAlerts());
 	const [location, setLocation] = useState(() => APIAccess.getPosition('israel'));
+	const [loaded, setLoaded] = useState(false);
+
+	useState(() => {
+		APIAccess.initCollections().then(() => {
+			setLoaded(true);
+		});
+	}, []);
+
+	const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+	if (!loaded) {
+		return (
+			<div style={{
+				'display': 'flex',
+				'justifyContent': 'center',
+				'alignContent': 'center',
+				'height': '100vh',
+				'backgroundColor': darkMode ? 'var(--dm-bg1)' : 'var(--wm-bg1)'
+			}}>
+				<ProgressSpinner style={{ 'margin': 'auto' }} />
+			</div>
+		)
+	}
 
 	return (
 		<>
@@ -28,7 +52,7 @@ export default function App() {
 						<MapLayer name="Terrain"   		   url='https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}'							/>
 						<MapLayer name="Satellite" 		   url='https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}' 			 		/>
 
-						<LayersControl.Overlay name='Dark Mode' checked={window.matchMedia('(prefers-color-scheme: dark)').matches}>
+						<LayersControl.Overlay name='Dark Mode' checked={darkMode}>
 							<LayerGroup />
 						</LayersControl.Overlay>
 

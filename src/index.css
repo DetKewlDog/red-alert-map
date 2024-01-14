@@ -35,6 +35,10 @@ path:not([stroke=red]) {
 	fill-opacity: 0.35;
 }
 
+.p-progress-spinner-circle {
+	stroke: var(--col-btn) !important;
+}
+
 .fas {
 	font-size: 28px;
 	background-size: 44px 44px;
