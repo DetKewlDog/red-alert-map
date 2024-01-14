@@ -20,7 +20,7 @@ class APIAccess {
   static cityCache = {};
 
   static async getRedAlerts() {
-    return await axios.get(`${BACKEND_URL}/dev/random/19`, args)
+    return await axios.get(`${BACKEND_URL}/realtime`, args)
       .then(result => result.data?.data?.map(i => i.split(', ')[0]))
   }
 
