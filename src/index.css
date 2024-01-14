@@ -187,7 +187,7 @@ body[theme=light] {
 		& .fas:before {
 			position: relative;
 			margin: 0px;
-			color: black !important;
+			color: white !important;
 		}
 	}
 
