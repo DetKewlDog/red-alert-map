@@ -5,7 +5,7 @@ export default function useAlertDisplay(fetcher) {
   let [alertedCities, setAlertedCities] = useState([]);
 
 	useEffect(() => {
-		const interval = setInterval(fetchNewAlerts, 1000);
+		const interval = setInterval(fetchNewAlerts, 3000);
 		return () => clearInterval(interval);
 	}, []);
 
