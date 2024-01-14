@@ -8,6 +8,7 @@ import 'primeicons/primeicons.css';
 import 'primereact/resources/primereact.css';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import { PanButton } from './PanButton';
+import { HistoryView } from './HistoryView';
 
 export function UILayer({ setLocation }) {
   const [menuVisible, setMenuVisible] = useState(false);
@@ -31,10 +32,7 @@ export function UILayer({ setLocation }) {
         pt={isMobile && { root: { style: { 'height': '75vh' } } }}
       >
         <h2>Alerts History</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
+        <HistoryView />
       </Sidebar>
       <Sidebar 
         visible={searchVisible} 

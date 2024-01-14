@@ -4,11 +4,13 @@
 
 	--wm-bg1: white;
 	--wm-bg2: #f4f4f4;
+	--wm-bg3: #dee6ee;
 
 	--dm-border1: #424242;
 	--dm-border2: #4c4c4c;
 
 	--dm-text: #aaaaaa;
+	--wm-text: #4b5563;
 
 	--col-btn: #ef4444;
 	--col-btn-hl: #f87171;
@@ -89,19 +91,36 @@ section:has(section) {
 	}
 }
 
+.p-dataview .p-dataview-content {
+	background: none;
+}
+
+.p-card.p-component {
+	background-color: var(--dm-border1);
+	color: white;
+	overflow: hidden;
+	box-shadow: none;
+	border: none;
+	margin-bottom: 12px;
+
+	.p-card-subtitle {
+		color: var(--dm-text);
+	}
+}
+
 /* LIGHT */
 body[theme=light] {
-  .leaflet-control-zoom span {
+  & .leaflet-control-zoom span {
     color: var(--wm-icon) !important;
   }
 
-	.leaflet-tile,
-	.leaflet-container,
-	.fas:before {
+	& .leaflet-tile,
+	& .leaflet-container,
+	& .fas:before {
 		transition: all 0.5s;
 	}
 
-	.leaflet-control, .leaflet-bar a {
+	& .leaflet-control, & .leaflet-bar a {
 		border-width: 1px !important;
 		border-style: solid !important;
 		border-color: var(--wm-border1) !important;
@@ -111,7 +130,7 @@ body[theme=light] {
   .p-buttonset {
     border-color: var(--wm-border1) !important;
 
-    .p-button:first-of-type, .p-button:last-of-type {
+    & .p-button:first-of-type, & .p-button:last-of-type {
 			width: 48vw;
 			max-width: 400px;
       background: var(--wm-bg1) !important;
@@ -132,7 +151,7 @@ body[theme=light] {
 		border-radius: 120px;
 		overflow: hidden;
 		
-		.p-button-rounded {
+		& .p-button-rounded {
 			border-radius: 10rem !important;
 			position: fixed;
 			z-index: 4;
@@ -141,12 +160,12 @@ body[theme=light] {
 			transform: translate(-32px, -40px);
 		}
 
-		.p-button:first-child { transform: translateX( 1px); }
-		.p-button:last-child  { transform: translateX(-1px); }
+		& .p-button:first-child { transform: translateX( 1px); }
+		& .p-button:last-child  { transform: translateX(-1px); }
   }
   
   /* UI */
-  .p-button {
+  & .p-button {
 		background: var(--col-btn);
 		border: var(--col-btn);
 		width: 4rem;
@@ -158,17 +177,26 @@ body[theme=light] {
 			background: var(--col-btn-hl);
 		}
 
-		.fas {
+		& .fas {
 			width: 48px !important;
 			height: 48px !important;
 			font-size: 48px !important;
 			margin: calc((80px - 48px) / 2);
 			text-align: center;
 		}
-		.fas:before {
+		& .fas:before {
 			position: relative;
 			margin: 0px;
-			color: white !important;
+			color: black !important;
+		}
+	}
+
+	& .p-card.p-component {
+		background-color: var(--wm-bg3);
+		color: var(--wm-text);
+
+		& .p-card-subtitle {
+			color: var(--wm-text);
 		}
 	}
 }
@@ -179,12 +207,12 @@ body[theme=dark] {
     filter: var(--dm-tile-filter, none) !important;
   }
 
-  .leaflet-container {
+  & .leaflet-container {
     background: var(--dm-tile-border) !important;
 		transition: all 0.5s;
   }
 
-  .leaflet-control, .leaflet-bar a {
+  & .leaflet-control, & .leaflet-bar a {
     background: var(--dm-bg1) !important;
     color: var(--dm-text) !important;
     border-color: var(--dm-border1) !important;
@@ -198,19 +226,19 @@ body[theme=dark] {
     }
   }
 
-	.leaflet-tile {
+	& .leaflet-tile {
 		transition: all 0.5s;
 	}
 
-  .fas:before {
+  & .fas:before {
     color: var(--dm-text) !important;
 		transition: all 0.5s;
   }
 
-  .p-buttonset {
+  & .p-buttonset {
     border-color: var(--dm-border1) !important;
 
-    .p-button:first-of-type, .p-button:last-of-type {
+    & .p-button:first-of-type, & .p-button:last-of-type {
       background: var(--dm-bg1) !important;
       color: var(--dm-text) !important;
 			width: 48vw;
@@ -231,7 +259,7 @@ body[theme=dark] {
 		border-radius: 120px;
 		overflow: hidden;
 		
-		.p-button-rounded {
+		& .p-button-rounded {
 			border-radius: 10rem !important;
 			position: fixed;
 			z-index: 4;
@@ -240,21 +268,21 @@ body[theme=dark] {
 			transform: translate(-32px, -40px);
 		}
 
-		.p-button:first-child { transform: translateX( 1px); }
-		.p-button:last-child  { transform: translateX(-1px); }
+		& .p-button:first-child { transform: translateX( 1px); }
+		& .p-button:last-child  { transform: translateX(-1px); }
   }
 
-  .p-sidebar {
+  & .p-sidebar {
     background: var(--dm-bg2) !important;
     color: var(--dm-text) !important;
     
-    h2 {
+    & h2 {
       color: white !important;
     }
   }
 
   /* UI */
-  .p-button {
+  & .p-button {
 		background: var(--col-btn);
 		border: var(--col-btn);
 		width: 4rem;
@@ -266,17 +294,26 @@ body[theme=dark] {
 			background: var(--col-btn-hl);
 		}
 
-		.fas {
+		& .fas {
 			width: 48px !important;
 			height: 48px !important;
 			font-size: 48px !important;
 			margin: calc((80px - 48px) / 2);
 			text-align: center;
 		}
-		.fas:before {
+		& .fas:before {
 			position: relative;
 			margin: 0px;
 			color: white !important;
+		}
+	}
+
+	& .p-card.p-component {
+		background-color: var(--dm-border1);
+		color: white;
+
+		& .p-card-subtitle {
+			color: var(--dm-text);
 		}
 	}
 }

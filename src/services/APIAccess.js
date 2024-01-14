@@ -26,7 +26,7 @@ class APIAccess {
 
   static async getRedAlertsHistory(id) {
     return await axios.get(`${BACKEND_URL}/history`, args)
-      .then(result => result.data?.find(i => i.id === id)?.alerts);
+      .then(result => result.data);
   }
 
   static async getRedAlertsHistoryById(id) {
