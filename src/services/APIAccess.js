@@ -15,11 +15,12 @@ const args = {
 };
 
 class APIAccess {
-  static cities   = undefined;
-  static polygons = undefined;
+  static cities    = undefined;
+  static polygons  = undefined;
+  static cityCache = {};
 
   static async getRedAlerts() {
-    return await axios.get(`${BACKEND_URL}/realtime`, args)
+    return await axios.get(`${BACKEND_URL}/dev/random/19`, args)
       .then(result => result.data?.data?.map(i => i.split(', ')[0]))
   }
 
@@ -40,6 +41,10 @@ class APIAccess {
   static async getPosition(city) {
     if (city === 'israel') {
       return { name: 'israel', center: [30.8124247, 34.8594762] };
+    }
+
+    if (city in APIAccess.cityCache) {
+      return APIAccess.cityCache[city];
     }
 
     if (APIAccess.cities === undefined) {
@@ -64,7 +69,7 @@ class APIAccess {
       && Math.max(...polygon.map(pos => coord?.distanceTo(new LatLng(...pos))))
       || 250;
 
-    return {
+    const fetchedCity = {
       id: id,
       name: city,
       name_en: data?.name_en,
@@ -73,6 +78,8 @@ class APIAccess {
       evac_time: data?.evac_time,
       polygon: polygon
     };
+    APIAccess.cityCache[city] = fetchedCity;
+    return fetchedCity;
   }
 }
 
