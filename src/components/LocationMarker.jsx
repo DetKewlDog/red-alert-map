@@ -13,10 +13,12 @@ export function LocationMarker({ getLocation }) {
   const [location, setLocation] = useState(undefined);
   
   useEffect(() => {
-    getLocation.then(res => {
-      if (res === undefined || res.name === 'israel') return;
-      setLocation(res.center);
-    });
+    const updateLocation = async () => {
+      const loc = 'then' in getLocation ? await getLocation : getLocation;
+      if (loc === undefined || loc.name === 'israel') return;
+      setLocation(loc.center);
+    }
+    updateLocation();
   });
 
   if (location === undefined) {

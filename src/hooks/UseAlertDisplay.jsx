@@ -18,9 +18,9 @@ export default function useAlertDisplay(fetcher) {
           return;
         }
         updateAlertedCities(
-          await Promise.all(results.map(async alert => 
+          results.map(alert =>
             APIAccess.getPosition(alert)
-          ).filter(i => !!i))
+          ).filter(i => !!i)
         );
       });
   }

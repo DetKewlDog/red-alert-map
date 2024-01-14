@@ -3,6 +3,7 @@ import { Card } from 'primereact/card';
 import { ScrollPanel } from 'primereact/scrollpanel';
 
 import useAlertHistory from '../hooks/UseAlertHistory';
+import APIAccess from '../services/APIAccess';
 
 const THREATS = [
   {
@@ -15,7 +16,7 @@ const THREATS = [
   },
   {
     he: "חשש לחדירת מחבלים",
-    en: "Fear of Terrorists infiltration",
+    en: "Suspected Terrorist infiltration",
   },
   {
     he: "רעידת אדמה",
@@ -23,19 +24,19 @@ const THREATS = [
   },
   {
     he: "חשש לצונאמי",
-    en: "Fear of a tsunami",
+    en: "Suspected Tsunami Imminent",
   },
   {
     he: "חדירת כלי טיס עוין",
-    en: "Hostile aircraft intrusion",
+    en: "Hostile Aircraft Intrusion",
   },
   {
     he: "חשש לאירוע רדיולוגי",
-    en: "Fear of a Radiological incident",
+    en: "Suspected Radiological Incident",
   },
   {
     he: "ירי בלתי קונבנציונלי",
-    en: "Non-conventional missile",
+    en: "Non-Conventional Missiles",
   },
   {
     he: "התרעה",
@@ -57,9 +58,27 @@ export function HistoryCard(data) {
   const times = data.alerts.map(alert => alert.time);
   const time = times.reduce((a, b) => a + b, 0) / times.length;
 
+  const title = (
+    <>
+      {THREATS[threat].he}
+      <br />
+      {THREATS[threat].en}
+    </>
+  );
+  const date = new Date(0);
+  date.setUTCSeconds(time);
+
+  const cityNames = [...new Set(data.alerts.flatMap(alert => alert.cities))];
+  const cities = cityNames.map(city => APIAccess.getPosition(city));
+  const citiesHe = cities.map(city => city.name);
+  const citiesEn = cities.map(city => city.name_en);
+
   return (
-    <Card title={THREATS[threat].he} subTitle={new Date(time).toLocaleString()}>
-      {[...new Set(data.alerts.flatMap(alert => alert.cities))].join(', ')}
+    <Card title={title} subTitle={date.toLocaleString('he-IL')}>
+      {citiesHe.join(' | ')}
+      <br />
+      <br />
+      {citiesEn.join(' | ')}
     </Card>
   );
 }

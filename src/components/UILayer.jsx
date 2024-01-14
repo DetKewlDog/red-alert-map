@@ -29,7 +29,7 @@ export function UILayer({ setLocation }) {
         visible={historyVisible} 
         position={isMobile ? "bottom" : "left"} 
         onHide={() => setHistoryVisible(false)} 
-        pt={isMobile && { root: { style: { 'height': '75vh' } } }}
+        pt={{ root: { style: isMobile ? { 'height': '75vh' } : { 'width': '40vw' } } }}
       >
         <h2>Alerts History</h2>
         <HistoryView />
@@ -38,7 +38,7 @@ export function UILayer({ setLocation }) {
         visible={searchVisible} 
         position={isMobile ? "bottom" : "left"} 
         onHide={() => setSearchVisible(false)} 
-        pt={isMobile && { root: { style: { 'height': '75vh' } } }}
+        pt={{ root: { style: isMobile ? { 'height': '75vh' } : { 'width': '40vw' } } }}
       >
         <h2>Search</h2>
         <p>

@@ -5,14 +5,15 @@ export function PanToLocation({ getLocation }) {
 	const map = useMap();
 
 	useEffect(() => {
-		getLocation
-			.then(res => {
-				if (res.zoom) {
-					map.flyTo(res.center, res.zoom);
-				} else {
-					map.setView(res.center, 7);
-				}
-			});
+		const updateLocation = async () => {
+			const loc = 'then' in getLocation ? await getLocation : getLocation;
+			if (loc.zoom) {
+				map.flyTo(loc.center, loc.zoom);
+			} else {
+				map.setView(loc.center, 7);
+			}
+		}
+		updateLocation();
 	}, [getLocation]);
 
   return null;

@@ -102,10 +102,27 @@ section:has(section) {
 	box-shadow: none;
 	border: none;
 	margin-bottom: 12px;
+}
 
-	.p-card-subtitle {
-		color: var(--dm-text);
+.p-card-body {
+	padding: 0;
+}
+.p-card-title,
+.p-card-subtitle {
+	background-color: var(--col-btn);
+	width: 100%;
+	padding-inline: 16px;
+	margin-bottom: 0;
+	padding-bottom: 4px;
+	color: white;
+	text-align: center;
+
+	&.p-card-subtitle {
+		color: var(--col-dock);
 	}
+}
+.p-card-content {
+	padding-inline: 16px;
 }
 
 /* LIGHT */
@@ -194,10 +211,6 @@ body[theme=light] {
 	& .p-card.p-component {
 		background-color: var(--wm-bg3);
 		color: var(--wm-text);
-
-		& .p-card-subtitle {
-			color: var(--wm-text);
-		}
 	}
 }
 
@@ -311,9 +324,5 @@ body[theme=dark] {
 	& .p-card.p-component {
 		background-color: var(--dm-border1);
 		color: white;
-
-		& .p-card-subtitle {
-			color: var(--dm-text);
-		}
 	}
 }

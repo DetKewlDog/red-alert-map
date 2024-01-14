@@ -19,34 +19,7 @@ class APIAccess {
   static polygons  = undefined;
   static cityCache = {};
 
-  static async getRedAlerts() {
-    return await axios.get(`${BACKEND_URL}/realtime`, args)
-      .then(result => result.data?.data?.map(i => i.split(', ')[0]))
-  }
-
-  static async getRedAlertsHistory(id) {
-    return await axios.get(`${BACKEND_URL}/history`, args)
-      .then(result => result.data);
-  }
-
-  static async getRedAlertsHistoryById(id) {
-    return await axios.get(`${BACKEND_URL}/history/${id}`, args)
-      .then(result =>
-        result.data?.alerts?.flatMap(
-          alert => alert.cities
-        )
-      );
-  }
-
-  static async getPosition(city) {
-    if (city === 'israel') {
-      return { name: 'israel', center: [30.8124247, 34.8594762] };
-    }
-
-    if (city in APIAccess.cityCache) {
-      return APIAccess.cityCache[city];
-    }
-
+  static async initCollections() {
     if (APIAccess.cities === undefined) {
       APIAccess.cities = await axios.get(`${BACKEND_URL}/cities`, args)
         .then(result => result.data)
@@ -57,6 +30,38 @@ class APIAccess {
       APIAccess.polygons = await axios.get(`${BACKEND_URL}/geometry`, args)
         .then(result => result.data)
         .catch(err => console.error('Couldn\'t access polygons!'));
+    }
+  }
+
+  static async getRedAlerts() {
+    APIAccess.initCollections();
+    return await axios.get(`${BACKEND_URL}/realtime`, args)
+      .then(result => result.data?.data?.map(i => i.split(', ')[0]))
+  }
+
+  static async getRedAlertsHistory(id) {
+    APIAccess.initCollections();
+    return await axios.get(`${BACKEND_URL}/history`, args)
+      .then(result => result.data);
+  }
+
+  static async getRedAlertsHistoryById(id) {
+    APIAccess.initCollections();
+    return await axios.get(`${BACKEND_URL}/history/${id}`, args)
+      .then(result =>
+        result.data?.alerts?.flatMap(
+          alert => alert.cities
+        )
+      );
+  }
+
+  static getPosition(city) {
+    if (city === 'israel') {
+      return { name: 'israel', center: [30.8124247, 34.8594762] };
+    }
+
+    if (city in APIAccess.cityCache) {
+      return APIAccess.cityCache[city];
     }
 
     const data = APIAccess.cities[city];
