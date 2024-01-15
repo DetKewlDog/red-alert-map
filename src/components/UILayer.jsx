@@ -9,8 +9,10 @@ import 'primereact/resources/primereact.css';
 import 'primereact/resources/themes/lara-light-indigo/theme.css';
 import { PanButton } from './PanButton';
 import { HistoryView } from './HistoryView';
+import { Menu } from './Menu';
+import APIAccess from '../services/APIAccess';
 
-export function UILayer({ setLocation }) {
+export function UILayer({ setLocation, setAlertFetcher }) {
   const [menuVisible, setMenuVisible] = useState(false);
   const [historyVisible, setHistoryVisible] = useState(false);
   const [searchVisible, setSearchVisible] = useState(false);
@@ -19,10 +21,12 @@ export function UILayer({ setLocation }) {
     <section id="ui">
       <Button size='large' icon="pi pi-bars" onClick={() => setMenuVisible(true)} rounded />
       <Sidebar title='Red Alert' visible={menuVisible} position='left' onHide={() => setMenuVisible(false)}>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
+        <Menu
+          hideMenu={() => setMenuVisible(false)}
+          showRealtime={() => setAlertFetcher(() => () => APIAccess.getRedAlerts())}
+          showHistory={() => setHistoryVisible(true)}
+          showSearch={() => setSearchVisible(true)}
+        />
       </Sidebar>
       <Sidebar 
         title='Alerts History'
@@ -31,7 +35,7 @@ export function UILayer({ setLocation }) {
         onHide={() => setHistoryVisible(false)} 
         pt={{ root: { style: isMobile ? { 'height': '75vh' } : { 'width': '40vw' } } }}
       >
-        <HistoryView />
+        <HistoryView setAlertFetcher={setAlertFetcher} />
       </Sidebar>
       <Sidebar 
         title='Search'

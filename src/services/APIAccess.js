@@ -18,6 +18,7 @@ class APIAccess {
   static cities    = undefined;
   static polygons  = undefined;
   static cityCache = {};
+  static historyId = 0;
 
   static async initCollections() {
     if (APIAccess.cities === undefined) {
@@ -39,15 +40,16 @@ class APIAccess {
       .then(result => result.data?.data?.map(i => i.split(', ')[0]))
   }
 
-  static async getRedAlertsHistory(id) {
+  static async getRedAlertsHistory() {
     APIAccess.initCollections();
     return await axios.get(`${BACKEND_URL}/history`, args)
       .then(result => result.data);
   }
 
-  static async getRedAlertsHistoryById(id) {
+  static async getRedAlertsHistoryById() {
     APIAccess.initCollections();
-    return await axios.get(`${BACKEND_URL}/history/${id}`, args)
+    if (APIAccess.historyId === 0) return;
+    return await axios.get(`${BACKEND_URL}/history/${APIAccess.historyId}`, args)
       .then(result =>
         result.data?.alerts?.flatMap(
           alert => alert.cities

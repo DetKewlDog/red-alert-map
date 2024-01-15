@@ -216,7 +216,6 @@ body[theme=light] {
 		background-color: var(--wm-bg3);
 		color: var(--wm-text);
 	}
-
 	
 	& #btn-close {
 		color: var(--dm-bg1);
@@ -338,6 +337,16 @@ body[theme=dark] {
 	& #btn-close {
 		color: white;
 	}
+
+	& .p-menuitem-content {
+		padding: 0.25rem 0;
+		& span {
+			color: white !important;
+		}
+		&:hover {
+			background-color: var(--dm-border1) !important;
+		}
+	}
 }
 
 #btn-close {
@@ -355,5 +364,28 @@ body[theme=dark] {
 	width: 100%;
 	& h2 {
 		width: auto;
+	}
+}
+
+.p-menu {
+	padding: 0;
+	background: transparent;
+	border: none;
+	border-radius: 0;
+	width: calc(100% + 40px);
+	margin-inline: -20px;
+
+	& .p-menuitem-content, & span {
+		font-size: large;
+		padding-top: .25rem;
+		padding-bottom: .25rem;
+	}
+	
+	& .p-focus {
+		background: none !important;
+
+		& .p-menuitem-content {
+			background-color: transparent !important;
+		}
 	}
 }

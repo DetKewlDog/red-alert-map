@@ -1,6 +1,5 @@
 import { DataView } from 'primereact/dataview';
 import { Card } from 'primereact/card';
-import { ScrollPanel } from 'primereact/scrollpanel';
 
 import useAlertHistory from '../hooks/UseAlertHistory';
 import APIAccess from '../services/APIAccess';
@@ -49,17 +48,6 @@ const THREATS = [
   },
 ];
 
-export function HistoryCard({ id, title, date, citiesHe, citiesEn }) {
-  return (
-    <Card title={title} subTitle={date.toLocaleString('he-IL')}>
-      {citiesHe.join(' | ')}
-      <br />
-      <br />
-      {citiesEn.join(' | ')}
-    </Card>
-  );
-}
-
 const calculateHistory = (history) => {
   return history.map(data => {
     if (data === undefined) return;
@@ -85,6 +73,7 @@ const calculateHistory = (history) => {
     const cities = cityNames.map(city => APIAccess.getPosition(city));
     const citiesHe = cities.map(city => city.name);
     const citiesEn = cities.map(city => city.name_en);
+
     return {
       id: data.id,
       title: title,
@@ -95,10 +84,25 @@ const calculateHistory = (history) => {
   });
 }
 
-export function HistoryView() {
+export function HistoryView({ setAlertFetcher }) {
   let history = useAlertHistory();
-  history = useMemo(() => calculateHistory(history));
   
+  history = useMemo(() => calculateHistory(history));
+
+  const setFetcher = (id) => {
+    APIAccess.historyId = id;
+    setAlertFetcher(() => () => APIAccess.getRedAlertsHistoryById());
+  }
+
+  const HistoryCard = ({ id, title, date, citiesHe, citiesEn }) => (
+    <Card onClick={() => setFetcher(id)} title={title} subTitle={date.toLocaleString('he-IL')}>
+      {citiesHe.join(' | ')}
+      <br />
+      <br />
+      {citiesEn.join(' | ')}
+    </Card>
+  );
+
   return (
     <DataView value={history} itemTemplate={HistoryCard} />
   );
