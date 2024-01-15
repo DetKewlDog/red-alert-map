@@ -6,7 +6,9 @@ export function PanToLocation({ getLocation }) {
 
 	useEffect(() => {
 		const updateLocation = async () => {
+			if (!getLocation) return;
 			const loc = 'then' in getLocation ? await getLocation : getLocation;
+			if (!loc) return;
 			if (loc.zoom) {
 				map.flyTo(loc.center, loc.zoom);
 			} else {

@@ -1,22 +1,30 @@
-import { LatLng } from "leaflet";
 import { Button } from "./Button";
+import APIAccess from "../services/APIAccess";
 
-export function PanButton({ setLocation }) {
+const THREAT_ICONS = [
+  'rocket',
+  'flask',
+  'user-ninja',
+  'wave-square',
+  'water',
+  'plane',
+  'radiation',
+  'skull',
+  'triangle-exclamation',
+  'bell'
+];
+
+export function PanButton({ location, setLocation }) {
+  if (APIAccess.threat == -1) {
+    return undefined;
+  }
+  
   return (
     <Button 
       size="large" 
-      icon="fas fa-crosshairs" 
+      icon={`fas fa-${THREAT_ICONS[APIAccess.threat]}`} 
       rounded 
-      onClick={() => navigator.geolocation.getCurrentPosition(
-        res => setLocation(async () => ({
-            center: new LatLng(
-              res.coords.latitude, 
-              res.coords.longitude
-            ),
-            zoom: 12,
-          })
-        )
-      )}
+      onClick={() => setLocation({ ...location })}
     />
   );
 }

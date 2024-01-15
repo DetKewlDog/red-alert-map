@@ -39,8 +39,8 @@ export default function App() {
 
 	return (
 		<>
-			<AlertView alertFetcher={alertFetcher} location={location} darkMode={darkMode} />
-			<UILayer setLocation={setLocation} setAlertFetcher={setAlertFetcher} />
+			<AlertView alertFetcher={alertFetcher} location={location} setLocation={setLocation} darkMode={darkMode} />
+			<UILayer location={location} setLocation={setLocation} setAlertFetcher={setAlertFetcher} />
 		</>
 	);
 };

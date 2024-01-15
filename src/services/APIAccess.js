@@ -19,6 +19,7 @@ class APIAccess {
   static polygons  = undefined;
   static cityCache = {};
   static historyId = 0;
+  static threat    = -1;
 
   static async initCollections() {
     if (APIAccess.cities === undefined) {
@@ -34,10 +35,17 @@ class APIAccess {
     }
   }
 
+  static updateCurrentThreat(data) {
+    APIAccess.threat = data ? parseInt(data?.cat) - 1 : -1;
+    return data;
+  }
+
   static async getRedAlerts() {
     APIAccess.initCollections();
-    return await axios.get(`${BACKEND_URL}/realtime`, args)
-      .then(result => result.data?.data?.map(i => i.split(', ')[0]))
+    return await axios.get(`${BACKEND_URL}/dev/all/19`, args)
+      .then(result => result.data)
+      .then(APIAccess.updateCurrentThreat)
+      .then(data => data?.data?.map(i => i.split(', ')[0]))
   }
 
   static async getRedAlertsHistory() {
@@ -50,11 +58,7 @@ class APIAccess {
     APIAccess.initCollections();
     if (APIAccess.historyId === 0) return;
     return await axios.get(`${BACKEND_URL}/history/${APIAccess.historyId}`, args)
-      .then(result =>
-        result.data?.alerts?.flatMap(
-          alert => alert.cities
-        )
-      );
+      .then(result => result.data?.alerts?.flatMap(alert => alert.cities));
   }
 
   static getPosition(city) {

@@ -12,10 +12,16 @@ import { HistoryView } from './HistoryView';
 import { Menu } from './Menu';
 import APIAccess from '../services/APIAccess';
 
-export function UILayer({ setLocation, setAlertFetcher }) {
+export function UILayer({ location, setLocation, setAlertFetcher }) {
   const [menuVisible, setMenuVisible] = useState(false);
   const [historyVisible, setHistoryVisible] = useState(false);
   const [searchVisible, setSearchVisible] = useState(false);
+
+  const showRealtime = () => {
+    APIAccess.historyId = 0;
+    APIAccess.threat = -1;
+    setAlertFetcher(() => () => APIAccess.getRedAlerts());
+  }
 
   return (
     <section id="ui">
@@ -23,7 +29,7 @@ export function UILayer({ setLocation, setAlertFetcher }) {
       <Sidebar title='Red Alert' visible={menuVisible} position='left' onHide={() => setMenuVisible(false)}>
         <Menu
           hideMenu={() => setMenuVisible(false)}
-          showRealtime={() => setAlertFetcher(() => () => APIAccess.getRedAlerts())}
+          showRealtime={showRealtime}
           showHistory={() => setHistoryVisible(true)}
           showSearch={() => setSearchVisible(true)}
         />
@@ -35,7 +41,7 @@ export function UILayer({ setLocation, setAlertFetcher }) {
         onHide={() => setHistoryVisible(false)} 
         pt={{ root: { style: isMobile ? { 'height': '75vh' } : { 'width': '40vw' } } }}
       >
-        <HistoryView setAlertFetcher={setAlertFetcher} />
+        <HistoryView setAlertFetcher={setAlertFetcher} hideHistory={() => setHistoryVisible(false)} />
       </Sidebar>
       <Sidebar 
         title='Search'
@@ -57,7 +63,7 @@ export function UILayer({ setLocation, setAlertFetcher }) {
               Search
             </span>
           </Button>
-          <PanButton setLocation={setLocation} />
+          <PanButton location={location} setLocation={setLocation} />
           <Button size="large" onClick={() => setHistoryVisible(true)}>
             <span className='p-button-label p-c'>
               <span className='pi pi-history' style={{ margin: '8px'}} />

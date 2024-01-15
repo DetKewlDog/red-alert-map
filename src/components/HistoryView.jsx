@@ -77,6 +77,7 @@ const calculateHistory = (history) => {
     return {
       id: data.id,
       title: title,
+      threat: threat,
       date: date.toLocaleString('he-IL'),
       citiesHe: citiesHe,
       citiesEn: citiesEn,
@@ -84,18 +85,20 @@ const calculateHistory = (history) => {
   });
 }
 
-export function HistoryView({ setAlertFetcher }) {
+export function HistoryView({ setAlertFetcher, hideHistory }) {
   let history = useAlertHistory();
   
   history = useMemo(() => calculateHistory(history));
 
-  const setFetcher = (id) => {
+  const setFetcher = (id, threat) => {
     APIAccess.historyId = id;
+    APIAccess.threat = threat;
     setAlertFetcher(() => () => APIAccess.getRedAlertsHistoryById());
+    hideHistory();
   }
 
-  const HistoryCard = ({ id, title, date, citiesHe, citiesEn }) => (
-    <Card onClick={() => setFetcher(id)} title={title} subTitle={date.toLocaleString('he-IL')}>
+  const HistoryCard = ({ id, title, threat, date, citiesHe, citiesEn }) => (
+    <Card onClick={() => setFetcher(id, threat)} title={title} subTitle={date.toLocaleString('he-IL')}>
       {citiesHe.join(' | ')}
       <br />
       <br />

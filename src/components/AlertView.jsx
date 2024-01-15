@@ -8,9 +8,27 @@ import useAlertDisplay from '../hooks/UseAlertDisplay';
 import { PanToLocation } from '../util/PanToLocation';
 import { ThemeProvider } from '../util/ThemeProvider';
 import { LocationMarker } from './LocationMarker';
+import { useEffect, useState } from 'react';
+import APIAccess from '../services/APIAccess';
+import { averageCoordinate } from '../util/CoordUtil';
 
-export function AlertView({ location, darkMode, alertFetcher }) {
+export function AlertView({ location, setLocation, darkMode, alertFetcher }) {
 	const { alertedCities } = useAlertDisplay(alertFetcher);
+  let [waitingForPan, setWaitingForPan] = useState(false);
+
+  useEffect(() => {
+    setLocation(null);
+    waitingForPan = true;
+    setWaitingForPan(true);
+  }, [alertFetcher]);
+
+  useEffect(() => {
+    if (!waitingForPan || alertedCities.length === 0) return;
+    waitingForPan = false;
+    setWaitingForPan(false);
+    const pos = averageCoordinate(alertedCities.flatMap(i => i.polygon || [i.center] || []));
+    setLocation({ center: pos, zoom: 10 });
+  }, [alertedCities]);
 
 	return (
     <section>
@@ -30,7 +48,6 @@ export function AlertView({ location, darkMode, alertFetcher }) {
           <AlertLayer name='Show Circles'        alerts={alertedCities} alertTemplate={CircleAlert } />
           <AlertLayer name='Show Markers'        alerts={alertedCities} alertTemplate={MarkerAlert } />
           <AlertLayer name='Show Geometry (WIP)' alerts={alertedCities} alertTemplate={PolygonAlert} checked />
-          <LocationMarker getLocation={location} />
         </LayersControl>
         <ZoomControl position='topright' />
       </MapContainer>

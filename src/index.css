@@ -198,6 +198,10 @@ body[theme=light] {
 			background: var(--col-btn-hl);
 		}
 
+		& .pi-map-marker {
+			transform: scale(1.5);
+		}
+
 		& .fas {
 			width: 48px !important;
 			height: 48px !important;
@@ -313,6 +317,9 @@ body[theme=dark] {
 
 		&:not(:disabled):hover { 
 			background: var(--col-btn-hl);
+		}
+		& .pi-map-marker {
+			transform: scale(1.5);
 		}
 
 		& .fas {
