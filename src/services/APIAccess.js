@@ -35,7 +35,7 @@ class APIAccess {
 
   static async getRedAlerts() {
     APIAccess.initCollections();
-    return await axios.get(`${BACKEND_URL}/dev/all/19`, args)
+    return await axios.get(`${BACKEND_URL}/realtime`, args)
       .then(result => result.data?.data?.map(i => i.split(', ')[0]))
   }
 
