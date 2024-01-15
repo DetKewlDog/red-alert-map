@@ -194,7 +194,7 @@ body[theme=light] {
 		box-shadow: none !important;
 		justify-content: center;
 
-		&:not(:disabled):hover { 
+		&:not(:active):hover { 
 			background: var(--col-btn-hl);
 		}
 
@@ -215,6 +215,11 @@ body[theme=light] {
 	& .p-card.p-component {
 		background-color: var(--wm-bg3);
 		color: var(--wm-text);
+	}
+
+	
+	& #btn-close {
+		color: var(--dm-bg1);
 	}
 }
 
@@ -261,7 +266,7 @@ body[theme=dark] {
 			width: 48vw;
 			max-width: 400px;
   
-      &:not(:disabled):hover { 
+      &:not(:active):hover { 
         background: var(--dm-bg2) !important;
       }
     }
@@ -328,5 +333,27 @@ body[theme=dark] {
 	& .p-card.p-component {
 		background-color: var(--dm-border1);
 		color: white;
+	}
+
+	& #btn-close {
+		color: white;
+	}
+}
+
+#btn-close {
+	background-color: transparent;
+	padding: 0;
+	width: 42px;
+	height: 42px;
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: auto;
+}
+
+.sidebar-header {
+	display: inline-flex;
+	width: 100%;
+	& h2 {
+		width: auto;
 	}
 }

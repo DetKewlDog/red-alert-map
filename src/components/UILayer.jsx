@@ -18,29 +18,28 @@ export function UILayer({ setLocation }) {
   return (
     <section id="ui">
       <Button size='large' icon="pi pi-bars" onClick={() => setMenuVisible(true)} rounded />
-      <Sidebar visible={menuVisible} position='left' onHide={() => setMenuVisible(false)}>
-        <h2>Red Alert</h2>
+      <Sidebar title='Red Alert' visible={menuVisible} position='left' onHide={() => setMenuVisible(false)}>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
           Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
         </p>
       </Sidebar>
       <Sidebar 
+        title='Alerts History'
         visible={historyVisible} 
         position={isMobile ? "bottom" : "left"} 
         onHide={() => setHistoryVisible(false)} 
         pt={{ root: { style: isMobile ? { 'height': '75vh' } : { 'width': '40vw' } } }}
       >
-        <h2>Alerts History</h2>
         <HistoryView />
       </Sidebar>
       <Sidebar 
+        title='Search'
         visible={searchVisible} 
         position={isMobile ? "bottom" : "left"} 
         onHide={() => setSearchVisible(false)} 
         pt={{ root: { style: isMobile ? { 'height': '75vh' } : { 'width': '40vw' } } }}
       >
-        <h2>Search</h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
           Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
