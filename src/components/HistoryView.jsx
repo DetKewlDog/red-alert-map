@@ -4,6 +4,7 @@ import { ScrollPanel } from 'primereact/scrollpanel';
 
 import useAlertHistory from '../hooks/UseAlertHistory';
 import APIAccess from '../services/APIAccess';
+import { useMemo } from 'react';
 
 const THREATS = [
   {
@@ -48,31 +49,7 @@ const THREATS = [
   },
 ];
 
-export function HistoryCard(data) {
-  if (data === undefined) return;
-  const threats = data.alerts.map(alert => alert.threat);
-  const threat = threats.sort((a, b) =>
-      threats.filter(v => v === a).length
-    - threats.filter(v => v === b).length
-  ).pop();
-  const times = data.alerts.map(alert => alert.time);
-  const time = times.reduce((a, b) => a + b, 0) / times.length;
-
-  const title = (
-    <>
-      {THREATS[threat].he}
-      <br />
-      {THREATS[threat].en}
-    </>
-  );
-  const date = new Date(0);
-  date.setUTCSeconds(time);
-
-  const cityNames = [...new Set(data.alerts.flatMap(alert => alert.cities))];
-  const cities = cityNames.map(city => APIAccess.getPosition(city));
-  const citiesHe = cities.map(city => city.name);
-  const citiesEn = cities.map(city => city.name_en);
-
+export function HistoryCard({ id, title, date, citiesHe, citiesEn }) {
   return (
     <Card title={title} subTitle={date.toLocaleString('he-IL')}>
       {citiesHe.join(' | ')}
@@ -83,8 +60,44 @@ export function HistoryCard(data) {
   );
 }
 
+const calculateHistory = (history) => {
+  return history.map(data => {
+    if (data === undefined) return;
+    const threats = data.alerts.map(alert => alert.threat);
+    const threat = threats.sort((a, b) =>
+        threats.filter(v => v === a).length
+      - threats.filter(v => v === b).length
+    ).pop();
+    const times = data.alerts.map(alert => alert.time);
+    const time = times.reduce((a, b) => a + b, 0) / times.length;
+  
+    const title = (
+      <>
+        {THREATS[threat].he}
+        <br />
+        {THREATS[threat].en}
+      </>
+    );
+    const date = new Date(0);
+    date.setUTCSeconds(time);
+  
+    const cityNames = [...new Set(data.alerts.flatMap(alert => alert.cities))];
+    const cities = cityNames.map(city => APIAccess.getPosition(city));
+    const citiesHe = cities.map(city => city.name);
+    const citiesEn = cities.map(city => city.name_en);
+    return {
+      id: data.id,
+      title: title,
+      date: date.toLocaleString('he-IL'),
+      citiesHe: citiesHe,
+      citiesEn: citiesEn,
+    };
+  });
+}
+
 export function HistoryView() {
-  const history = useAlertHistory();
+  let history = useAlertHistory();
+  history = useMemo(() => calculateHistory(history));
   
   return (
     <DataView value={history} itemTemplate={HistoryCard} />
