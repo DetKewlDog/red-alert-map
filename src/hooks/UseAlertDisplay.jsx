@@ -6,6 +6,12 @@ export default function useAlertDisplay(fetcher) {
 
 	useEffect(() => {
     setAlertedCities([]);
+
+  if (APIAccess.historyId === 0) {
+    fetchNewAlerts();
+    return;
+  }
+
 		const interval = setInterval(fetchNewAlerts, 3000);
 		return () => clearInterval(interval);
 	}, [fetcher]);
