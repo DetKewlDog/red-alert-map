@@ -20,7 +20,7 @@ export class MapUtil {
     
     const positions = [];
     MapUtil.map.eachLayer(i => {
-      if (i._latlng && i._radius) {
+      if (i._latlng) {
         positions.push(i._latlng);
         return;
       }
