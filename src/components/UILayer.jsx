@@ -13,9 +13,9 @@ import { Menu } from './Menu';
 import APIAccess from '../services/APIAccess';
 
 export function UILayer({ setAlertFetcher }) {
-  const [menuVisible, setMenuVisible] = useState(false);
-  const [historyVisible, setHistoryVisible] = useState(false);
-  const [searchVisible, setSearchVisible] = useState(false);
+  const [ menuVisible    , setMenuVisible    ] = useState(false);
+  const [ historyVisible , setHistoryVisible ] = useState(false);
+  const [ searchVisible  , setSearchVisible  ] = useState(false);
 
   const showRealtime = () => {
     APIAccess.historyId = 0;

@@ -2,17 +2,24 @@ import { Button } from "./Button";
 import APIAccess from "../services/APIAccess";
 import { MapUtil } from "../util/MapUtil";
 
+import { icons } from 'lucide-react';
+
+const Icon = ({ name }) => {
+  const LucideIcon = icons[name];
+  return (<LucideIcon size={80} />);
+}
+
 const THREAT_ICONS = [
-  'rocket',
-  'flask',
-  'user-ninja',
-  'wave-square',
-  'water',
-  'plane',
-  'radiation',
-  'skull',
-  'triangle-exclamation',
-  'bell'
+  'Radio',
+  'Biohazard',
+  'Skull',
+  'Activity',
+  'Waves',
+  'Plane',
+  'Radiation',
+  'Rocket',
+  'AlertTriangle',
+  'RadioTower',
 ];
 
 export function PanButton() {
@@ -23,9 +30,10 @@ export function PanButton() {
   return (
     <Button 
       size="large" 
-      icon={`fas fa-${THREAT_ICONS[APIAccess.threat]}`} 
       rounded 
       onClick={MapUtil.flyToPolygons}
-    />
+    >
+      <Icon name={THREAT_ICONS[APIAccess.threat]} />
+    </Button>
   );
 }
