@@ -1,5 +1,5 @@
 export function SettingsMenu() {
   return (
-    'test'
+    'SOON (TM)'
   );
 }
