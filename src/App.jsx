@@ -18,7 +18,7 @@ export default function App() {
 	}, []);
 
 	useEffect(() => {
-		console.log(alertFetcher)
+		
 	}, [alertFetcher]);
 
 	const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -39,8 +39,8 @@ export default function App() {
 
 	return (
 		<>
-			<AlertView alertFetcher={alertFetcher} location={location} setLocation={setLocation} darkMode={darkMode} />
-			<UILayer location={location} setLocation={setLocation} setAlertFetcher={setAlertFetcher} />
+			<AlertView location={location} setLocation={setLocation} alertFetcher={alertFetcher} darkMode={darkMode} />
+			<UILayer   location={location} setLocation={setLocation} setAlertFetcher={setAlertFetcher} />
 		</>
 	);
 };

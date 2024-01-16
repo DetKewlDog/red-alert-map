@@ -23,6 +23,8 @@ export function UILayer({ location, setLocation, setAlertFetcher }) {
     setAlertFetcher(() => () => APIAccess.getRedAlerts());
   }
 
+  const isRealTime = APIAccess.historyId === 0;
+
   return (
     <section id="ui">
       <Button size='large' icon="pi pi-bars" onClick={() => setMenuVisible(true)} rounded />
@@ -64,10 +66,10 @@ export function UILayer({ location, setLocation, setAlertFetcher }) {
             </span>
           </Button>
           <PanButton location={location} setLocation={setLocation} />
-          <Button size="large" onClick={() => setHistoryVisible(true)}>
+          <Button size="large" onClick={() => isRealTime ? setHistoryVisible(true) : showRealtime()}>
             <span className='p-button-label p-c'>
-              <span className='pi pi-history' style={{ margin: '8px'}} />
-              History
+              <span className={`pi pi-${isRealTime ? 'history' : 'sync'}`} style={{ margin: '8px'}} />
+              {isRealTime ? 'History' : 'Real Time'}
             </span>
           </Button>
         </div>

@@ -9,25 +9,25 @@ export function Menu({ hideMenu, showRealtime, showHistory, showSearch, showSett
   let items = [
     { 
       label: 'Real Time', 
-      icon: 'pi pi-sync',
+      icon: 'sync',
       command: showRealtime
     },
     { 
       label: 'History', 
-      icon: 'pi pi-history',
+      icon: 'history',
       command: showHistory
     },
     { 
       label: 'Search', 
-      icon: 'pi pi-search',
+      icon: 'search',
       command: showSearch
     },
     { 
       label: 'Settings', 
-      icon: 'pi pi-cog',
+      icon: 'cog',
       command: showSettings
     }
-  ].map(item => ({ ...item, command: () => selectMenuItem(item.command) }));
+  ].map(item => ({ ...item, icon: 'pi pi-' + item.icon, command: () => selectMenuItem(item.command) }));
 
   return (
     <PRMenu model={items} />
