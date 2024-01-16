@@ -11,6 +11,7 @@ import { PanButton } from './PanButton';
 import { HistoryView } from './HistoryView';
 import { Menu } from './Menu';
 import APIAccess from '../services/APIAccess';
+import { SettingsMenu } from './SettingsMenu';
 
 export function UILayer({ setAlertFetcher }) {
   const [ menuVisible     , setMenuVisible     ] = useState(false);
