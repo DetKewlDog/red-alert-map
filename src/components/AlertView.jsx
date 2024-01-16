@@ -36,7 +36,6 @@ export function AlertView({ darkMode, alertFetcher }) {
       <MapContainer center={[0, 0]} zoom={7} style={{ height: '100vh' }} ref={setMap} zoomControl={false}>
         <LayersControl position="topright">
           <ThemeProvider darkMode={darkMode} />
-          {/* <PanToLocation getLocation={location} />  */}
           <MapLayer name="Default"   		   url='https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}' checked 		/>
           <MapLayer name="Open Street Map" url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' subs='abc'	/>
           <MapLayer name="Terrain"   		   url='https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}'							/>
