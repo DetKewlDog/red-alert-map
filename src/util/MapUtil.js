@@ -29,6 +29,8 @@ export class MapUtil {
       }
     });
     
+    if (positions.length === 0) return;
+
     MapUtil.map.flyToBounds(new L.latLngBounds(positions).pad(1));
   }
 }
