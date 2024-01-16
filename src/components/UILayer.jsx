@@ -13,9 +13,10 @@ import { Menu } from './Menu';
 import APIAccess from '../services/APIAccess';
 
 export function UILayer({ setAlertFetcher }) {
-  const [ menuVisible    , setMenuVisible    ] = useState(false);
-  const [ historyVisible , setHistoryVisible ] = useState(false);
-  const [ searchVisible  , setSearchVisible  ] = useState(false);
+  const [ menuVisible     , setMenuVisible     ] = useState(false);
+  const [ historyVisible  , setHistoryVisible  ] = useState(false);
+  const [ searchVisible   , setSearchVisible   ] = useState(false);
+  const [ settingsVisible , setSettingsVisible ] = useState(false);
 
   const showRealtime = () => {
     APIAccess.historyId = 0;
@@ -34,6 +35,7 @@ export function UILayer({ setAlertFetcher }) {
           showRealtime={showRealtime}
           showHistory={() => setHistoryVisible(true)}
           showSearch={() => setSearchVisible(true)}
+          showSettings={() => setSettingsVisible(true)}
         />
       </Sidebar>
       <Sidebar 
@@ -51,6 +53,17 @@ export function UILayer({ setAlertFetcher }) {
         position={isMobile ? "bottom" : "left"} 
         onHide={() => setSearchVisible(false)} 
         pt={{ root: { style: isMobile ? { 'height': '75vh' } : { 'width': '40vw' } } }}
+      >
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+      </Sidebar>
+      <Sidebar 
+        title='Settings'
+        visible={settingsVisible} 
+        onHide={() => setSettingsVisible(false)}
+        fullScreen 
       >
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
