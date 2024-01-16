@@ -5,19 +5,16 @@ import { MarkerAlert, CircleAlert, PolygonAlert } from './Alert';
 import { MapLayer } from './MapLayer';
 import { AlertLayer } from './AlertLayer';
 import useAlertDisplay from '../hooks/UseAlertDisplay';
-import { PanToLocation } from '../util/PanToLocation';
 import { ThemeProvider } from '../util/ThemeProvider';
-import { LocationMarker } from './LocationMarker';
 import { useEffect, useState } from 'react';
-import APIAccess from '../services/APIAccess';
-import { averageCoordinate } from '../util/CoordUtil';
+import { MapUtil } from '../util/MapUtil';
 
-export function AlertView({ location, setLocation, darkMode, alertFetcher }) {
+export function AlertView({ darkMode, alertFetcher }) {
 	const { alertedCities } = useAlertDisplay(alertFetcher);
   let [waitingForPan, setWaitingForPan] = useState(false);
+  const [map, setMap] = useState(null);
 
   useEffect(() => {
-    setLocation(null);
     waitingForPan = true;
     setWaitingForPan(true);
   }, [alertFetcher]);
@@ -26,16 +23,20 @@ export function AlertView({ location, setLocation, darkMode, alertFetcher }) {
     if (!waitingForPan || alertedCities.length === 0) return;
     waitingForPan = false;
     setWaitingForPan(false);
-    const pos = averageCoordinate(alertedCities.flatMap(i => i.polygon || [i.center] || []));
-    setLocation({ center: pos, zoom: 10 });
+    MapUtil.flyToPolygons();
   }, [alertedCities]);
+
+  useEffect(() => {
+    if (!map) return;
+    MapUtil.map = map;
+  }, [map]);
 
 	return (
     <section>
-      <MapContainer center={[0, 0]} zoom={7} style={{ height: '100vh' }} zoomControl={false}>
+      <MapContainer center={[0, 0]} zoom={7} style={{ height: '100vh' }} ref={setMap} zoomControl={false}>
         <LayersControl position="topright">
-          <ThemeProvider />
-          <PanToLocation getLocation={location} /> 
+          <ThemeProvider darkMode={darkMode} />
+          {/* <PanToLocation getLocation={location} />  */}
           <MapLayer name="Default"   		   url='https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}' checked 		/>
           <MapLayer name="Open Street Map" url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png' subs='abc'	/>
           <MapLayer name="Terrain"   		   url='https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}'							/>
@@ -45,9 +46,9 @@ export function AlertView({ location, setLocation, darkMode, alertFetcher }) {
             <LayerGroup />
           </LayersControl.Overlay>
 
-          <AlertLayer name='Show Circles'        alerts={alertedCities} alertTemplate={CircleAlert } />
-          <AlertLayer name='Show Markers'        alerts={alertedCities} alertTemplate={MarkerAlert } />
-          <AlertLayer name='Show Geometry (WIP)' alerts={alertedCities} alertTemplate={PolygonAlert} checked />
+          <AlertLayer alerts={alertedCities} alertTemplate={CircleAlert } name='Show Circles'  />
+          <AlertLayer alerts={alertedCities} alertTemplate={MarkerAlert } name='Show Markers'  checked />
+          <AlertLayer alerts={alertedCities} alertTemplate={PolygonAlert} name='Show Geometry' checked />
         </LayersControl>
         <ZoomControl position='topright' />
       </MapContainer>

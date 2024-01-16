@@ -1,5 +1,6 @@
 import { Button } from "./Button";
 import APIAccess from "../services/APIAccess";
+import { MapUtil } from "../util/MapUtil";
 
 const THREAT_ICONS = [
   'rocket',
@@ -14,17 +15,17 @@ const THREAT_ICONS = [
   'bell'
 ];
 
-export function PanButton({ location, setLocation }) {
+export function PanButton() {
   if (APIAccess.threat == -1) {
     return undefined;
   }
-  
+
   return (
     <Button 
       size="large" 
       icon={`fas fa-${THREAT_ICONS[APIAccess.threat]}`} 
       rounded 
-      onClick={() => setLocation({ ...location })}
+      onClick={MapUtil.flyToPolygons}
     />
   );
 }

@@ -12,7 +12,7 @@ import { HistoryView } from './HistoryView';
 import { Menu } from './Menu';
 import APIAccess from '../services/APIAccess';
 
-export function UILayer({ location, setLocation, setAlertFetcher }) {
+export function UILayer({ setAlertFetcher }) {
   const [menuVisible, setMenuVisible] = useState(false);
   const [historyVisible, setHistoryVisible] = useState(false);
   const [searchVisible, setSearchVisible] = useState(false);
@@ -65,7 +65,7 @@ export function UILayer({ location, setLocation, setAlertFetcher }) {
               Search
             </span>
           </Button>
-          <PanButton location={location} setLocation={setLocation} />
+          <PanButton />
           <Button size="large" onClick={() => isRealTime ? setHistoryVisible(true) : showRealtime()}>
             <span className='p-button-label p-c'>
               <span className={`pi pi-${isRealTime ? 'history' : 'sync'}`} style={{ margin: '8px'}} />

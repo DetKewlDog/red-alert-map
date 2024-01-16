@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
 
-export function ThemeProvider() {
-  const [theme, setTheme] = useState(
-    window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-  );
+export function ThemeProvider({ darkMode }) {
+  const [theme, setTheme] = useState(darkMode ? 'dark' : 'light');
 
   const map = useMap();
 

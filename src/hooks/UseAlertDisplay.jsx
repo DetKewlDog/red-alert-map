@@ -4,16 +4,17 @@ import APIAccess from '../services/APIAccess';
 export default function useAlertDisplay(fetcher) {
   let [alertedCities, setAlertedCities] = useState([]);
 
+
 	useEffect(() => {
     setAlertedCities([]);
 
-  if (APIAccess.historyId === 0) {
-    fetchNewAlerts();
-    return;
-  }
+    if (APIAccess.historyId !== 0) {
+      fetchNewAlerts();
+      return;
+    }
 
 		const interval = setInterval(fetchNewAlerts, 3000);
-		return () => clearInterval(interval);
+    return () => clearInterval(interval);
 	}, [fetcher]);
 
   function fetchNewAlerts() {

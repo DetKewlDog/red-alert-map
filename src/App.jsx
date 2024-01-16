@@ -8,7 +8,6 @@ import { AlertView } from './components/AlertView';
 
 export default function App() {
 	const [alertFetcher, setAlertFetcher] = useState(() => () => APIAccess.getRedAlerts());
-	const [location, setLocation] = useState(() => APIAccess.getPosition('israel'));
 	const [loaded, setLoaded] = useState(false);
 
 	useEffect(() => {
@@ -39,8 +38,8 @@ export default function App() {
 
 	return (
 		<>
-			<AlertView location={location} setLocation={setLocation} alertFetcher={alertFetcher} darkMode={darkMode} />
-			<UILayer   location={location} setLocation={setLocation} setAlertFetcher={setAlertFetcher} />
+			<AlertView alertFetcher={alertFetcher} darkMode={darkMode} />
+			<UILayer   setAlertFetcher={setAlertFetcher} />
 		</>
 	);
 };

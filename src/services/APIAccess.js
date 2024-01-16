@@ -17,6 +17,7 @@ const args = {
 class APIAccess {
   static cities    = undefined;
   static polygons  = undefined;
+  static histories = {};
   static cityCache = {};
   static historyId = 0;
   static threat    = -1;
@@ -57,8 +58,13 @@ class APIAccess {
   static async getRedAlertsHistoryById() {
     APIAccess.initCollections();
     if (APIAccess.historyId === 0) return;
-    return await axios.get(`${BACKEND_URL}/history/${APIAccess.historyId}`, args)
+    if (APIAccess.historyId in APIAccess.histories) {
+      return APIAccess.histories[APIAccess.historyId];
+    }
+    const res = await axios.get(`${BACKEND_URL}/history/${APIAccess.historyId}`, args)
       .then(result => result.data?.alerts?.flatMap(alert => alert.cities));
+    APIAccess.histories[APIAccess.historyId] = res;
+    return res;
   }
 
   static getPosition(city) {

@@ -47,9 +47,12 @@ path:not([stroke=red]) {
 	
 	&:before {
 		color: black;
+		width: 48px;
+		height: 48px
 		position: absolute;
-		margin: 7px 8px;
 		right: 0;
+		bottom: 0;
+		top: 0;
 	}
 }
 
@@ -210,9 +213,13 @@ body[theme=light] {
 			text-align: center;
 		}
 		& .fas:before {
-			position: relative;
-			margin: 0px;
 			color: white !important;
+			width: 48px;
+		height: 48px
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			top: 0;
 		}
 	}
 
@@ -330,9 +337,13 @@ body[theme=dark] {
 			text-align: center;
 		}
 		& .fas:before {
-			position: relative;
-			margin: 0px;
 			color: white !important;
+			width: 48px;
+		height: 48px
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			top: 0;
 		}
 	}
 
