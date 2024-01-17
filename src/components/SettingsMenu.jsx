@@ -50,12 +50,12 @@ export function SettingsMenu() {
     },
     {
       label: "Markers",
-      description: "Display cities with markers on the map.",
+      description: "Represent cities with markers on the map.",
       component: <SettingsCheckbox name='markers' />
     },
     {
       label: "Circles",
-      description: "Display cities with circular regions on the map.",
+      description: "Represent cities with circular regions on the map.",
       component: <SettingsCheckbox name='circles' />
     },
     {
