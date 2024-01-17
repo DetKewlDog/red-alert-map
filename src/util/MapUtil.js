@@ -13,23 +13,10 @@ export class MapUtil {
     MapUtil.#map = newMap;
   }
 
-  static flyToPolygons() {
-    if (!MapUtil.map) {
+  static flyToPolygons(positions) {
+    if (!MapUtil.map || positions.length === 0) {
       return;
     }
-    
-    const positions = [];
-    MapUtil.map.eachLayer(i => {
-      if (i._latlng) {
-        positions.push(i._latlng);
-        return;
-      }
-      if (i._latlngs) {
-        i._latlngs.forEach(j => positions.push(...j));
-      }
-    });
-    
-    if (positions.length === 0) return;
 
     MapUtil.map.flyToBounds(new L.latLngBounds(positions).pad(1));
   }

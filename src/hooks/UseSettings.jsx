@@ -1,6 +1,19 @@
 const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+let setSettings = undefined;
 
-export function useSettings() {
+export function useSettings(callbackFunc) {
+  if (!setSettings && callbackFunc) {
+    setSettings = callbackFunc;
+  }
+
+  const getSettingValue = (name) => {
+    let val = localStorage.getItem(name);
+    try {
+      val = JSON.parse(val);
+    } catch { }
+    return val;
+  }
+
   const getSettings = () => {
     return Object.fromEntries(
       Object.entries({
@@ -9,15 +22,16 @@ export function useSettings() {
         'circles': () => false,
         'polygons': () => true,
       }).map(([name, getDefaultValue]) =>
-        [name, JSON.parse(localStorage.getItem(name)) ?? getDefaultValue()]
+        [name, getSettingValue(name) ?? getDefaultValue()]
       )
     )
   }
 
-  const setSettings = settings => {
+  const updateSettings = settings => {
     Object.entries(settings)
       .forEach(setting => localStorage.setItem(...setting));
+    setSettings?.(settings);
   }
-  
-  return [getSettings, setSettings];
+
+  return { getSettings: getSettings, updateSettings: updateSettings };
 }

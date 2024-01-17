@@ -1,15 +1,15 @@
 :root {
-	--dm-bg1: #262626;
-	--dm-bg2: #2f2f2f;
+	--dm-bg1: #1f2937;
+	--dm-bg2: #374151;
 
 	--wm-bg1: white;
 	--wm-bg2: #f4f4f4;
 	--wm-bg3: #dee6ee;
 
-	--dm-border1: #424242;
-	--dm-border2: #4c4c4c;
+	--dm-border1: #4b5563;
+	--dm-border2: #6b7280;
 
-	--dm-text: #aaaaaa;
+	--dm-text: #9ca3af;
 	--wm-text: #4b5563;
 
 	--col-btn: #ef4444;
@@ -224,6 +224,27 @@ body[theme=light] {
 	& #btn-close {
 		color: var(--dm-bg1);
 	}
+
+	& .setting h3 {
+		color: var(--wm-text) !important;
+	}
+
+	& .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+		color: var(--wm-text);
+		background: var(--wm-bg3);
+	}
+
+	& .p-dropdown.p-focus {
+		box-shadow: none !important;
+	}
+
+	& .p-dropdown span {
+		color: var(--wm-text) !important;
+	}
+
+	& .p-divider.p-divider-horizontal:before {
+		border-top: solid var(--col-dock-hl) !important;
+	}
 }
 
 /* DARK */
@@ -298,7 +319,7 @@ body[theme=dark] {
   }
 
   & .p-sidebar {
-    background: var(--dm-bg2) !important;
+    background: var(--dm-bg1) !important;
     color: var(--dm-text) !important;
     
     & h2 {
@@ -354,6 +375,38 @@ body[theme=dark] {
 		&:hover {
 			background-color: var(--dm-border1) !important;
 		}
+	}
+
+	& .setting h3 {
+		color: white !important;
+	}
+
+	& .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+		color: white;
+		background: var(--dm-border1);
+	}
+
+	& .p-dropdown.p-focus {
+		box-shadow: none !important;
+	}
+
+	& .p-dropdown span {
+		color: white !important;
+	}
+	& .p-dropdown-items-wrapper {
+		background: var(--dm-bg2);
+
+		& li {
+			color: white;
+
+			&:hover, &.p-highlight {
+				background-color: var(--dm-border1);
+			}
+		}
+	}
+
+	& .p-divider.p-divider-horizontal:before {
+		border-top: solid var(--wm-text) !important;
 	}
 }
 
@@ -423,14 +476,33 @@ body[theme=dark] {
 	}
 }
 
+.p-dropdown {
+	background-color: transparent;
+	border-color: var(--col-btn);
+
+	& path {
+		fill-opacity: 1;
+		opacity: 1;
+	}
+}
+
+
 .setting {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 
-	& .setting-value > * {
+	& .setting-key {
+		margin-right: 60px;
+	}
+
+	& .setting-value > .p-checkbox {
 		transform: scale(1.5);
 	}
+}
+
+.p-divider.p-divider-horizontal {
+	margin: 0 !important;
 }
 
 .settings-menu {
@@ -443,3 +515,13 @@ body[theme=dark] {
 		margin-top: 24px;
 	}
 }
+
+.p-dataview.p-dataview-list .p-dataview-content > .p-grid > div {
+	border: none !important;
+}
+
+.p-toast .p-toast-message.p-toast-message-success {
+	background-color: rgba(16, 185, 129, 0.2) !important;
+	margin-left: 32px;
+}
+
