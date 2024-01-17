@@ -20,8 +20,6 @@ export default function App() {
 		
 	}, [alertFetcher]);
 
-	const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
 	if (!loaded) {
 		return (
 			<div style={{
@@ -29,7 +27,7 @@ export default function App() {
 				'justifyContent': 'center',
 				'alignContent': 'center',
 				'height': '100vh',
-				'backgroundColor': darkMode ? 'var(--dm-bg1)' : 'var(--wm-bg1)'
+				'backgroundColor': document.body.getAttribute('theme') === 'dark' ? 'var(--dm-bg1)' : 'var(--wm-bg1)'
 			}}>
 				<ProgressSpinner style={{ 'margin': 'auto' }} />
 			</div>
@@ -38,8 +36,8 @@ export default function App() {
 
 	return (
 		<>
-			<AlertView alertFetcher={alertFetcher} darkMode={darkMode} />
-			<UILayer   setAlertFetcher={setAlertFetcher} />
+			<AlertView alertFetcher={alertFetcher} />
+			<UILayer setAlertFetcher={setAlertFetcher} />
 		</>
 	);
 };
