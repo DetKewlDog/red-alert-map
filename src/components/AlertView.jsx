@@ -8,6 +8,7 @@ import useAlertDisplay from '../hooks/UseAlertDisplay';
 import { useEffect, useState } from 'react';
 import { MapUtil } from '../util/MapUtil';
 import { useSettings } from '../hooks/UseSettings';
+import APIAccess from '../services/APIAccess';
 
 export function AlertView({ alertFetcher }) {
 	const { alertedCities } = useAlertDisplay(alertFetcher);
@@ -23,6 +24,7 @@ export function AlertView({ alertFetcher }) {
   }, [alertFetcher]);
 
   useEffect(() => {
+    APIAccess.historyId = APIAccess.historyId;
     if (!waitingForPan || alertedCities.length === 0) return;
     waitingForPan = false;
     setWaitingForPan(false);
