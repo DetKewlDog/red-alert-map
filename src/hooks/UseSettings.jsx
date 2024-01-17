@@ -17,7 +17,7 @@ export function useSettings(callbackFunc) {
   const getSettings = () => {
     return Object.fromEntries(
       Object.entries({
-        'theme': () => darkMode,
+        'theme': () => darkMode ? 'dark' : 'light',
         'markers': () => true,
         'circles': () => false,
         'polygons': () => true,
