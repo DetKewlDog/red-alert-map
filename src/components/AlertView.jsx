@@ -30,7 +30,7 @@ export function AlertView({ alertFetcher }) {
   }, [alertedCities]);
 
   useEffect(() => {
-    console.log(settings);
+
   }, [settings]);
 
   useEffect(() => {
