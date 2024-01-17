@@ -432,3 +432,14 @@ body[theme=dark] {
 		transform: scale(1.5);
 	}
 }
+
+.settings-menu {
+	& .p-button {
+		font-size: x-large;
+		font-weight: 550;
+		width: auto !important;
+		height: auto !important;
+		padding: 12px 14px;
+		margin-top: 24px;
+	}
+}
