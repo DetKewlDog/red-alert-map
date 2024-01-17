@@ -46,7 +46,7 @@ export function SettingsMenu() {
     {
       label: "Theme",
       description: "Customize the app's appearance.",
-      component: <SettingsDropdown name='theme' options={['light', 'dark']} />
+      component: <SettingsDropdown name='theme' options={['light', 'dark', 'pink']} />
     },
     {
       label: "Markers",

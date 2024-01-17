@@ -15,6 +15,9 @@
 	--col-btn: #ef4444;
 	--col-btn-hl: #f87171;
 
+	--col-pink: #f472b6;
+	--col-pink-hl: #f9a8d4;
+
 	--col-dock: #f8fafc;
 	--col-dock-hl: #cbd5e1;
 
@@ -23,7 +26,8 @@
 
 	--dm-tile-border: #303030;
 	--dm-tile-filter: invert(100%) hue-rotate(190deg) brightness(100%) contrast(90%) blur(0px);
-	/*--dm-tile-filter: invert(20%) hue-rotate(110deg) contrast(90%) blur(0px); /* pink filter */
+	--pink-tile-filter: invert(20%) hue-rotate(110deg) contrast(90%) blur(0px) brightness(110%); /* pink filter */
+	--pink-alert-filter: invert(20%) hue-rotate(320deg) contrast(90%) blur(0px) brightness(125%); /* pink filter */
 }
 svg:has(path[stroke=red]) {
 	opacity: 0.3;
@@ -407,6 +411,171 @@ body[theme=dark] {
 
 	& .p-divider.p-divider-horizontal:before {
 		border-top: solid var(--wm-text) !important;
+	}
+}
+
+/* PINK */
+body[theme=pink] {
+	& .leaflet-interactive {
+    filter: var(--pink-alert-filter, none) !important;
+	}
+
+	&:has(label:last-of-type input[type=radio]:not(:checked)) .leaflet-tile {
+    filter: var(--pink-tile-filter, none) !important;
+  }
+
+  & .leaflet-control-zoom span {
+    color: var(--wm-icon) !important;
+  }
+
+	& .leaflet-tile,
+	& .leaflet-container,
+	& .fas:before {
+		transition: all 0.5s;
+	}
+
+	& .leaflet-control, & .leaflet-bar a {
+		border-width: 1px !important;
+		border-style: solid !important;
+		border-color: var(--wm-border1) !important;
+		transition: background 0.5s, color 0.5s, border-color 0.5s;
+	}
+
+  .p-buttonset {
+    border-color: var(--wm-border1) !important;
+
+    & .p-button:first-of-type, & .p-button:last-of-type {
+			width: 48vw;
+			max-width: 400px;
+      background: var(--wm-bg1) !important;
+      color: var(--wm-icon) !important;
+
+      &:not(:disabled):hover {
+        background: var(--wm-bg2) !important;
+      }
+    }
+
+		position: fixed;
+		bottom: 0;
+		margin: 32px;
+		margin-inline: 0px;
+
+		border-width: 1px;
+		border-style: solid;
+		border-radius: 120px;
+		overflow: hidden;
+
+		& .p-button-rounded {
+			border-radius: 10rem !important;
+			position: fixed;
+			z-index: 4;
+			width: 80px !important;
+			height: 80px !important;
+			transform: translate(-32px, -40px);
+		}
+
+		& .p-button:first-child { transform: translateX( 1px); }
+		& .p-button:last-child  { transform: translateX(-1px); }
+  }
+
+  /* UI */
+  & .p-button {
+		background: var(--col-pink);
+		border: var(--col-pink);
+		width: 4rem;
+		height: 4rem;
+		box-shadow: none !important;
+		justify-content: center;
+
+		&:not(:active):hover {
+			background: var(--col-pink-hl);
+		}
+
+		& .pi-map-marker {
+			transform: scale(1.5);
+		}
+
+		& .fas {
+			width: 0 !important;
+			height: 0 !important;
+			left: 0 !important;
+			bottom: 0 !important;
+			font-size: 48px !important;
+			margin: calc((80px - 48px) / 2);
+			text-align: center;
+			position: relative;
+		}
+		& .fas:before {
+			color: white !important;
+		}
+	}
+
+	& .p-card.p-component {
+		background-color: var(--wm-bg3);
+		color: var(--wm-text);
+	}
+
+	& #btn-close {
+		color: var(--dm-bg1);
+	}
+
+	& .setting h3 {
+		color: var(--wm-text) !important;
+	}
+
+	& .p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+		color: var(--wm-text);
+		background: var(--wm-bg3);
+	}
+
+	& .p-dropdown.p-focus {
+		box-shadow: none !important;
+	}
+
+	& .p-dropdown span {
+		color: var(--wm-text) !important;
+	}
+
+	& .p-divider.p-divider-horizontal:before {
+		border-top: solid var(--col-dock-hl) !important;
+	}
+
+	& .p-checkbox .p-checkbox-box {
+		border-color: var(--col-pink) !important;
+
+		&.p-highlight {
+			background: var(--col-pink) !important;
+			border-color: var(--col-pink) !important;
+
+			&:not(:active):not(:disabled):hover {
+				background: var(--col-pink-hl) !important;
+				border-color: var(--col-pink-hl) !important;
+			}
+		}
+	}
+
+	& .p-dropdown {
+		border-color: var(--col-pink) !important;
+	}
+
+	& .p-toast {
+		& * {
+			color: var(--col-pink);
+		}
+
+		& .p-toast-message.p-toast-message-success {
+			background-color: rgba(249, 168, 212, 0.2) !important;
+			border-left: 6px solid var(--col-pink);
+		}
+	}
+
+	& .p-card-title,
+	& .p-card-subtitle {
+		background-color: var(--col-pink);
+	}
+
+	& .p-progress-spinner-circle {
+		stroke: var(--col-pink) !important;
 	}
 }
 
