@@ -2,15 +2,15 @@ import L from 'leaflet';
 import APIAccess from '../services/APIAccess';
 
 export class MapUtil {
-  static _map = undefined;
+  static #map = undefined;
   static get map() {
-    return MapUtil._map;
+    return MapUtil.#map;
   }
   static set map(newMap) {
-    if (!MapUtil._map) {
+    if (!MapUtil.#map) {
       newMap.setView(APIAccess.getPosition('israel').center, 7)
     }
-    MapUtil._map = newMap;
+    MapUtil.#map = newMap;
   }
 
   static flyToPolygons() {

@@ -397,3 +397,38 @@ body[theme=dark] {
 		}
 	}
 }
+
+.p-checkbox .p-checkbox-box {
+	background: transparent;
+	border-color: var(--col-btn);
+
+	&.p-highlight {
+		background: var(--col-btn);
+		border-color: var(--col-btn);
+
+		&:not(:active):not(:disabled):hover {
+			background: var(--col-btn-hl);
+			border-color: var(--col-btn-hl);
+		}
+	}
+
+	& .p-checkbox-icon {
+		color: white !important;
+		font-weight: bolder !important;
+
+		& path {
+			fill-opacity: 1; 
+			opacity: 1; 
+		}
+	}
+}
+
+.setting {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+
+	& .setting-value > * {
+		transform: scale(1.5);
+	}
+}
