@@ -81,8 +81,8 @@ class APIAccess {
     const polygon = APIAccess.polygons[id] || [];
 
     const radius = polygon.length !== 0
-      && Math.max(...polygon.map(pos => coord?.distanceTo(new LatLng(...pos))))
-      || 250;
+      ? Math.max(...polygon.map(pos => coord?.distanceTo(new LatLng(...pos))))
+      : 250;
 
     const fetchedCity = {
       id: id,
