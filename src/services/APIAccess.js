@@ -25,13 +25,13 @@ class APIAccess {
   static async initCollections() {
     if (APIAccess.cities && APIAccess.geometry) return;
 
-    [APIAccess.cities, APIAccess.geometry] = await Promise.all(
+    [APIAccess.cities, APIAccess.geometry] = (await Promise.all(
       ['cities', 'geometry'].map(
         collection => APIAccess[collection]
           ? new Promise(APIAccess[collection])
           : axios.get(`${BACKEND_URL}/${collection}`)
       )
-    );
+    )).map(i => i.data);
   }
 
   static updateCurrentThreat(data) {
