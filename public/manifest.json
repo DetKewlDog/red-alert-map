@@ -25,15 +25,5 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ],
-  "protocol_handlers": [
-    {
-      "protocol": "web+pwa",
-      "url": "https://red-alert-map.netlify.app"
-    },
-    {
-      "protocol": "web+redalertmap",
-      "url": "https://red-alert-map.netlify.app"
-    }
   ]
 }
