@@ -7,20 +7,20 @@
   "display": "standalone",
   "orientation": "portrait",
   "description": "An app to view real-time rocket alerts/red-alert history in Israel on a map.",
-  "start_url": "https://red-alert-map.netlify.app/?launchedfrom=homescreen",
+  "start_url": "https://red-alert-map.netlify.app/",
   "scope": "https://red-alert-map.netlify.app",
   "id": "https://red-alert-map.netlify.app/lKawSQPXxsosxU0osamk",
   "prefer_related_applications": false,
   "related_applications": [],
   "icons": [
     {
-      "src": "https://pwa.xyz/v0/b/pwaa-8d87e.appspot.com/o/NZSMlTymWmBf4i3mooIs%2FMRYBHbNKImwuztQ.png?alt=media&token=f64b9853-6254-47a6-b580-8b26c9587e6d",
+      "src": "https://pwa.xyz/v0/b/pwaa-8d87e.appspot.com/o/NZSMlTymWmBf4i3mooIs%2FMRYBHbNKImwuztQ.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://pwa.xyz/v0/b/pwaa-8d87e.appspot.com/o/NZSMlTymWmBf4i3mooIs%2FtXHVYIxLwDLgZCy.png?alt=media&token=3b318995-81c5-4dde-875f-0b55b46bfc3e",
+      "src": "https://pwa.xyz/v0/b/pwaa-8d87e.appspot.com/o/NZSMlTymWmBf4i3mooIs%2FtXHVYIxLwDLgZCy.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -29,11 +29,11 @@
   "protocol_handlers": [
     {
       "protocol": "web+pwa",
-      "url": "https://red-alert-map.netlify.app/?launchedfrom=homescreen&pwaprotocolredirect=%s"
+      "url": "https://red-alert-map.netlify.app"
     },
     {
       "protocol": "web+redalertmap",
-      "url": "https://red-alert-map.netlify.app/?launchedfrom=homescreen&pwaprotocolredirect=%s"
+      "url": "https://red-alert-map.netlify.app"
     }
   ]
 }
