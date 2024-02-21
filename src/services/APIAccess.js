@@ -23,15 +23,17 @@ class APIAccess {
   static threat    = -1;
 
   static async initCollections() {
-    if (APIAccess.cities && APIAccess.geometry) return;
+    if (APIAccess.cities && APIAccess.polygons) return;
 
-    [APIAccess.cities, APIAccess.geometry] = (await Promise.all(
+    [APIAccess.cities, APIAccess.polygons] = (await Promise.all(
       ['cities', 'geometry'].map(
         collection => APIAccess[collection]
           ? new Promise(APIAccess[collection])
           : axios.get(`${BACKEND_URL}/${collection}`)
       )
     )).map(i => i.data);
+    console.log(APIAccess.cities);
+    console.log(APIAccess.polygons);
   }
 
   static updateCurrentThreat(data) {
