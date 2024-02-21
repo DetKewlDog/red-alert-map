@@ -9,7 +9,7 @@ const { getSettings } = useSettings();
 const settings = getSettings();
 document.body.setAttribute('theme', settings['theme']);
 
-window.addEventListener("beforeinstallprompt", (e) => {
+window.addEventListener("beforeinstallprompt", e => {
   e.preventDefault();
   InstallPWA.installPrompt = e;
 });
