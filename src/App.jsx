@@ -5,9 +5,11 @@ import { UILayer } from './components/UILayer';
 import { useEffect, useState } from 'react';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { AlertView } from './components/AlertView';
+import useAlertDisplay from './hooks/UseAlertDisplay';
 
 export default function App() {
 	const [alertFetcher, setAlertFetcher] = useState(() => () => APIAccess.getRedAlerts());
+	const { alertedCities } = useAlertDisplay(alertFetcher);
 	const [loaded, setLoaded] = useState(false);
 
 	useEffect(() => {
@@ -36,8 +38,8 @@ export default function App() {
 
 	return (
 		<>
-			<AlertView alertFetcher={alertFetcher} />
-			<UILayer setAlertFetcher={setAlertFetcher} />
+			<AlertView alertFetcher={alertFetcher} alertedCities={alertedCities}  />
+			<UILayer setAlertFetcher={setAlertFetcher} alertedCities={alertedCities} />
 		</>
 	);
 };

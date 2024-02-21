@@ -22,7 +22,7 @@ const THREAT_ICONS = [
   'RadioTower',
 ];
 
-export function PanButton() {
+export function PanButton({ alertedCities }) {
   if (APIAccess.threat == -1) {
     return undefined;
   }
@@ -31,7 +31,7 @@ export function PanButton() {
     <Button 
       size="large" 
       rounded 
-      onClick={MapUtil.flyToPolygons}
+      onClick={() => MapUtil.flyToPolygons(alertedCities.map(i => i.polygon).flat(1))}
     >
       <Icon name={THREAT_ICONS[APIAccess.threat]} />
     </Button>

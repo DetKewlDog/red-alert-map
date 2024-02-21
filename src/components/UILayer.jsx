@@ -12,8 +12,9 @@ import { HistoryView } from './HistoryView';
 import { Menu } from './Menu';
 import APIAccess from '../services/APIAccess';
 import { SettingsMenu } from './SettingsMenu';
+import { SearchView } from './SearchView';
 
-export function UILayer({ setAlertFetcher }) {
+export function UILayer({ setAlertFetcher, alertedCities }) {
   const [ menuVisible     , setMenuVisible     ] = useState(false);
   const [ historyVisible  , setHistoryVisible  ] = useState(false);
   const [ searchVisible   , setSearchVisible   ] = useState(false);
@@ -39,32 +40,29 @@ export function UILayer({ setAlertFetcher }) {
           showSettings={() => setSettingsVisible(true)}
         />
       </Sidebar>
-      <Sidebar 
+      <Sidebar
         title='Alerts History'
-        visible={historyVisible} 
-        position={isMobile ? "bottom" : "left"} 
-        onHide={() => setHistoryVisible(false)} 
+        visible={historyVisible}
+        position={isMobile ? "bottom" : "left"}
+        onHide={() => setHistoryVisible(false)}
         pt={{ root: { style: isMobile ? { 'height': '75vh' } : { 'width': '40vw' } } }}
       >
         <HistoryView setAlertFetcher={setAlertFetcher} hideHistory={() => setHistoryVisible(false)} />
       </Sidebar>
-      <Sidebar 
+      <Sidebar
         title='Search'
-        visible={searchVisible} 
-        position={isMobile ? "bottom" : "left"} 
-        onHide={() => setSearchVisible(false)} 
+        visible={searchVisible}
+        position={isMobile ? "bottom" : "left"}
+        onHide={() => setSearchVisible(false)}
         pt={{ root: { style: isMobile ? { 'height': '75vh' } : { 'width': '40vw' } } }}
       >
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-          Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
+        <SearchView setAlertFetcher={setAlertFetcher} hideSearch={() => setSearchVisible(false)} />
       </Sidebar>
-      <Sidebar 
+      <Sidebar
         title='Settings'
-        visible={settingsVisible} 
+        visible={settingsVisible}
         onHide={() => setSettingsVisible(false)}
-        fullScreen 
+        fullScreen
       >
         <SettingsMenu />
       </Sidebar>
@@ -76,7 +74,7 @@ export function UILayer({ setAlertFetcher }) {
               Search
             </span>
           </Button>
-          <PanButton />
+          <PanButton alertedCities={alertedCities} />
           <Button size="large" onClick={() => isRealTime ? setHistoryVisible(true) : showRealtime()}>
             <span className='p-button-label p-c'>
               <span className={`pi pi-${isRealTime ? 'history' : 'sync'}`} style={{ margin: '8px'}} />

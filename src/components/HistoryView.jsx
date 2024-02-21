@@ -3,7 +3,7 @@ import { Card } from 'primereact/card';
 
 import useAlertHistory from '../hooks/UseAlertHistory';
 import APIAccess from '../services/APIAccess';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 const THREATS = [
   {
@@ -85,9 +85,13 @@ const calculateHistory = (history) => {
   });
 }
 
-export function HistoryView({ setAlertFetcher, hideHistory }) {
+export function HistoryView({ setAlertFetcher, hideHistory, historyFilter = () => true }) {
   let history = useAlertHistory();
   
+  useEffect(() => {
+
+  }, [historyFilter]);
+
   history = useMemo(() => calculateHistory(history));
 
   const setFetcher = (id, threat) => {
@@ -107,7 +111,7 @@ export function HistoryView({ setAlertFetcher, hideHistory }) {
   );
 
   return (
-    <DataView value={history} itemTemplate={HistoryCard} />
+    <DataView value={history.filter(historyFilter)} itemTemplate={HistoryCard} />
   );
 }
 

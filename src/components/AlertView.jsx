@@ -4,14 +4,12 @@ import 'leaflet/dist/leaflet.css';
 import { MarkerAlert, CircleAlert, PolygonAlert } from './Alert';
 import { MapLayer } from './MapLayer';
 import { AlertLayer } from './AlertLayer';
-import useAlertDisplay from '../hooks/UseAlertDisplay';
 import { useEffect, useState } from 'react';
 import { MapUtil } from '../util/MapUtil';
 import { useSettings } from '../hooks/UseSettings';
 import APIAccess from '../services/APIAccess';
 
-export function AlertView({ alertFetcher }) {
-	const { alertedCities } = useAlertDisplay(alertFetcher);
+export function AlertView({ alertFetcher, alertedCities }) {
   let [waitingForPan, setWaitingForPan] = useState(false);
   const [map, setMap] = useState(null);
 
@@ -25,9 +23,22 @@ export function AlertView({ alertFetcher }) {
 
   useEffect(() => {
     APIAccess.historyId = APIAccess.historyId;
-    if (!waitingForPan || alertedCities.length === 0) return;
+
+    if (!waitingForPan) {
+      if (alertedCities.length === 0) {
+        waitingForPan = true;
+        setWaitingForPan(true);
+      }
+      return;
+    }
+
+    if (alertedCities.length === 0) {
+      return;
+    }
+
     waitingForPan = false;
     setWaitingForPan(false);
+
     MapUtil.flyToPolygons(alertedCities.map(i => i.polygon).flat(1));
   }, [alertedCities]);
 

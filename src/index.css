@@ -412,6 +412,27 @@ body[theme=dark] {
 	& .p-divider.p-divider-horizontal:before {
 		border-top: solid var(--wm-text) !important;
 	}
+
+	& .p-inputtext {
+		background-color: var(--dm-bg2);
+		color: white;
+		border-color: transparent;
+	}
+
+	& .p-dataview-emptymessage {
+		color: var(--wm-text);
+	}
+
+	& .p-autocomplete-panel ul {
+		background-color: var(--dm-bg2);
+		& li {
+			color: white;
+
+			&:hover {
+				background-color: var(--dm-border2);
+			}
+		}
+	}
 }
 
 /* PINK */
@@ -441,7 +462,7 @@ body[theme=pink] {
 		transition: background 0.5s, color 0.5s, border-color 0.5s;
 	}
 
-  .p-buttonset {
+  & .p-buttonset {
     border-color: var(--wm-border1) !important;
 
     & .p-button:first-of-type, & .p-button:last-of-type {
@@ -694,3 +715,41 @@ body[theme=pink] {
 	margin-left: 32px;
 }
 
+.p-inputwrapper {
+	width: 100%;
+
+	& input {
+		width: 100%;
+		margin-right: 12px;
+		border-radius: 64px;
+		font-size: larger;
+	}
+
+	& + button {
+		padding: 0 !important;
+		padding-inline: 20px !important;
+		width  : 64px !important;
+		height : 64px !important;
+	}
+}
+
+.sidebar-header:has(.p-inputwrapper) {
+	padding-bottom: 16px;
+}
+
+.p-inputtext:focus {
+	box-shadow: none !important;
+	border-color: transparent !important;
+}
+
+.p-autocomplete-panel {
+	margin-top: 4px;
+}
+
+.p-autocomplete-panel li {
+	text-align: match-parent;
+}
+
+.p-dataview-emptymessage {
+	text-align: center;
+}
