@@ -151,7 +151,7 @@ body[theme=light] {
 		transition: background 0.5s, color 0.5s, border-color 0.5s;
 	}
 
-  .p-buttonset {
+  & .p-buttonset {
     border-color: var(--wm-border1) !important;
 
     & .p-button:first-of-type, & .p-button:last-of-type {
