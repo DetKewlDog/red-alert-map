@@ -6,7 +6,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "description": "An app to view real-time rocket alerts/red-alert history in Israel on a map.",
-  "start_url": "/",
+  "start_url": "https://red-alert-map.netlify.app/",
   "icons": [
     {
       "src": "https://pwa.xyz/v0/b/pwaa-8d87e.appspot.com/o/NZSMlTymWmBf4i3mooIs%2FMRYBHbNKImwuztQ.png",
