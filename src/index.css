@@ -249,6 +249,21 @@ body[theme=light] {
 	& .p-divider.p-divider-horizontal:before {
 		border-top: solid var(--col-dock-hl) !important;
 	}
+
+	& .p-toast {
+		& * {
+			color: var(--col-btn);
+		}
+
+		& .p-toast-message.p-toast-message-success {
+			background-color: rgba(239, 68, 68, 0.2) !important;
+			border-left: 6px solid var(--col-btn);
+
+			& .p-toast-icon-close:hover {
+				background: rgba(239, 68, 68, 0.2) !important;
+			}
+		}
+	}
 }
 
 /* DARK */
@@ -416,7 +431,7 @@ body[theme=dark] {
 	& .p-inputtext:not(.p-dropdown-label) {
 		background-color: var(--dm-bg2);
 		color: white;
-		border-color: transparent;
+		border-color: transparent !important;
 	}
 
 	& .p-dataview-emptymessage {
@@ -430,6 +445,21 @@ body[theme=dark] {
 
 			&:hover {
 				background-color: var(--dm-border2);
+			}
+		}
+	}
+
+	& .p-toast {
+		& * {
+			color: var(--col-btn);
+		}
+
+		& .p-toast-message.p-toast-message-success {
+			background-color: rgba(239, 68, 68, 0.2) !important;
+			border-left: 6px solid var(--col-btn);
+
+			& .p-toast-icon-close:hover {
+				background: rgba(239, 68, 68, 0.2) !important;
 			}
 		}
 	}
@@ -587,6 +617,10 @@ body[theme=pink] {
 		& .p-toast-message.p-toast-message-success {
 			background-color: rgba(249, 168, 212, 0.2) !important;
 			border-left: 6px solid var(--col-pink);
+
+			& .p-toast-icon-close:hover {
+				background: rgba(249, 168, 212, 0.2) !important;
+			}
 		}
 	}
 
@@ -752,4 +786,8 @@ body[theme=pink] {
 
 .p-dataview-emptymessage {
 	text-align: center;
+}
+
+.p-inputtext:not(.p-dropdown-label) {
+	border-color: var(--col-dock-hl);
 }
