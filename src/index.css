@@ -413,7 +413,7 @@ body[theme=dark] {
 		border-top: solid var(--wm-text) !important;
 	}
 
-	& .p-inputtext {
+	& .p-inputtext:not(.p-dropdown-label) {
 		background-color: var(--dm-bg2);
 		color: white;
 		border-color: transparent;
