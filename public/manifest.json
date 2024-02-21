@@ -1,6 +1,5 @@
 {
   "short_name": "Red Alert",
-  "dir": "auto",
   "name": "Red Alert Map",
   "background_color": "#1f2937",
   "theme_color": "#ef4444",
@@ -8,9 +7,6 @@
   "orientation": "portrait",
   "description": "An app to view real-time rocket alerts/red-alert history in Israel on a map.",
   "start_url": "/",
-  "id": "https://red-alert-map.netlify.app/lKawSQPXxsosxU0osamk",
-  "prefer_related_applications": false,
-  "related_applications": [],
   "icons": [
     {
       "src": "https://pwa.xyz/v0/b/pwaa-8d87e.appspot.com/o/NZSMlTymWmBf4i3mooIs%2FMRYBHbNKImwuztQ.png",
