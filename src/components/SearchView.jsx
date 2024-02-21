@@ -46,6 +46,7 @@ export function SearchView({ setAlertFetcher, hideSearch }) {
           suggestions={items}
           completeMethod={getSuggestions}
           onChange={e => setValue(e.value)}
+          placeholder='Enter a city name...'
           ref={inputRef}
         />
         <Button icon='pi pi-search' onClick={searchCity} rounded />
