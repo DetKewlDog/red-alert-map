@@ -12,7 +12,7 @@ export function Menu({ hideMenu, showRealtime, showHistory, showSearch, showSett
       return;
     }
     const result = await InstallPWA.installPrompt.prompt();
-    console.log(`Install prompt was: ${result.outcome}`);
+    if (!result) return;
     InstallPWA.installPrompt = null;
   }
 
