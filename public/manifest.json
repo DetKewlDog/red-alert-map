@@ -54,5 +54,6 @@
 	"start_url": "/",
 	"display": "standalone",
 	"theme_color": "#ef4444",
-	"background_color": "#1f2937"
+	"background_color": "#1f2937",
+	"orientation": "horizontal"
 }
