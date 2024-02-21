@@ -23,17 +23,15 @@ class APIAccess {
   static threat    = -1;
 
   static async initCollections() {
-    if (APIAccess.cities === undefined) {
-      APIAccess.cities = await axios.get(`${BACKEND_URL}/cities`, args)
-        .then(result => result.data)
-        .catch(err => console.error('Couldn\'t access cities!'));
-    }
+    if (APIAccess.cities && APIAccess.geometry) return;
 
-    if (APIAccess.polygons === undefined) {
-      APIAccess.polygons = await axios.get(`${BACKEND_URL}/geometry`, args)
-        .then(result => result.data)
-        .catch(err => console.error('Couldn\'t access polygons!'));
-    }
+    [APIAccess.cities, APIAccess.geometry] = await Promise.all(
+      ['cities', 'geometry'].map(
+        collection => APIAccess[collection]
+          ? new Promise(APIAccess[collection])
+          : axios.get(`${BACKEND_URL}/${collection}`)
+      )
+    );
   }
 
   static updateCurrentThreat(data) {
