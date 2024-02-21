@@ -23,11 +23,6 @@ export function SearchView({ setAlertFetcher, hideSearch }) {
     const query = e.query.toLowerCase();
     const suggestions = names.filter(name => name.toLowerCase().startsWith(query)).slice(0, 10).sort();
     setItems(suggestions);
-
-    if (suggestions.length === 0) return;
-    Array.from(document.querySelectorAll('.p-autocomplete-panel li')).forEach(
-      item => item.setAttribute('lang', 'he')
-    );
   }
   
   const searchCity = () => {
