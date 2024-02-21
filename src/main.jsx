@@ -11,7 +11,6 @@ document.body.setAttribute('theme', settings['theme']);
 
 window.addEventListener("beforeinstallprompt", (e) => {
   e.preventDefault();
-  console.log(e);
   InstallPWA.installPrompt = e;
 });
 
