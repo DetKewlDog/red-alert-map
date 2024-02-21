@@ -21,8 +21,7 @@ export function SearchView({ setAlertFetcher, hideSearch }) {
 
   const getSuggestions = e => {
     const query = e.query.toLowerCase();
-    const suggestions = names.filter(name => name.toLowerCase().startsWith(query)).slice(0, 10).sort();
-    setItems(suggestions);
+    setItems(names.filter(name => name.toLowerCase().startsWith(query)).slice(0, 10).sort());
   }
   
   const searchCity = () => {
