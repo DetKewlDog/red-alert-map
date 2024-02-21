@@ -9,13 +9,13 @@
   "start_url": "https://red-alert-map.netlify.app/",
   "icons": [
     {
-      "src": "https://pwa.xyz/v0/b/pwaa-8d87e.appspot.com/o/NZSMlTymWmBf4i3mooIs%2FMRYBHbNKImwuztQ.png",
+      "src": "https://pwa.xyz/v0/b/pwaa-8d87e.appspot.com/o/NZSMlTymWmBf4i3mooIs%2FMRYBHbNKImwuztQ.png?alt=media&token=f64b9853-6254-47a6-b580-8b26c9587e6d",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://pwa.xyz/v0/b/pwaa-8d87e.appspot.com/o/NZSMlTymWmBf4i3mooIs%2FtXHVYIxLwDLgZCy.png",
+      "src": "https://pwa.xyz/v0/b/pwaa-8d87e.appspot.com/o/NZSMlTymWmBf4i3mooIs%2FtXHVYIxLwDLgZCy.png?alt=media&token=3b318995-81c5-4dde-875f-0b55b46bfc3e",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
