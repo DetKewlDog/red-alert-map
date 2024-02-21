@@ -1,59 +1,39 @@
 {
-	"name": "Red Alert Map",
-	"short_name": "Red Alert",
-	"icons": [
+  "short_name": "Red Alert",
+  "dir": "auto",
+  "name": "Red Alert Map",
+  "background_color": "#1f2937",
+  "theme_color": "#ef4444",
+  "display": "standalone",
+  "orientation": "portrait",
+  "description": "An app to view real-time rocket alerts/red-alert history in Israel on a map.",
+  "start_url": "https://red-alert-map.netlify.app/?launchedfrom=homescreen",
+  "scope": "https://red-alert-map.netlify.app",
+  "id": "https://red-alert-map.netlify.app/lKawSQPXxsosxU0osamk",
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "icons": [
     {
-      "src": "icons/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "icons/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "icons/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "icons/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "icons/icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "icons/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "icons/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "icons/icon-512x512.png",
+      "src": "https://pwa.xyz/v0/b/pwaa-8d87e.appspot.com/o/NZSMlTymWmBf4i3mooIs%2FMRYBHbNKImwuztQ.png?alt=media&token=f64b9853-6254-47a6-b580-8b26c9587e6d",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable any"
+      "purpose": "any"
+    },
+    {
+      "src": "https://pwa.xyz/v0/b/pwaa-8d87e.appspot.com/o/NZSMlTymWmBf4i3mooIs%2FtXHVYIxLwDLgZCy.png?alt=media&token=3b318995-81c5-4dde-875f-0b55b46bfc3e",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-	"start_url": "/",
-	"display": "standalone",
-	"theme_color": "#ef4444",
-	"background_color": "#1f2937",
-	"orientation": "portrait"
+  "protocol_handlers": [
+    {
+      "protocol": "web+pwa",
+      "url": "https://red-alert-map.netlify.app/?launchedfrom=homescreen&pwaprotocolredirect=%s"
+    },
+    {
+      "protocol": "web+redalertmap",
+      "url": "https://red-alert-map.netlify.app/?launchedfrom=homescreen&pwaprotocolredirect=%s"
+    }
+  ]
 }
