@@ -32,8 +32,6 @@ class APIAccess {
           : axios.get(`${BACKEND_URL}/${collection}`)
       )
     )).map(i => i.data);
-    console.log(APIAccess.cities);
-    console.log(APIAccess.polygons);
   }
 
   static updateCurrentThreat(data) {
