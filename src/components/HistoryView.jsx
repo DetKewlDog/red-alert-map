@@ -1,5 +1,6 @@
 import { DataView } from 'primereact/dataview';
 import { Card } from 'primereact/card';
+import { Chip } from 'primereact/chip';
 
 import useAlertHistory from '../hooks/UseAlertHistory';
 import APIAccess from '../services/APIAccess';
@@ -103,10 +104,14 @@ export function HistoryView({ setAlertFetcher, hideHistory, historyFilter = () =
 
   const HistoryCard = ({ id, title, threat, date, citiesHe, citiesEn }) => (
     <Card onClick={() => setFetcher(id, threat)} title={title} subTitle={date.toLocaleString('he-IL')}>
-      {citiesHe.join(' | ')}
+      {citiesHe.map((city, key) => (
+        <Chip label={city} key={key} />
+      ))}
       <br />
       <br />
-      {citiesEn.join(' | ')}
+      {citiesEn.map((city, key) => (
+        <Chip label={city} key={key} />
+      ))}
     </Card>
   );
 

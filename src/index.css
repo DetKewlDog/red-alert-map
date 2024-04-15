@@ -632,6 +632,10 @@ body[theme=pink] {
 	& .p-progress-spinner-circle {
 		stroke: var(--col-pink) !important;
 	}
+
+	& .p-chip {
+		background-color: var(--col-pink);
+	}
 }
 
 #btn-close {
@@ -790,4 +794,10 @@ body[theme=pink] {
 
 .p-inputtext:not(.p-dropdown-label) {
 	border-color: var(--col-dock-hl);
+}
+
+.p-chip {
+	background-color: var(--col-btn);
+	color: var(--col-dock);
+	margin: 2px;
 }
