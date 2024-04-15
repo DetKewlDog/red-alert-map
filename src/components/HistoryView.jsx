@@ -4,7 +4,7 @@ import { Chip } from 'primereact/chip';
 
 import useAlertHistory from '../hooks/UseAlertHistory';
 import APIAccess from '../services/APIAccess';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 const THREATS = [
   {
@@ -88,6 +88,7 @@ const calculateHistory = (history) => {
 
 export function HistoryView({ setAlertFetcher, hideHistory, historyFilter = () => true }) {
   let history = useAlertHistory();
+  const [enabled, setEnabled] = useState(true);
   
   useEffect(() => {
 
@@ -100,10 +101,14 @@ export function HistoryView({ setAlertFetcher, hideHistory, historyFilter = () =
     APIAccess.threat = threat;
     setAlertFetcher(() => () => APIAccess.getRedAlertsHistoryById());
     hideHistory();
+    setEnabled(false);
+    setTimeout(() => {
+      setEnabled(true);
+    }, 250);
   }
 
   const HistoryCard = ({ id, title, threat, date, citiesHe, citiesEn }) => (
-    <Card onClick={() => setFetcher(id, threat)} title={title} subTitle={date.toLocaleString('he-IL')}>
+    <Card onClick={() => enabled && setFetcher(id, threat)} title={title} subTitle={date.toLocaleString('he-IL')}>
       {citiesHe.map((city, key) => (
         <Chip label={city} key={key} />
       ))}
