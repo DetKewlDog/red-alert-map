@@ -908,3 +908,18 @@ body[theme=pink] {
 	opacity: 1;
 	fill-opacity: 1;
 }
+
+.stats-view {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+}
+
+.chart-wrapper canvas {
+	background: none !important;
+}
+
+.chartjs-tooltip {
+	display: none;
+}

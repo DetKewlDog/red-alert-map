@@ -1,7 +1,7 @@
 import { Menu as PRMenu } from 'primereact/menu';
 import { InstallPWA } from '../util/InstallPWA';
 
-export function Menu({ hideMenu, showRealtime, showHistory, showSearch, showSettings }) {
+export function Menu({ hideMenu, showRealtime, showHistory, showSearch, showStats, showSettings }) {
   const selectMenuItem = (callback) => {
     hideMenu();
     callback();
@@ -33,10 +33,15 @@ export function Menu({ hideMenu, showRealtime, showHistory, showSearch, showSett
       command: showSearch
     },
     {
+      label: 'Statistics',
+      icon: 'chart-bar',
+      command: showStats
+    },
+    {
       label: 'Settings',
       icon: 'cog',
       command: showSettings
-    }
+    },
   ];
 
   if (InstallPWA.installPrompt) {

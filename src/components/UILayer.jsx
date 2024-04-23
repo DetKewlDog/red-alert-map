@@ -13,12 +13,14 @@ import { Menu } from './Menu';
 import APIAccess from '../services/APIAccess';
 import { SettingsMenu } from './SettingsMenu';
 import { SearchView } from './SearchView';
+import { StatsView } from './StatsView';
 
 export function UILayer({ setAlertFetcher, alertedCities }) {
   const [ menuVisible     , setMenuVisible     ] = useState(false);
   const [ historyVisible  , setHistoryVisible  ] = useState(false);
   const [ searchVisible   , setSearchVisible   ] = useState(false);
   const [ settingsVisible , setSettingsVisible ] = useState(false);
+  const [ statsVisible    , setStatsVisible    ] = useState(false);
 
   const showRealtime = () => {
     APIAccess.historyId = 0;
@@ -37,6 +39,7 @@ export function UILayer({ setAlertFetcher, alertedCities }) {
           showRealtime={showRealtime}
           showHistory={() => setHistoryVisible(true)}
           showSearch={() => setSearchVisible(true)}
+          showStats={() => setStatsVisible(true)}
           showSettings={() => setSettingsVisible(true)}
         />
       </Sidebar>
@@ -65,6 +68,14 @@ export function UILayer({ setAlertFetcher, alertedCities }) {
         fullScreen
       >
         <SettingsMenu />
+      </Sidebar>
+      <Sidebar
+        title='Statistics'
+        visible={statsVisible}
+        onHide={() => setStatsVisible(false)}
+        fullScreen
+      >
+        <StatsView />
       </Sidebar>
       <section id='dock'>
         <div className="p-buttonset">
