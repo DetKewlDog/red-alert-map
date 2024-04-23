@@ -15,7 +15,7 @@ export default function useStats() {
   
   history.forEach(alert => {
     const time = timeToDate(alert.alerts[0].time);
-    dateToAlertCountObj[time] = (dateToAlertCountObj[time] | 0) + 1;
+    dateToAlertCountObj[time] = (dateToAlertCountObj[time] | 0) + alert.alerts.flatMap(subAlert => subAlert.cities).length;
     
     alert.alerts.forEach(subAlert => {
       subAlert.cities.forEach(city => {
