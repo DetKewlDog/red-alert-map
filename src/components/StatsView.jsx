@@ -9,7 +9,7 @@ export function StatsView() {
       <h2>Alerts over the week</h2>
       <BarChart data={dateToAlertCount} height='50vh' />
       
-      <h2>Areas the most alerts</h2>
+      <h2>Areas with the most alerts</h2>
       <BarChart data={cityToAlertCount} height='500vh' />
     </div>
   );
