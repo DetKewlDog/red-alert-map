@@ -24,7 +24,7 @@ export default function useStats() {
     })
   });
   
-  const dateToAlertCount = Object.entries(dateToAlertCountObj);
+  const dateToAlertCount = Object.entries(dateToAlertCountObj).reverse();
   const cityToAlertCount = Object.entries(cityToAlertCountObj)
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
     .map(([city, amount]) => {

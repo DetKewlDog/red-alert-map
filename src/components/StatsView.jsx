@@ -7,7 +7,7 @@ export function StatsView() {
   return (
     <div className='stats-view'>
       <h2>Alerts over the week</h2>
-      <BarChart data={dateToAlertCount} height='50vh' horizontal />
+      <BarChart data={dateToAlertCount} height='40vh' horizontal />
       
       <h2>Areas with the most alerts</h2>
       <BarChart data={cityToAlertCount} height='500vh' />
