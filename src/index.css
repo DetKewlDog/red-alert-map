@@ -225,7 +225,7 @@ body[theme=light] {
 		color: var(--wm-text);
 	}
 	
-	& #btn-close {
+	& #btn-close, .p-dialog-header-close {
 		color: var(--dm-bg1);
 	}
 
@@ -263,6 +263,23 @@ body[theme=light] {
 				background: rgba(239, 68, 68, 0.2) !important;
 			}
 		}
+	}
+
+	& .settings-menu .p-button:last-of-type {
+		&:not(:hover) { color: var(--wm-text) !important; }
+	}
+
+	& .p-confirm-dialog-reject {
+		color: var(--wm-text) !important;
+		border-color: var(--col-btn) !important;
+		&:hover {
+			color: white !important;
+			border-color: var(--col-btn-hl) !important;
+		}
+	}
+
+	& .setting-key {
+		color: var(--wm-text) !important;
 	}
 }
 
@@ -382,7 +399,7 @@ body[theme=dark] {
 		color: white;
 	}
 
-	& #btn-close {
+	& #btn-close, .p-dialog-header-close {
 		color: white;
 	}
 
@@ -462,6 +479,32 @@ body[theme=dark] {
 				background: rgba(239, 68, 68, 0.2) !important;
 			}
 		}
+	}
+
+	& .p-confirm-dialog-reject {
+		color: white !important;
+		border-color: var(--col-btn) !important;
+		&:hover {
+			border-color: var(--col-btn-hl) !important;
+		}
+	}
+
+	& .p-dialog {
+		& > * {
+			background-color: var(--dm-bg2) !important;
+		}
+
+		& .p-dialog-header {
+			color: white !important;
+		}
+
+		& .p-dialog-content > * {
+			color: var(--dm-text) !important;
+		}
+	}
+
+	& .setting-key {
+		color: var(--dm-text) !important;
 	}
 }
 
@@ -566,7 +609,7 @@ body[theme=pink] {
 		color: var(--wm-text);
 	}
 
-	& #btn-close {
+	& #btn-close, .p-dialog-header-close {
 		color: var(--dm-bg1);
 	}
 
@@ -636,9 +679,29 @@ body[theme=pink] {
 	& .p-chip {
 		background-color: var(--col-pink);
 	}
+
+	& .settings-menu .p-button:last-of-type {
+		border-color: var(--col-pink) !important;
+
+		&:not(:hover) { color: var(--wm-text) !important; }
+		&:hover { border-color: var(--col-pink-hl) !important; }
+	}
+
+	& .p-confirm-dialog-reject {
+		color: var(--wm-text) !important;
+		border-color: var(--col-pink) !important;
+		&:hover {
+			color: white !important;
+			border-color: var(--col-pink-hl) !important;
+		}
+	}
+
+	& .setting-key {
+		color: var(--wm-text) !important;
+	}
 }
 
-#btn-close {
+#btn-close, .p-dialog-header-close {
 	background-color: transparent;
 	padding: 0;
 	width: 42px;
@@ -742,6 +805,25 @@ body[theme=pink] {
 		padding: 12px 14px;
 		margin-top: 24px;
 	}
+
+	& > div:last-of-type {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+
+		& .p-button:last-of-type {
+			box-sizing: border-box !important;
+			border: 2px solid;
+
+			border-color: var(--col-btn);
+
+			&:hover { border-color: var(--col-btn-hl); }
+
+			&:not(:hover) {
+				background-color: transparent;
+			}
+		}
+	}
 }
 
 .p-dataview.p-dataview-list .p-dataview-content > .p-grid > div {
@@ -800,4 +882,29 @@ body[theme=pink] {
 	background-color: var(--col-btn);
 	color: var(--col-dock);
 	margin: 2px;
+}
+
+.p-confirm-dialog-reject {
+	&:not(:hover) {
+		background: transparent !important;
+	}
+
+	& .p-button-label {
+		transition-duration: 0s !important;
+	}
+}
+
+.p-confirm-dialog-reject,
+.p-confirm-dialog-accept {
+	border: 2px solid transparent !important;
+	font-size: x-large !important;
+	font-weight: 550 !important;
+	padding: 12px 18px !important;
+	height: auto !important;
+	width: auto !important;
+}
+
+.p-dialog-header-close path {
+	opacity: 1;
+	fill-opacity: 1;
 }

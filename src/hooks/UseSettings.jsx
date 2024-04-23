@@ -33,5 +33,10 @@ export function useSettings(callbackFunc) {
     setSettings?.(settings);
   }
 
-  return { getSettings: getSettings, updateSettings: updateSettings };
+  const resetSettings = () => {
+    localStorage.clear();
+    setSettings?.(getSettings());
+  }
+
+  return { getSettings, updateSettings, resetSettings };
 }
