@@ -40,7 +40,7 @@ export function BarChart({ data, height }) {
           x: {
             position: 'top',
             ticks: {
-              stepSize: 1,
+              stepSize: 2,
             }
           }
         },
