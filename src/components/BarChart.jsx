@@ -4,7 +4,7 @@ import {
 
 import { Chart } from 'chart.js/auto';
 
-export function BarChart({ data, height }) {
+export function BarChart({ data, height, horizontal=false }) {
   const theme = document.body.getAttribute('theme');
   const computedStyle = getComputedStyle(document.body);
 
@@ -16,6 +16,9 @@ export function BarChart({ data, height }) {
     theme === 'dark' ? '--dm-bg2' : '--wm-text'
   )
   Chart.defaults.color = theme === 'dark' ? 'white' : computedStyle.getPropertyValue('--wm-text');
+
+  const labelAxis = horizontal ? 'x' : 'y';
+  const valueAxis = horizontal ? 'y' : 'x';
 
   return (
     <CChartBar
@@ -30,21 +33,21 @@ export function BarChart({ data, height }) {
       }}
       options={{
         scales: {
-          y: {
+          [labelAxis]: {
             display: true,
             position: 'right',
             grid: {
               display: false
             }
           },
-          x: {
+          [valueAxis]: {
             position: 'top',
             ticks: {
               stepSize: 2,
             }
           }
         },
-        indexAxis: 'y',
+        indexAxis: labelAxis,
         responsive: true,
         maintainAspectRatio: false,
         plugins: {

@@ -742,6 +742,10 @@ body[theme=pink] {
 	}
 }
 
+.p-checkbox {
+	margin-inline: 3px;
+}
+
 .p-checkbox .p-checkbox-box {
 	background: transparent;
 	border-color: var(--col-btn);
@@ -784,7 +788,7 @@ body[theme=pink] {
 	align-items: center;
 
 	& .setting-key {
-		margin-right: 60px;
+		margin-inline: 18px;
 		& h3 {
 			margin-bottom: 6px;
 		}
@@ -971,4 +975,12 @@ body[theme=pink] {
 
 .p-dialog {
 	margin-inline: 12px;
+}
+
+.p-dropdown-items-wrapper {
+	border-radius: 6px;
+}
+
+.setting {
+	flex-direction: row-reverse;
 }
