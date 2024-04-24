@@ -990,8 +990,18 @@ body[language="he"],
 body[language="ar"] {
 	& .p-sidebar *,
 	& .p-button *,
+	& .p-dialog *,
 	& .leaflet-control-layers-base {
 		direction: rtl;
+	}
+
+	& .p-dialog-footer {
+		text-align: left;
+	}
+
+	& .p-dialog-footer,
+	& .settings-menu:last-child {
+		direction: ltr;
 	}
 
 	& #btn-close {
@@ -1008,6 +1018,11 @@ body[language="ar"] {
 	margin: 0px;
 }
 .p-menuitem-link,
-.p-toast-message-content {
+.p-toast-message-content,
+.p-dialog-content {
 	gap: 12px;
+}
+
+.p-confirm-dialog-icon {
+	transform: scale(0.8);
 }
