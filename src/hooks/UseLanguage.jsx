@@ -229,7 +229,7 @@ export const langDict = {
     es: 'Áreas de la Ciudad'
   },
   SETTINGS_OPTION_SUMMARY_POLYGONS: {
-    he: 'ייצוג ערים באמצעות צורות של שטחיהן על המפה.',
+    he: 'ייצוג ערים באמצעות הצורות שלהן על המפה.',
     en: 'Represent cities with their shapes on the map.',
     ru: 'Представление городов с их формами на карте.',
     ar: 'تمثيل المدن بأشكالها على الخريطة.',
