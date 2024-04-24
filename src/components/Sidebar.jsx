@@ -1,10 +1,10 @@
 import { Sidebar as PrSidebar } from 'primereact/sidebar';
 import { Button } from './Button';
 
-export function Sidebar(props) {
+export function Sidebar({ headerClassName = {}, ...props }) {
   const children = [
     (<span key={-1}
-      className={`sidebar-header ${props.headerClassName || ''}`}
+      className={`sidebar-header ${headerClassName || ''}`}
     >
       <h2>{props.title}</h2>
       <Button onClick={(e) => props.onHide(e)} icon="pi pi-times" id='btn-close' />

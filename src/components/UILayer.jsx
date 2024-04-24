@@ -23,7 +23,7 @@ export function UILayer({ setAlertFetcher, alertedCities }) {
   const [ settingsVisible , setSettingsVisible ] = useState(false);
   const [ statsVisible    , setStatsVisible    ] = useState(false);
 
-  const lang = useLanguage();
+  const [lang, setLang] = useState(useLanguage());
 
   const showRealtime = () => {
     APIAccess.historyId = 0;
@@ -76,7 +76,7 @@ export function UILayer({ setAlertFetcher, alertedCities }) {
         onHide={() => setSettingsVisible(false)}
         fullScreen
       >
-        <SettingsMenu />
+        <SettingsMenu setLang={setLang} />
       </Sidebar>
       <Sidebar
         title={langDict.VIEW_TITLE_STATISTICS[lang]}

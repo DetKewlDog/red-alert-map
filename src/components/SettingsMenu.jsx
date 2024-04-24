@@ -11,7 +11,7 @@ import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { langDict } from "../hooks/UseLanguage";
 import { isUsingMobile } from "../util/IsUsingMobile";
 
-export function SettingsMenu() {
+export function SettingsMenu({ setLang }) {
   const { getSettings, updateSettings, resetSettings } = useSettings();
   let [state, setState] = useState(getSettings());
   const toast = useRef(null);
@@ -158,6 +158,7 @@ export function SettingsMenu() {
 
   useEffect(() => {
     applySettingsRealtime(state);
+    setLang(state['language']);
     return () => applySettingsRealtime(getSettings());
   }, [state]);
 
