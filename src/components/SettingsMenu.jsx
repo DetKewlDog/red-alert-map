@@ -9,7 +9,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { Button } from "./Button";
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { langDict } from "../hooks/UseLanguage";
-import { isUsingMobile } from "../util/isUsingMobile";
+import { isUsingMobile } from "../util/IsUsingMobile";
 
 export function SettingsMenu() {
   const { getSettings, updateSettings, resetSettings } = useSettings();
