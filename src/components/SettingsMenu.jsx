@@ -167,7 +167,8 @@ export function SettingsMenu() {
         root: {
           style: {
             paddingTop: isUsingMobile ? '32px': '8px',
-            paddingInline: '16px'
+            paddingInline: '16px',
+            pointerEvents: 'none'
           }
         }
       }} />
