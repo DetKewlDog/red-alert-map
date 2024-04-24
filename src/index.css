@@ -843,7 +843,6 @@ body[theme=pink] {
 
 .p-toast .p-toast-message.p-toast-message-success {
 	background-color: rgba(16, 185, 129, 0.2) !important;
-	margin-left: 32px;
 }
 
 .sidebar-header:has(> .p-inputwrapper) {

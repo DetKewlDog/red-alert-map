@@ -9,6 +9,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { Button } from "./Button";
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { langDict } from "../hooks/UseLanguage";
+import { isUsingMobile } from "../util/isUsingMobile";
 
 export function SettingsMenu() {
   const { getSettings, updateSettings, resetSettings } = useSettings();
@@ -16,22 +17,27 @@ export function SettingsMenu() {
   const toast = useRef(null);
   let lang = state['language'];
 
-  const toastSavedSettings = () => {
+  const openToast = (summary, detail) => {
     toast.current.show({
       severity: 'success',
-      summary: langDict.TOAST_SUMMARY_SAVED_SETTINGS[lang],
-      detail: langDict.TOAST_DETAIL_SAVED_SETTINGS[lang],
+      summary: langDict[summary][lang],
+      detail: langDict[detail][lang],
       life: 3000
     });
   }
 
+  const toastSavedSettings = () => {
+    openToast(
+      'TOAST_SUMMARY_SAVED_SETTINGS',
+      'TOAST_DETAIL_SAVED_SETTINGS',
+    );
+  }
+
   const toastResetSettings = () => {
-    toast.current.show({
-      severity: 'success',
-      summary: langDict.TOAST_SUMMARY_RESET_SETTINGS[lang],
-      detail: langDict.TOAST_DETAIL_RESET_SETTINGS[lang],
-      life: 3000
-    });
+    openToast(
+      'TOAST_SUMMARY_RESET_SETTINGS',
+      'TOAST_DETAIL_RESET_SETTINGS',
+    );
   }
 
   const applySaveSettings = () => {
@@ -50,7 +56,7 @@ export function SettingsMenu() {
     toastResetSettings();
   }
 
-  const openDialog = (props) => {
+  const openDialog = (header, message, accept) => {
     confirmDialog({
       icon: 'pi pi-exclamation-triangle',
       defaultFocus: 'accept',
@@ -58,24 +64,26 @@ export function SettingsMenu() {
       rejectLabel: langDict.CONFIRM_DIALOG_REJECT[lang],
       rtl: ['he', 'ar'].includes(lang),
       draggable: false,
-      ...props,
+      header: langDict[header][lang],
+      message: langDict[message][lang],
+      accept: accept
     })
   }
 
   const confirmSaveSettings = () => {
-    openDialog({
-      header: langDict.DIALOG_HEADER_SAVE_SETTINGS[lang],
-      message: langDict.DIALOG_MESSAGE_SAVE_SETTINGS[lang],
-      accept: applySaveSettings,
-    });
+    openDialog(
+      'DIALOG_HEADER_SAVE_SETTINGS',
+      'DIALOG_MESSAGE_SAVE_SETTINGS',
+      applySaveSettings,
+    );
   };
 
   const confirmResetSettings = () => {
-    openDialog({
-      header: langDict.DIALOG_HEADER_RESET_SETTINGS[lang],
-      message: langDict.DIALOG_MESSAGE_RESET_SETTINGS[lang],
-      accept: applyResetSettings,
-    });
+    openDialog(
+      'DIALOG_HEADER_RESET_SETTINGS',
+      'DIALOG_MESSAGE_RESET_SETTINGS',
+      applyResetSettings,
+    );
   };
 
   const setSetting = (name, value) => setState({ ...state, [name]: value });
@@ -155,7 +163,14 @@ export function SettingsMenu() {
 
   return (
     <div className="settings-menu">
-      <Toast ref={toast} />
+      <Toast ref={toast} position='top-center' pt={{
+        root: {
+          style: {
+            paddingTop: isUsingMobile ? '32px': '8px',
+            paddingInline: '16px'
+          }
+        }
+      }} />
       <ConfirmDialog />
       <DataView value={options} itemTemplate={Setting} />
       <div>
