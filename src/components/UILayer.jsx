@@ -41,6 +41,7 @@ export function UILayer({ setAlertFetcher, alertedCities }) {
         visible={menuVisible}
         position='left'
         onHide={() => setMenuVisible(false)}
+        headerClassName='main-sidebar'
       >
         <Menu
           hideMenu={() => setMenuVisible(false)}

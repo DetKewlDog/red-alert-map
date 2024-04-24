@@ -1002,10 +1002,14 @@ body[language="ar"] {
 		direction: ltr;
 	}
 
-	& #btn-close {
+	& :not(.main-sidebar) > #btn-close {
 		margin-left: 0;
 		margin-right: auto;
 	}
+}
+
+.main-sidebar {
+	direction: ltr !important;
 }
 
 .leaflet-popup-content-wrapper {

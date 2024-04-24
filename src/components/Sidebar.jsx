@@ -3,7 +3,9 @@ import { Button } from './Button';
 
 export function Sidebar(props) {
   const children = [
-    (<span key={-1} className='sidebar-header'>
+    (<span key={-1}
+      className={`sidebar-header ${props.headerClassName || ''}`}
+    >
       <h2>{props.title}</h2>
       <Button onClick={(e) => props.onHide(e)} icon="pi pi-times" id='btn-close' />
     </span>),
