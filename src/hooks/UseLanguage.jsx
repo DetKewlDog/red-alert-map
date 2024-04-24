@@ -68,7 +68,7 @@ export const langDict = {
   MENU_REALTIME: {
     he: 'זמן אמת',
     en: 'Real Time',
-    ru: 'Реальном Времени',
+    ru: 'В Реальном Времени',
     ar: 'الآن',
     es: 'Tiempo Real'
   },
@@ -89,7 +89,7 @@ export const langDict = {
   MENU_STATISTICS: {
     he: 'סטטיסטיקות',
     en: 'Statistics',
-    ru: 'Статистики',
+    ru: 'Статистика',
     ar: 'إحصاءات',
     es: 'Estadísticas'
   },
@@ -209,7 +209,7 @@ export const langDict = {
   SETTINGS_OPTION_LABEL_CIRCLES: {
     he: 'עיגולים',
     en: 'Circles',
-    ru: 'Круги',
+    ru: 'Округи',
     ar: 'دوائر',
     es: 'Círculos'
   },
