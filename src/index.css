@@ -787,9 +787,9 @@ body[theme=pink] {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	gap: 18px;
 
 	& .setting-key {
-		margin-inline: 18px;
 		& h3 {
 			margin-bottom: 6px;
 		}
