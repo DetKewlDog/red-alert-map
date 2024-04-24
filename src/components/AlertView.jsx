@@ -1,4 +1,5 @@
-import { MapContainer, LayersControl, LayerGroup, ZoomControl } from 'react-leaflet';
+import { useCallback } from 'react';
+import { MapContainer, LayersControl, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import { MarkerAlert, CircleAlert, PolygonAlert } from './Alert';
@@ -9,7 +10,6 @@ import { MapUtil } from '../util/MapUtil';
 import { useSettings } from '../hooks/UseSettings';
 import APIAccess from '../services/APIAccess';
 import { langDict, useLanguage } from '../hooks/UseLanguage';
-import { useCallback } from 'react';
 
 export function AlertView({ alertFetcher, alertedCities }) {
   let [waitingForPan, setWaitingForPan] = useState(false);

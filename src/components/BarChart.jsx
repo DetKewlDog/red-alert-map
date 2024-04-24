@@ -1,6 +1,4 @@
-import {
-  CChartBar,
-} from '@coreui/react-chartjs'
+import { CChartBar } from '@coreui/react-chartjs'
 
 import { Chart } from 'chart.js/auto';
 
