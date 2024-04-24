@@ -68,8 +68,8 @@ export const langDict = {
   MENU_REALTIME: {
     he: 'זמן אמת',
     en: 'Real Time',
-    ru: 'Реальное Время',
-    ar: 'في الوقت الحقيقي',
+    ru: 'Реальном Времени',
+    ar: 'الآن',
     es: 'Tiempo Real'
   },
   MENU_HISTORY: {
