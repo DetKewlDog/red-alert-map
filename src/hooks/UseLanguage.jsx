@@ -199,7 +199,7 @@ export const langDict = {
     es: 'Marcadores'
   },
   SETTINGS_OPTION_SUMMARY_MARKERS: {
-    he: 'ייצוג ערים על המפה באמצעות סימני מיקום.',
+    he: 'ייצג ערים על המפה באמצעות סימני מיקום.',
     en: 'Represent cities with markers on the map.',
     ru: 'Представление городов на карте с помощью маркеров.',
     ar: 'تمثيل المدن بواسطة علامات على الخريطة.',
@@ -214,7 +214,7 @@ export const langDict = {
     es: 'Círculos'
   },
   SETTINGS_OPTION_SUMMARY_CIRCLES: {
-    he: 'ייצוג ערים על המפה באמצעות שטחים עגולים.',
+    he: 'ייצג ערים על המפה באמצעות שטחים עגולים.',
     en: 'Represent cities with circular regions on the map.',
     ru: 'Представление городов на карте с помощью круглых областей.',
     ar: 'تمثيل المدن بمناطق دائرية على الخريطة.',
@@ -229,7 +229,7 @@ export const langDict = {
     es: 'Áreas de la Ciudad'
   },
   SETTINGS_OPTION_SUMMARY_POLYGONS: {
-    he: 'ייצוג ערים על המפה באמצעות השטחים שלהן.',
+    he: 'ייצג ערים על המפה באמצעות השטחים שלהן.',
     en: 'Represent cities with their shapes on the map.',
     ru: 'Представление городов с их формами на карте.',
     ar: 'تمثيل المدن بأشكالها على الخريطة.',
