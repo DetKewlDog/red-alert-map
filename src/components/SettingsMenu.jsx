@@ -50,27 +50,31 @@ export function SettingsMenu() {
     toastResetSettings();
   }
 
-  const confirmSaveSettings = () => {
+  const openDialog = (props) => {
     confirmDialog({
-      header: langDict.DIALOG_HEADER_SAVE_SETTINGS[lang],
-      message: langDict.DIALOG_MESSAGE_SAVE_SETTINGS[lang],
       icon: 'pi pi-exclamation-triangle',
       defaultFocus: 'accept',
-      accept: applySaveSettings,
       acceptLabel: langDict.CONFIRM_DIALOG_ACCEPT[lang],
       rejectLabel: langDict.CONFIRM_DIALOG_REJECT[lang],
+      rtl: ['he', 'ar'].includes(lang),
+      draggable: false,
+      ...props,
+    })
+  }
+
+  const confirmSaveSettings = () => {
+    openDialog({
+      header: langDict.DIALOG_HEADER_SAVE_SETTINGS[lang],
+      message: langDict.DIALOG_MESSAGE_SAVE_SETTINGS[lang],
+      accept: applySaveSettings,
     });
   };
 
   const confirmResetSettings = () => {
-    confirmDialog({
+    openDialog({
       header: langDict.DIALOG_HEADER_RESET_SETTINGS[lang],
       message: langDict.DIALOG_MESSAGE_RESET_SETTINGS[lang],
-      icon: 'pi pi-exclamation-triangle',
-      defaultFocus: 'accept',
       accept: applyResetSettings,
-      acceptLabel: langDict.CONFIRM_DIALOG_ACCEPT[lang],
-      rejectLabel: langDict.CONFIRM_DIALOG_REJECT[lang],
     });
   };
 
