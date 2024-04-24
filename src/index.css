@@ -1007,6 +1007,7 @@ body[language="ar"] {
 .p-menuitem-icon {
 	margin: 0px;
 }
-.p-menuitem-link {
+.p-menuitem-link,
+.p-toast-message-content {
 	gap: 12px;
 }
