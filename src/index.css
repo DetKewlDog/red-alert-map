@@ -945,11 +945,10 @@ body[theme=pink] {
 	}
 }
 
-*::-webkit-scrollbar {
-  width: 12px;
-}
-
 @media all and (min-width: 600px) {
+	*::-webkit-scrollbar {
+		width: 12px;
+	}
 	*::-webkit-scrollbar-track {
 		background: var(--wm-bg2);
 		border: 2px solid var(--wm-bg3);
@@ -1000,7 +999,7 @@ body[language="ar"] {
 	}
 
 	& .p-dialog-footer,
-	& .settings-menu:last-child {
+	& .settings-menu > :last-child {
 		direction: ltr;
 	}
 
