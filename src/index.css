@@ -490,6 +490,7 @@ body[theme=dark] {
 	}
 
 	& .p-dialog {
+		background-color: var(--dm-bg2) !important;
 		& > * {
 			background-color: var(--dm-bg2) !important;
 		}
@@ -845,12 +846,15 @@ body[theme=pink] {
 	margin-left: 32px;
 }
 
+.sidebar-header:has(> .p-inputwrapper) {
+	gap: 12px;
+}
+
 .p-inputwrapper {
 	width: 100%;
 
 	& input {
 		width: 100%;
-		margin-right: 12px;
 		border-radius: 64px;
 		font-size: larger;
 	}
@@ -975,12 +979,34 @@ body[theme=pink] {
 
 .p-dialog {
 	margin-inline: 12px;
+	background-color: var(--wm-bg1) !important;
 }
 
 .p-dropdown-items-wrapper {
 	border-radius: 6px;
 }
 
-.setting {
-	flex-direction: row-reverse;
+body[language="he"],
+body[language="ar"] {
+	& .p-sidebar *,
+	& .p-button *,
+	& .leaflet-control-layers-base {
+		direction: rtl;
+	}
+
+	& #btn-close {
+		margin-left: 0;
+		margin-right: auto;
+	}
+}
+
+.leaflet-popup-content-wrapper {
+	text-align: center;
+}
+
+.p-menuitem-icon {
+	margin: 0px;
+}
+.p-menuitem-link {
+	gap: 12px;
 }

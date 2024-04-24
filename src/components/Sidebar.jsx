@@ -10,7 +10,7 @@ export function Sidebar(props) {
     props.children
   ];
   return (
-    <PrSidebar {...props} pt={{ header: { style: { display: 'none' } }, ...props.pt }}>
+    <PrSidebar {...props} pt={{ header: { style: { display: 'none' } }, ...props.pt }} title=''>
       {children}
     </PrSidebar>
   );

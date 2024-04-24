@@ -1,7 +1,9 @@
 import { Menu as PRMenu } from 'primereact/menu';
 import { InstallPWA } from '../util/InstallPWA';
+import { langDict, useLanguage } from '../hooks/UseLanguage';
 
 export function Menu({ hideMenu, showRealtime, showHistory, showSearch, showStats, showSettings }) {
+  const lang = useLanguage();
   const selectMenuItem = (callback) => {
     hideMenu();
     callback();
@@ -18,27 +20,27 @@ export function Menu({ hideMenu, showRealtime, showHistory, showSearch, showStat
 
   let items = [
     {
-      label: 'Real Time',
+      label: langDict.MENU_REALTIME[lang],
       icon: 'sync',
       command: showRealtime
     },
     {
-      label: 'History',
+      label: langDict.MENU_HISTORY[lang],
       icon: 'history',
       command: showHistory
     },
     {
-      label: 'Search',
+      label: langDict.MENU_SEARCH[lang],
       icon: 'search',
       command: showSearch
     },
     {
-      label: 'Statistics',
+      label: langDict.MENU_STATISTICS[lang],
       icon: 'chart-bar',
       command: showStats
     },
     {
-      label: 'Settings',
+      label: langDict.MENU_SETTINGS[lang],
       icon: 'cog',
       command: showSettings
     },
@@ -46,7 +48,7 @@ export function Menu({ hideMenu, showRealtime, showHistory, showSearch, showStat
 
   if (InstallPWA.installPrompt) {
     items.push({
-      label: 'Install',
+      label: langDict.MENU_INSTALL[lang],
       icon: 'download',
       command: installApp
     });

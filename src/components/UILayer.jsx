@@ -14,6 +14,7 @@ import APIAccess from '../services/APIAccess';
 import { SettingsMenu } from './SettingsMenu';
 import { SearchView } from './SearchView';
 import { StatsView } from './StatsView';
+import { langDict, useLanguage } from '../hooks/UseLanguage';
 
 export function UILayer({ setAlertFetcher, alertedCities }) {
   const [ menuVisible     , setMenuVisible     ] = useState(false);
@@ -21,6 +22,8 @@ export function UILayer({ setAlertFetcher, alertedCities }) {
   const [ searchVisible   , setSearchVisible   ] = useState(false);
   const [ settingsVisible , setSettingsVisible ] = useState(false);
   const [ statsVisible    , setStatsVisible    ] = useState(false);
+
+  const lang = useLanguage();
 
   const showRealtime = () => {
     APIAccess.historyId = 0;
@@ -31,9 +34,14 @@ export function UILayer({ setAlertFetcher, alertedCities }) {
   const isRealTime = APIAccess.historyId === 0;
 
   return (
-    <section id="ui">
+    <section id="ui" style={{ direction: 'ltr' }}>
       <Button size='large' icon="pi pi-bars" onClick={() => setMenuVisible(true)} rounded />
-      <Sidebar title='Red Alert' visible={menuVisible} position='left' onHide={() => setMenuVisible(false)}>
+      <Sidebar
+        title='Red Alert Map'
+        visible={menuVisible}
+        position='left'
+        onHide={() => setMenuVisible(false)}
+      >
         <Menu
           hideMenu={() => setMenuVisible(false)}
           showRealtime={showRealtime}
@@ -44,7 +52,7 @@ export function UILayer({ setAlertFetcher, alertedCities }) {
         />
       </Sidebar>
       <Sidebar
-        title='Alerts History'
+        title={langDict.VIEW_TITLE_HISTORY[lang]}
         visible={historyVisible}
         position={isMobile ? "bottom" : "left"}
         onHide={() => setHistoryVisible(false)}
@@ -53,7 +61,7 @@ export function UILayer({ setAlertFetcher, alertedCities }) {
         <HistoryView setAlertFetcher={setAlertFetcher} hideHistory={() => setHistoryVisible(false)} />
       </Sidebar>
       <Sidebar
-        title='Search'
+        title={langDict.VIEW_TITLE_SEARCH[lang]}
         visible={searchVisible}
         position={isMobile ? "bottom" : "left"}
         onHide={() => setSearchVisible(false)}
@@ -62,7 +70,7 @@ export function UILayer({ setAlertFetcher, alertedCities }) {
         <SearchView setAlertFetcher={setAlertFetcher} hideSearch={() => setSearchVisible(false)} />
       </Sidebar>
       <Sidebar
-        title='Settings'
+        title={langDict.VIEW_TITLE_SETTINGS[lang]}
         visible={settingsVisible}
         onHide={() => setSettingsVisible(false)}
         fullScreen
@@ -70,7 +78,7 @@ export function UILayer({ setAlertFetcher, alertedCities }) {
         <SettingsMenu />
       </Sidebar>
       <Sidebar
-        title='Statistics'
+        title={langDict.VIEW_TITLE_STATISTICS[lang]}
         visible={statsVisible}
         onHide={() => setStatsVisible(false)}
         fullScreen
@@ -82,14 +90,14 @@ export function UILayer({ setAlertFetcher, alertedCities }) {
           <Button size="large" onClick={() => setSearchVisible(true)}>
             <span className='p-button-label p-c'>
               <span className='pi pi-search' style={{ margin: '8px'}} />
-              Search
+              {langDict.MENU_SEARCH[lang]}
             </span>
           </Button>
           <PanButton alertedCities={alertedCities} />
           <Button size="large" onClick={() => isRealTime ? setHistoryVisible(true) : showRealtime()}>
             <span className='p-button-label p-c'>
               <span className={`pi pi-${isRealTime ? 'history' : 'sync'}`} style={{ margin: '8px'}} />
-              {isRealTime ? 'History' : 'Real Time'}
+              {isRealTime ? langDict.MENU_HISTORY[lang] : langDict.MENU_REALTIME[lang]}
             </span>
           </Button>
         </div>

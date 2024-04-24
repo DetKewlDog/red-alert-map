@@ -86,8 +86,11 @@ class APIAccess {
 
     const fetchedCity = {
       id: id,
-      name: city,
-      name_en: data?.name_en,
+      he: data?.he,
+      en: data?.en,
+      ru: data?.ru,
+      ar: data?.ar,
+      es: data?.es,
       center: center,
       radius: radius,
       evac_time: data?.evac_time,

@@ -1,4 +1,4 @@
-import { LayerGroup, LayersControl } from "react-leaflet";
+import { LayerGroup } from "react-leaflet";
 
 export function AlertLayer({ alerts, alertTemplate }) {
   return (

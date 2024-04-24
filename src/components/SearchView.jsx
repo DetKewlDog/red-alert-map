@@ -3,15 +3,17 @@ import { useEffect, useRef, useState } from 'react';
 import { useSearch } from '../hooks/UseSearch';
 import { Button } from './Button';
 import { HistoryView } from './HistoryView';
-import APIAccess from '../services/APIAccess';
+import { langDict, useLanguage } from '../hooks/UseLanguage';
 
 export function SearchView({ setAlertFetcher, hideSearch }) {
   const [names, cities] = useSearch();
-  
+
   const [value, setValue] = useState('');
   const [items, setItems] = useState([]);
-  
+
   const [filter, setFilter] = useState(() => () => false);
+
+  const lang = useLanguage();
 
   const inputRef = useRef(undefined);
 
@@ -23,10 +25,10 @@ export function SearchView({ setAlertFetcher, hideSearch }) {
     const query = e.query.toLowerCase();
     setItems(names.filter(name => name.toLowerCase().startsWith(query)).slice(0, 10).sort());
   }
-  
+
   const searchCity = () => {
     setFilter(() =>
-      alert => alert.citiesHe.concat(alert.citiesEn)
+      alert => alert.cities
         .map(name => name.toLowerCase())
         .includes(value.toLowerCase())
     );
@@ -40,7 +42,7 @@ export function SearchView({ setAlertFetcher, hideSearch }) {
           suggestions={items}
           completeMethod={getSuggestions}
           onChange={e => setValue(e.value)}
-          placeholder='Enter a city name...'
+          placeholder={langDict.SEARCH_PLACEHOLDER_CITY_NAME[lang]}
           ref={inputRef}
         />
         <Button icon='pi pi-search' onClick={searchCity} rounded />
@@ -50,6 +52,6 @@ export function SearchView({ setAlertFetcher, hideSearch }) {
         hideHistory={hideSearch}
         historyFilter={filter}
       />
-    </>  
+    </>
   );
 }

@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Circle, Marker, Popup, Polygon } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { langDict, useLanguage } from "../hooks/UseLanguage";
 
 const icon = new L.Icon({
 	iconUrl:     './marker.png',
@@ -13,16 +14,37 @@ const icon = new L.Icon({
 
 class BaseAlert extends Component {
 	render() {
-		let { name, name_en, evac_time } = this.props;
+		const lang = useLanguage();
+
+		let { evac_time } = this.props;
 		const evac_date = new Date(evac_time * 1000);
 
-		evac_time = evac_time != 0 ? `${evac_date.getMinutes()}m ${evac_date.getSeconds()}s` : "Immediate";
+		const getEvacTimeString = () => {
+			if (evac_time == 0) {
+				return langDict.ALERT_POPUP_EVAC_IMMEDIATE[lang];
+			}
 
+			const min = evac_date.getMinutes();
+			const sec = evac_date.getSeconds();
+
+			const strings = [];
+
+			min && strings.concat([
+				evac_date.getMinutes(),
+				langDict.ALERT_POPUP_EVAC_TIME_FORMAT_MIN[lang]
+			]);
+			sec && strings.concat([
+				evac_date.getSeconds(),
+				langDict.ALERT_POPUP_EVAC_TIME_FORMAT_SEC[lang]
+			]);
+
+			return strings.join(' ');
+		}
 		return (
 			<Popup>
-				<b>{name_en && `${name_en} - `}{name}</b>
+				<b>{this.props[lang]}</b>
 				<br />
-				{evac_time && `Evacuation time: ${evac_time}`}
+				{evac_time && `${langDict.ALERT_POPUP_EVAC_TIME[lang]}: ${getEvacTimeString()}`}
 			</Popup>
 		);
 	}
@@ -72,7 +94,7 @@ export class PolygonAlert extends BaseAlert {
 		}
 
 		return (
-			<Polygon pathOptions={{ color: '#ff0000' }} 
+			<Polygon pathOptions={{ color: '#ff0000' }}
 				positions={polygon}
 			>
 				{super.render()}

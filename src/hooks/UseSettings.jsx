@@ -1,3 +1,5 @@
+import { useLanguage } from "./UseLanguage";
+
 const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 let setSettings = undefined;
 
@@ -21,6 +23,7 @@ export function useSettings(callbackFunc) {
         'markers': () => true,
         'circles': () => false,
         'polygons': () => true,
+        'language': () => useLanguage(),
       }).map(([name, getDefaultValue]) =>
         [name, getSettingValue(name) ?? getDefaultValue()]
       )

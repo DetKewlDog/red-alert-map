@@ -24,7 +24,7 @@ export function BarChart({ data, height, horizontal=false }) {
     <CChartBar
       style={{
         width: '100%',
-        height,
+        height: height,
         maxHeight: height,
         paddingInline: '12px',
         backgroundColor: 'rgba(0,0,0,0.1)',

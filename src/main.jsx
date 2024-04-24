@@ -8,6 +8,7 @@ import { InstallPWA } from './util/InstallPWA';
 const { getSettings } = useSettings();
 const settings = getSettings();
 document.body.setAttribute('theme', settings['theme']);
+document.body.setAttribute('language', settings['language']);
 
 window.addEventListener("beforeinstallprompt", e => {
   e.preventDefault();
