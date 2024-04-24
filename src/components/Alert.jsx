@@ -44,7 +44,7 @@ class BaseAlert extends Component {
 			<Popup>
 				<b>{this.props[lang]}</b>
 				<br />
-				{evac_time && `${langDict.ALERT_POPUP_EVAC_TIME[lang]}: ${getEvacTimeString()}`}
+				{`${langDict.ALERT_POPUP_EVAC_TIME[lang]}: ${getEvacTimeString()}`}
 			</Popup>
 		);
 	}
