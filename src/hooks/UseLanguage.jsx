@@ -365,7 +365,7 @@ export const langDict = {
 
 export function useLanguage() {
   const savedLang = localStorage.getItem('language');
-  const navigatorLang = navigator.language;
+  const navigatorLang = navigator.language.replace(/-.*/, '');
 
   if (savedLang && supportedLanguages.includes(savedLang)) {
     return savedLang;
