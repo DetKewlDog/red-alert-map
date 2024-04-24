@@ -20,10 +20,10 @@ export function useSettings(callbackFunc) {
     return Object.fromEntries(
       Object.entries({
         'theme': () => darkMode ? 'dark' : 'light',
+        'language': () => useLanguage(),
         'markers': () => true,
         'circles': () => false,
         'polygons': () => true,
-        'language': () => useLanguage(),
       }).map(([name, getDefaultValue]) =>
         [name, getSettingValue(name) ?? getDefaultValue()]
       )

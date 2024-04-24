@@ -121,6 +121,20 @@ export function SettingsMenu({ setLang }) {
       />
     },
     {
+      label: langDict.SETTINGS_OPTION_LABEL_LANGUAGE[lang],
+      summary: langDict.SETTINGS_OPTION_SUMMARY_LANGUAGE[lang],
+      component: <SettingsDropdown
+        name='language'
+        options={[
+          { name: 'he', label: 'עברית' },
+          { name: 'en', label: 'English' },
+          { name: 'ru', label: 'Русский' },
+          { name: 'ar', label: 'العربية' },
+          { name: 'es', label: 'Español' },
+        ]}
+      />
+    }
+    {
       label: langDict.SETTINGS_OPTION_LABEL_MARKERS[lang],
       summary: langDict.SETTINGS_OPTION_SUMMARY_MARKERS[lang],
       component: <SettingsCheckbox name='markers' />
@@ -134,20 +148,6 @@ export function SettingsMenu({ setLang }) {
       label: langDict.SETTINGS_OPTION_LABEL_POLYGONS[lang],
       summary: langDict.SETTINGS_OPTION_SUMMARY_POLYGONS[lang],
       component: <SettingsCheckbox name='polygons' />
-    },
-    {
-      label: langDict.SETTINGS_OPTION_LABEL_LANGUAGE[lang],
-      summary: langDict.SETTINGS_OPTION_SUMMARY_LANGUAGE[lang],
-      component: <SettingsDropdown
-        name='language'
-        options={[
-          { name: 'he', label: 'עברית' },
-          { name: 'en', label: 'English' },
-          { name: 'ru', label: 'Русский' },
-          { name: 'ar', label: 'العربية' },
-          { name: 'es', label: 'Español' },
-        ]}
-      />
     }
   ];
 
