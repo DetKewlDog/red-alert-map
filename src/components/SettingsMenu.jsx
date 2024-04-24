@@ -133,7 +133,7 @@ export function SettingsMenu({ setLang }) {
           { name: 'es', label: 'Español' },
         ]}
       />
-    }
+    },
     {
       label: langDict.SETTINGS_OPTION_LABEL_MARKERS[lang],
       summary: langDict.SETTINGS_OPTION_SUMMARY_MARKERS[lang],
