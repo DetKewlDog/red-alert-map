@@ -21,13 +21,13 @@ export default function useAlertDisplay(fetcher) {
     fetcher()
       .then(results => results || [])
       .then(async results => {
-        if (results.length === alertedCities.length 
+        if (results.length === alertedCities.length
           && results.every((val, index) => val === alertedCities[index].name)) {
           return;
         }
         updateAlertedCities(
           results.map(alert =>
-            APIAccess.getPosition(alert)
+            APIAccess.getCity(alert)
           ).filter(i => !!i)
         );
       });
