@@ -82,5 +82,8 @@
   "display_override": [
     "standalone",
     "window-controls-overlay"
+  ],
+  "scope_extensions": [
+    {"origin": "red-alert-map.netlify.app"}
   ]
 }
