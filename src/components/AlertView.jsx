@@ -10,6 +10,7 @@ import { MapUtil } from '../util/MapUtil';
 import { useSettings } from '../hooks/UseSettings';
 import APIAccess from '../services/APIAccess';
 import { langDict, useLanguage } from '../hooks/UseLanguage';
+import { LocationMarker } from './LocationMarker';
 
 export function AlertView({ alertFetcher, alertedCities }) {
   let [waitingForPan, setWaitingForPan] = useState(false);
@@ -94,6 +95,7 @@ export function AlertView({ alertFetcher, alertedCities }) {
           {settings['polygons'] && <AlertLayer alerts={alertedCities} alertTemplate={PolygonAlert} />}
         </LayersControl>
         <ZoomControl position='topright' />
+        <LocationMarker />
       </MapContainer>
     </section>
 	);
