@@ -84,6 +84,6 @@
     "window-controls-overlay"
   ],
   "scope_extensions": [
-    {"origin": "red-alert-map.netlify.app"}
+    { "origin": "red-alert-map.netlify.app" }
   ]
 }
