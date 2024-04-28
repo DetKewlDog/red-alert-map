@@ -65,7 +65,7 @@ class APIAccess {
     return res;
   }
 
-  static getPosition(city) {
+  static getCity(city) {
     if (city === 'israel') {
       return { name: 'israel', center: [30.8124247, 34.8594762] };
     }

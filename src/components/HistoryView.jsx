@@ -96,7 +96,7 @@ const calculateHistory = (history, language) => {
     date.setUTCSeconds(time);
 
     const cityNames = [...new Set(data.alerts.flatMap(alert => alert.cities))];
-    const cities = cityNames.map(city => APIAccess.getPosition(city));
+    const cities = cityNames.map(city => APIAccess.getCity(city));
     const names = cities.map(city => city[language]);
 
     return {

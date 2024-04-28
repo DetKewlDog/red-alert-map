@@ -8,7 +8,7 @@ export class MapUtil {
   }
   static set map(newMap) {
     if (!MapUtil.#map) {
-      newMap.setView(APIAccess.getPosition('israel').center, 7)
+      newMap.setView(APIAccess.getCity('israel').center, 7)
     }
     MapUtil.#map = newMap;
   }
