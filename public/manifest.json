@@ -21,7 +21,7 @@
       "purpose": "maskable"
     }
   ],
-  "screenshots" : [
+  "screenshots": [
     {
       "src": "screenshots/1.png",
       "sizes": "225x400",
@@ -78,5 +78,9 @@
     "news",
     "politics",
     "utilities"
+  ],
+  "display_override": [
+    "standalone",
+    "window-controls-overlay"
   ]
 }
