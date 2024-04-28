@@ -71,5 +71,12 @@
       "form_factor": "narrow",
       "label": "Statistics view"
     }
+  ],
+  "lang": "en",
+  "dir": "auto",
+  "categories": [
+    "news",
+    "politics",
+    "utilities"
   ]
 }
