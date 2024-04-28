@@ -73,7 +73,7 @@ export function UILayer({ setAlertFetcher, alertedCities }) {
       <Sidebar
         title={langDict.VIEW_TITLE_SETTINGS[lang]}
         visible={settingsVisible}
-        onHide={() => setSettingsVisible(false)}
+        onHide={() => { setSettingsVisible(false); setLang(useLanguage()); }}
         fullScreen
       >
         <SettingsMenu setLang={setLang} />
