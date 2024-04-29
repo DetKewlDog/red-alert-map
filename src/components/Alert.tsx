@@ -30,14 +30,14 @@ export class BaseAlert extends Component<City> {
 
 			const strings: string[] = [];
 
-			min && strings.concat([
+			min && strings.push(
 				evac_date.getMinutes().toString(),
 				langDict.ALERT_POPUP_EVAC_TIME_FORMAT_MIN[lang]
-			]);
-			sec && strings.concat([
+			);
+			sec && strings.push(
 				evac_date.getSeconds().toString(),
 				langDict.ALERT_POPUP_EVAC_TIME_FORMAT_SEC[lang]
-			]);
+			);
 
 			return strings.join(' ');
 		}
