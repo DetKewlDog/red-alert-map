@@ -4,8 +4,9 @@ import { Chip } from 'primereact/chip';
 
 import useAlertHistory from '../hooks/UseAlertHistory';
 import APIAccess from '../services/APIAccess';
-import { useEffect, useMemo, useState } from 'react';
-import { langDict, useLanguage } from '../hooks/UseLanguage';
+import { SupportedLanguage, langDict, useLanguage } from '../hooks/UseLanguage';
+import { AlertFetcher, HistoricAlertBundle, History } from '../types';
+import React from 'react';
 
 const THREATS = [
   {
@@ -80,14 +81,14 @@ const THREATS = [
   },
 ];
 
-const calculateHistory = (history, language) => {
+const calculateHistory = (history : HistoricAlertBundle[], language: SupportedLanguage) => {
   return history.map(data => {
     if (data === undefined) return;
     const threats = data.alerts.map(alert => alert.threat);
     const threat = threats.sort((a, b) =>
         threats.filter(v => v === a).length
       - threats.filter(v => v === b).length
-    ).pop();
+    ).pop()!;
     const times = data.alerts.map(alert => alert.time);
     const time = times.reduce((a, b) => a + b, 0) / times.length;
 
@@ -105,22 +106,28 @@ const calculateHistory = (history, language) => {
       threat: threat,
       date: date.toLocaleString('he-IL'),
       cities: names,
-    };
+    } as History;
   });
 }
 
-export function HistoryView({ setAlertFetcher, hideHistory, historyFilter = () => true }) {
+interface HistoryViewProps {
+  setAlertFetcher: React.Dispatch<React.SetStateAction<AlertFetcher>>;
+  hideHistory: () => void;
+  historyFilter?: (value: History | undefined) => boolean;
+};
+
+export function HistoryView({ setAlertFetcher, hideHistory, historyFilter = () => true } : HistoryViewProps) {
   let history = useAlertHistory();
-  const [enabled, setEnabled] = useState(true);
+  const [enabled, setEnabled] = React.useState(true);
   const language = useLanguage();
 
-  useEffect(() => {
+ React. useEffect(() => {
 
   }, [historyFilter]);
 
-  history = useMemo(() => calculateHistory(history, language));
+  const newHistory = React.useMemo(() => calculateHistory(history, language), [history]);
 
-  const setFetcher = (id, threat) => {
+  const setFetcher = (id: number, threat: number) => {
     APIAccess.historyId = id;
     APIAccess.threat = threat;
     setAlertFetcher(() => () => APIAccess.getRedAlertsHistoryById());
@@ -131,11 +138,11 @@ export function HistoryView({ setAlertFetcher, hideHistory, historyFilter = () =
     }, 250);
   }
 
-  const HistoryCard = ({ id, title, threat, date, cities }) => (
+  const HistoryCard = ({ id, title, threat, date, cities } : History) => (
     <Card
       onClick={() => enabled && setFetcher(id, threat)}
       title={title}
-      subTitle={date.toLocaleString('he-IL')}
+      subTitle={date}
     >
       {cities.map((city, key) => (
         <Chip label={city} key={key} />
@@ -145,7 +152,7 @@ export function HistoryView({ setAlertFetcher, hideHistory, historyFilter = () =
 
   return (
     <DataView
-      value={history.filter(historyFilter)}
+      value={newHistory.filter(historyFilter)}
       itemTemplate={HistoryCard}
       emptyMessage={langDict.NO_RESULTS_FOUND[language]}
     />

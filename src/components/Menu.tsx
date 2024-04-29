@@ -2,9 +2,18 @@ import { Menu as PRMenu } from 'primereact/menu';
 import { InstallPWA } from '../util/InstallPWA';
 import { langDict, useLanguage } from '../hooks/UseLanguage';
 
-export function Menu({ hideMenu, showRealtime, showHistory, showSearch, showStats, showSettings }) {
+interface MenuProps {
+  hideMenu: () => void;
+  showRealtime: () => void;
+  showHistory: () => void;
+  showSearch: () => void;
+  showStats: () => void;
+  showSettings: () => void;
+}
+
+export function Menu({ hideMenu, showRealtime, showHistory, showSearch, showStats, showSettings } : MenuProps) {
   const lang = useLanguage();
-  const selectMenuItem = (callback) => {
+  const selectMenuItem = (callback: () => void) => {
     hideMenu();
     callback();
   }

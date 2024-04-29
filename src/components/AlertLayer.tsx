@@ -1,6 +1,13 @@
 import { LayerGroup } from "react-leaflet";
+import { City } from "../types";
+import { BaseAlert } from "./Alert";
 
-export function AlertLayer({ alerts, alertTemplate }) {
+interface AlertsLayerProps {
+  alerts: City[];
+  alertTemplate: typeof BaseAlert;
+}
+
+export function AlertLayer({ alerts, alertTemplate } : AlertsLayerProps) {
   return (
     <LayerGroup>
       {alerts.map((alert, index) => (

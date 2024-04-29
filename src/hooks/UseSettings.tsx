@@ -1,17 +1,20 @@
+import { Settings } from "../types";
 import { useLanguage } from "./UseLanguage";
 
 const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-let setSettings = undefined;
+let setSettings: ((value: Settings) => void) | undefined = undefined;
 
-export function useSettings(callbackFunc) {
+export function useSettings(callbackFunc?: (value: Settings) => void) {
   if (!setSettings && callbackFunc) {
     setSettings = callbackFunc;
   }
 
-  const getSettingValue = (name) => {
+  const getSettingValue = (name: string) : Settings[keyof Settings] | string | undefined => {
     let val = localStorage.getItem(name);
+    if (!val) return undefined;
     try {
-      val = JSON.parse(val);
+      const newVal = JSON.parse(val!);
+      return newVal;
     } catch { }
     return val;
   }
@@ -24,13 +27,13 @@ export function useSettings(callbackFunc) {
         'markers': () => true,
         'circles': () => false,
         'polygons': () => true,
-      }).map(([name, getDefaultValue]) =>
+      } as Record<string, () => any>).map(([name, getDefaultValue]) =>
         [name, getSettingValue(name) ?? getDefaultValue()]
       )
-    )
+    ) as Settings;
   }
 
-  const updateSettings = settings => {
+  const updateSettings = (settings: Settings) => {
     Object.entries(settings)
       .forEach(setting => localStorage.setItem(...setting));
     setSettings?.(settings);

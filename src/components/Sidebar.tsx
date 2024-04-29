@@ -1,13 +1,17 @@
 import { Sidebar as PrSidebar } from 'primereact/sidebar';
 import { Button } from './Button';
 
-export function Sidebar({ headerClassName = {}, ...props }) {
+interface SidebarProps extends React.ComponentProps<typeof PrSidebar> {
+  headerClassName?: string;
+}
+
+export function Sidebar({ headerClassName = '', ...props } : SidebarProps) {
   const children = [
     (<span key={-1}
-      className={`sidebar-header ${headerClassName || ''}`}
+      className={`sidebar-header ${headerClassName}`}
     >
       <h2>{props.title}</h2>
-      <Button onClick={(e) => props.onHide(e)} icon="pi pi-times" id='btn-close' />
+      <Button onClick={() => props.onHide()} icon="pi pi-times" id='btn-close' />
     </span>),
     props.children
   ];

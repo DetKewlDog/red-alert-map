@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import APIAccess from '../services/APIAccess';
+import { HistoricAlertBundle } from '../types';
 
 export default function useAlertHistory() {
-  const [history, setHistory] = useState([]);
+  const [history, setHistory] = React.useState<HistoricAlertBundle[]>([]);
   
-  useEffect(() => {
+  React.useEffect(() => {
     async function fetch() {
       setHistory(await APIAccess.getRedAlertsHistory());
     }

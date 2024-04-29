@@ -1,6 +1,6 @@
 import { Marker } from "react-leaflet";
 import L from 'leaflet';
-import { useEffect, useState } from "react";
+import React from "react";
 
 const icon = new L.Icon({
   iconUrl: '/current-loc.svg',
@@ -10,9 +10,9 @@ const icon = new L.Icon({
 });
 
 export function LocationMarker() {
-  const [location, setLocation] = useState(undefined);
+  const [location, setLocation] = React.useState<[number, number] | undefined>(undefined);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const watch = navigator.geolocation.watchPosition(
       ({ coords }) => setLocation([coords.latitude, coords.longitude])
     );

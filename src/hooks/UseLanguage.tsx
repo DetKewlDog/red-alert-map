@@ -1,18 +1,22 @@
+import { LocalizedObject } from "../types";
+
 export const supportedLanguages = [
   'he',
   'en',
   'ru',
   'ar',
   'es'
-];
+] as const;
 
-export const langDict = {
+export type SupportedLanguage = typeof supportedLanguages[number];
+
+export const langDict : Record<string, LocalizedObject> = {
   ALERT_POPUP_EVAC_TIME: {
     he: 'זמן כניסה לממ"ד',
     en: 'Evacuation Time',
     ru: 'Время эвакуации',
     ar: 'وقت الإخلاء',
-    es: 'Tiempo de Evacuación'
+    es: 'Tiempo de Evacuación',
   },
   ALERT_POPUP_EVAC_TIME_FORMAT_SEC: {
     he: 'שניות',
@@ -363,14 +367,13 @@ export const langDict = {
   }
 }
 
-export function useLanguage() {
-  const savedLang = localStorage.getItem('language');
-  const navigatorLang = navigator.language.replace(/-.*/, '');
-
+export function useLanguage() : SupportedLanguage {
+  const savedLang = localStorage.getItem('language') as SupportedLanguage;
   if (savedLang && supportedLanguages.includes(savedLang)) {
     return savedLang;
   }
 
+  const navigatorLang = navigator.language.replace(/-.*/, '') as SupportedLanguage;
   return supportedLanguages.includes(navigatorLang)
     ? navigatorLang
     : 'en';

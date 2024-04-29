@@ -1,34 +1,41 @@
-import { AutoComplete } from 'primereact/autocomplete';
-import { useEffect, useRef, useState } from 'react';
+import { AutoComplete, AutoCompleteCompleteEvent } from 'primereact/autocomplete';
 import { useSearch } from '../hooks/UseSearch';
 import { Button } from './Button';
 import { HistoryView } from './HistoryView';
 import { langDict, useLanguage } from '../hooks/UseLanguage';
+import { AlertFetcher, History } from '../types';
+import React from 'react';
 
-export function SearchView({ setAlertFetcher, hideSearch }) {
+interface SearchViewProps {
+  setAlertFetcher: React.Dispatch<React.SetStateAction<AlertFetcher>>;
+  hideSearch: () => void;
+}
+
+export function SearchView({ setAlertFetcher, hideSearch } : SearchViewProps) {
   const [names, cities] = useSearch();
 
-  const [value, setValue] = useState('');
-  const [items, setItems] = useState([]);
+  const [value, setValue] = React.useState<string>('');
+  const [items, setItems] = React.useState<string[]>([]);
 
-  const [filter, setFilter] = useState(() => () => false);
+  const [filter, setFilter] = React.useState<(value: History | undefined) => boolean>(() => () => false);
 
   const lang = useLanguage();
 
-  const inputRef = useRef(undefined);
+  const inputRef = React.useRef<AutoComplete>(null);
 
-  useEffect(() => {
-    inputRef.current.getInput().setAttribute('dir', 'auto');
+  React.useEffect(() => {
+    inputRef.current?.getInput().setAttribute('dir', 'auto');
   }, []);
 
-  const getSuggestions = e => {
+  const getSuggestions = (e: AutoCompleteCompleteEvent) => {
     const query = e.query.toLowerCase();
     setItems(names.filter(name => name.toLowerCase().startsWith(query)).slice(0, 10).sort());
   }
 
   const searchCity = () => {
     setFilter(() =>
-      alert => alert.cities
+      (alert: History | undefined) =>
+        alert!.cities
         .map(name => name.toLowerCase())
         .includes(value.toLowerCase())
     );

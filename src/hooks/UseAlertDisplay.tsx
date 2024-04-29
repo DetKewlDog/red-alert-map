@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import APIAccess from '../services/APIAccess';
+import { AlertFetcher, City } from '../types';
 
-export default function useAlertDisplay(fetcher) {
-  let [alertedCities, setAlertedCities] = useState([]);
+export default function useAlertDisplay(fetcher : AlertFetcher) {
+  let [alertedCities, setAlertedCities] = React.useState<[string, City][]>([]);
 
 
-	useEffect(() => {
+	React.useEffect(() => {
     setAlertedCities([]);
 
     if (APIAccess.historyId !== 0) {
@@ -22,25 +23,25 @@ export default function useAlertDisplay(fetcher) {
       .then(results => results || [])
       .then(async results => {
         if (results.length === alertedCities.length
-          && results.every((val, index) => val === alertedCities[index].name)) {
+          && results.every((val, index) => val === alertedCities[index][0])) {
           return;
         }
         updateAlertedCities(
           results.map(alert =>
-            APIAccess.getCity(alert)
-          ).filter(i => !!i)
+            [alert, APIAccess.getCity(alert)]
+          ).filter(i => !!i[1]) as [string, City][]
         );
       });
   }
 
-	useEffect(() => {
+	React.useEffect(() => {
 
   }, [alertedCities]);
 
-  function updateAlertedCities(arr) {
+  function updateAlertedCities(arr: [string, City][]) {
 		alertedCities = arr;
 		setAlertedCities(arr);
 	}
 
-  return { alertedCities: alertedCities };
+  return { alertedCities: alertedCities.map(([name, city]) => city) };
 }

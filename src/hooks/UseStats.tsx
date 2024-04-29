@@ -6,14 +6,14 @@ export default function useStats() {
   const history = useAlertHistory();
   const lang = useLanguage();
 
-  const timeToDate = time => {
+  const timeToDate = (time: number) => {
     const date = new Date(0);
     date.setUTCSeconds(time);
     return date.toLocaleDateString('he-IL');
   }
 
-  const dateToAlertCountObj = { };
-  const cityToAlertCountObj = { };
+  const dateToAlertCountObj : Record<string, number> = { };
+  const cityToAlertCountObj : Record<string, number> = { };
 
   history.forEach(alert => {
     const time = timeToDate(alert.alerts[0].time);
@@ -29,12 +29,7 @@ export default function useStats() {
 
   const dateToAlertCount = Object.entries(dateToAlertCountObj).reverse();
   const cityToAlertCount = Object.entries(cityToAlertCountObj)
-    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-    .map(([city, amount]) => {
-      const nameEn = APIAccess.cities?.[city]?.name_en;
-      if (nameEn) city = [city, nameEn];
-      return [city, amount];
-    });
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 
   return {
     dateToAlertCount,

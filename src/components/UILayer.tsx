@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { isMobile } from 'react-device-detect';
 
 import { Sidebar } from './Sidebar';
@@ -15,15 +14,22 @@ import { SettingsMenu } from './SettingsMenu';
 import { SearchView } from './SearchView';
 import { StatsView } from './StatsView';
 import { langDict, useLanguage } from '../hooks/UseLanguage';
+import { AlertFetcher, City } from '../types';
+import React from 'react';
 
-export function UILayer({ setAlertFetcher, alertedCities }) {
-  const [ menuVisible     , setMenuVisible     ] = useState(false);
-  const [ historyVisible  , setHistoryVisible  ] = useState(false);
-  const [ searchVisible   , setSearchVisible   ] = useState(false);
-  const [ settingsVisible , setSettingsVisible ] = useState(false);
-  const [ statsVisible    , setStatsVisible    ] = useState(false);
+interface UILayerProps {
+  setAlertFetcher: React.Dispatch<React.SetStateAction<AlertFetcher>>;
+  alertedCities: City[];
+}
 
-  const [lang, setLang] = useState(useLanguage());
+export function UILayer({ setAlertFetcher, alertedCities } : UILayerProps) {
+  const [ menuVisible     , setMenuVisible     ] = React.useState(false);
+  const [ historyVisible  , setHistoryVisible  ] = React.useState(false);
+  const [ searchVisible   , setSearchVisible   ] = React.useState(false);
+  const [ settingsVisible , setSettingsVisible ] = React.useState(false);
+  const [ statsVisible    , setStatsVisible    ] = React.useState(false);
+
+  const [lang, setLang] = React.useState(useLanguage());
 
   const showRealtime = () => {
     APIAccess.historyId = 0;

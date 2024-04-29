@@ -1,30 +1,36 @@
-import { useCallback } from 'react';
 import { MapContainer, LayersControl, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import { MarkerAlert, CircleAlert, PolygonAlert } from './Alert';
 import { MapLayer } from './MapLayer';
 import { AlertLayer } from './AlertLayer';
-import { useEffect, useState } from 'react';
 import { MapUtil } from '../util/MapUtil';
 import { useSettings } from '../hooks/UseSettings';
 import APIAccess from '../services/APIAccess';
 import { langDict, useLanguage } from '../hooks/UseLanguage';
 import { LocationMarker } from './LocationMarker';
+import L from 'leaflet';
+import { AlertFetcher, City, Settings } from '../types';
+import React from 'react';
 
-export function AlertView({ alertFetcher, alertedCities }) {
-  let [waitingForPan, setWaitingForPan] = useState(false);
-  const [map, setMap] = useState(null);
+interface AlertViewProps {
+  alertFetcher: AlertFetcher;
+  alertedCities: City[];
+}
 
-  const [settings, setSettings] = useState({ });
+export function AlertView({ alertFetcher, alertedCities } : AlertViewProps) {
+  let [waitingForPan, setWaitingForPan] = React.useState(false);
+  const [map, setMap] = React.useState<L.Map | null>(null);
+
+  const [settings, setSettings] = React.useState<Settings>({ } as Settings);
   const { getSettings } = useSettings(setSettings);
 
-  useEffect(() => {
+  React.useEffect(() => {
     waitingForPan = true;
     setWaitingForPan(true);
   }, [alertFetcher]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     APIAccess.historyId = APIAccess.historyId;
 
     if (!waitingForPan) {
@@ -45,21 +51,21 @@ export function AlertView({ alertFetcher, alertedCities }) {
     MapUtil.flyToPolygons(alertedCities.map(i => i.polygon).flat(1));
   }, [alertedCities]);
 
-  useEffect(() => {
+  React.useEffect(() => {
 
   }, [settings]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     setSettings(getSettings());
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!map) return;
     MapUtil.map = map;
   }, [map]);
 
 
-  const MapLayers = useCallback(() => {
+  const MapLayers = React.useCallback(() => {
     const lang = useLanguage();
     return (
       <>
@@ -87,7 +93,7 @@ export function AlertView({ alertFetcher, alertedCities }) {
 
 	return (
     <section>
-      <MapContainer center={[0, 0]} zoom={7} style={{ height: '100vh' }} ref={setMap} zoomControl={false}>
+      <MapContainer center={[0, 0]} zoom={7} style={{ height: '100vh' }} ref={setMap as any} zoomControl={false}>
         <LayersControl position="topright">
           <MapLayers />
           {settings['circles' ] && <AlertLayer alerts={alertedCities} alertTemplate={CircleAlert } />}

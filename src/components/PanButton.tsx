@@ -3,8 +3,9 @@ import APIAccess from "../services/APIAccess";
 import { MapUtil } from "../util/MapUtil";
 
 import { icons } from 'lucide-react';
+import { City } from "../types";
 
-const Icon = ({ name }) => {
+const Icon = ({ name } : { name: keyof typeof icons }) => {
   const LucideIcon = icons[name];
   return (<LucideIcon size={80} />);
 }
@@ -20,9 +21,13 @@ const THREAT_ICONS = [
   'Rocket',
   'AlertTriangle',
   'RadioTower',
-];
+] as const;
 
-export function PanButton({ alertedCities }) {
+interface PanButtonProps {
+  alertedCities: City[];
+}
+
+export function PanButton({ alertedCities } : PanButtonProps) {
   if (APIAccess.threat == -1) {
     return undefined;
   }

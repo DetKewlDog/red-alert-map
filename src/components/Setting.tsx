@@ -1,6 +1,12 @@
 import { Divider } from 'primereact/divider';
 
-export function Setting({ label, summary, component }) {
+interface SettingProps {
+  label: string;
+  summary: string;
+  component: React.ReactNode;
+}
+
+export function Setting({ label, summary, component } : SettingProps) {
   return (
     <>
       <div className="setting">

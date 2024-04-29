@@ -2,23 +2,26 @@ import 'leaflet/dist/leaflet.css';
 
 import APIAccess from './services/APIAccess';
 import { UILayer } from './components/UILayer';
-import { useEffect, useState } from 'react';
 import { ProgressSpinner } from 'primereact/progressspinner';
 import { AlertView } from './components/AlertView';
 import useAlertDisplay from './hooks/UseAlertDisplay';
+import { AlertFetcher } from './types';
+import React from 'react';
 
 export default function App() {
-	const [alertFetcher, setAlertFetcher] = useState(() => () => APIAccess.getRedAlerts());
+	const [alertFetcher, setAlertFetcher] = React.useState<AlertFetcher>(
+		() => () => APIAccess.getRedAlerts()
+	);
 	const { alertedCities } = useAlertDisplay(alertFetcher);
-	const [loaded, setLoaded] = useState(false);
+	const [loaded, setLoaded] = React.useState(false);
 
-	useEffect(() => {
+	React.useEffect(() => {
 		APIAccess.initCollections().then(() => {
 			setLoaded(true);
 		});
 	}, []);
 
-	useEffect(() => {
+	React.useEffect(() => {
 		
 	}, [alertFetcher]);
 

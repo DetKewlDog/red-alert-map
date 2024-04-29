@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import { useSettings } from "../hooks/UseSettings";
 import { Setting } from "./Setting";
 
@@ -8,17 +7,24 @@ import { Checkbox } from 'primereact/checkbox';
 import { Dropdown } from 'primereact/dropdown';
 import { Button } from "./Button";
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
-import { langDict } from "../hooks/UseLanguage";
+import { SupportedLanguage, langDict } from "../hooks/UseLanguage";
 import { isUsingMobile } from "../util/IsUsingMobile";
+import { Settings } from "../types";
+import { SelectItemOptionsType } from "primereact/selectitem";
+import React from "react";
 
-export function SettingsMenu({ setLang }) {
+interface SettingsMenuProps {
+  setLang: React.Dispatch<React.SetStateAction<SupportedLanguage>>;
+}
+
+export function SettingsMenu({ setLang } : SettingsMenuProps) {
   const { getSettings, updateSettings, resetSettings } = useSettings();
-  let [state, setState] = useState(getSettings());
-  const toast = useRef(null);
+  let [state, setState] = React.useState(getSettings());
+  const toast = React.useRef<Toast>(null);
   let lang = state['language'];
 
-  const openToast = (summary, detail) => {
-    toast.current.show({
+  const openToast = (summary: string, detail: string) => {
+    toast.current?.show({
       severity: 'success',
       summary: langDict[summary][lang],
       detail: langDict[detail][lang],
@@ -56,7 +62,7 @@ export function SettingsMenu({ setLang }) {
     toastResetSettings();
   }
 
-  const openDialog = (header, message, accept) => {
+  const openDialog = (header: string, message: string, accept: () => void) => {
     confirmDialog({
       icon: 'pi pi-exclamation-triangle',
       defaultFocus: 'accept',
@@ -86,17 +92,17 @@ export function SettingsMenu({ setLang }) {
     );
   };
 
-  const setSetting = (name, value) => setState({ ...state, [name]: value });
+  const setSetting = (name: keyof Settings, value: any) => setState({ ...state, [name]: value });
 
-  const SettingsCheckbox = ({ name }) => (
+  const SettingsCheckbox = ({ name } : { name: keyof Settings }) => (
     <Checkbox
       name={name}
       onChange={e => setSetting(name, e.checked)}
-      checked={state[name]}
+      checked={state[name] as boolean}
     />
   );
 
-  const SettingsDropdown = ({ name, options }) => (
+  const SettingsDropdown = ({ name, options } : { name: keyof Settings, options: SelectItemOptionsType }) => (
     <Dropdown
       name={name}
       value={options.find(i => i.name === state[name])}
@@ -151,12 +157,12 @@ export function SettingsMenu({ setLang }) {
     }
   ];
 
-  const applySettingsRealtime = (settings) => {
+  const applySettingsRealtime = (settings: Settings) => {
     document.body.setAttribute('theme', settings['theme']);
     document.body.setAttribute('language', settings['language']);
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     applySettingsRealtime(state);
     setLang(state['language']);
     return () => applySettingsRealtime(getSettings());
@@ -167,7 +173,7 @@ export function SettingsMenu({ setLang }) {
       <Toast ref={toast} position='top-center' pt={{
         root: {
           style: {
-            paddingTop: isUsingMobile ? '32px': '8px',
+            paddingTop: isUsingMobile() ? '32px': '8px',
             paddingInline: '16px',
             pointerEvents: 'none'
           }

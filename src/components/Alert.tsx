@@ -3,6 +3,7 @@ import { Circle, Marker, Popup, Polygon } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { langDict, useLanguage } from "../hooks/UseLanguage";
+import { City } from "../types";
 
 const icon = new L.Icon({
 	iconUrl:     './marker.png',
@@ -12,7 +13,7 @@ const icon = new L.Icon({
 });
 
 
-class BaseAlert extends Component {
+export class BaseAlert extends Component<City> {
 	render() {
 		const lang = useLanguage();
 
@@ -20,21 +21,21 @@ class BaseAlert extends Component {
 		const evac_date = new Date(evac_time * 1000);
 
 		const getEvacTimeString = () => {
-			if (evac_time == 0) {
+			if (evac_time === 0) {
 				return langDict.ALERT_POPUP_EVAC_IMMEDIATE[lang];
 			}
 
 			const min = evac_date.getMinutes();
 			const sec = evac_date.getSeconds();
 
-			const strings = [];
+			const strings: string[] = [];
 
 			min && strings.concat([
-				evac_date.getMinutes(),
+				evac_date.getMinutes().toString(),
 				langDict.ALERT_POPUP_EVAC_TIME_FORMAT_MIN[lang]
 			]);
 			sec && strings.concat([
-				evac_date.getSeconds(),
+				evac_date.getSeconds().toString(),
 				langDict.ALERT_POPUP_EVAC_TIME_FORMAT_SEC[lang]
 			]);
 
@@ -55,7 +56,7 @@ export class MarkerAlert extends BaseAlert {
 		const { center } = this.props;
 
 		if (!center) {
-			return undefined;
+			return <></>;
 		}
 
 		return (
@@ -71,7 +72,7 @@ export class CircleAlert extends BaseAlert {
 		const { center, radius } = this.props;
 
 		if (!center || !radius) {
-			return undefined;
+			return <></>;
 		}
 
 		return (
@@ -90,7 +91,7 @@ export class PolygonAlert extends BaseAlert {
 		const { polygon } = this.props;
 
 		if (!polygon) {
-			return undefined;
+			return <></>;
 		}
 
 		return (

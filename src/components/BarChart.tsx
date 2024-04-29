@@ -2,7 +2,13 @@ import { CChartBar } from '@coreui/react-chartjs'
 
 import { Chart } from 'chart.js/auto';
 
-export function BarChart({ data, height, horizontal=false }) {
+interface BarChartProps {
+  data: [string, number][];
+  height: string;
+  horizontal?: boolean;
+}
+
+export function BarChart({ data, height, horizontal=false } : BarChartProps) {
   const theme = document.body.getAttribute('theme');
   const computedStyle = getComputedStyle(document.body);
 
