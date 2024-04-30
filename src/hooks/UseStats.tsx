@@ -21,7 +21,7 @@ export default function useStats() {
 
     alert.alerts.forEach(subAlert => {
       subAlert.cities.forEach(city => {
-        const name = APIAccess.getCity(city)[lang];
+        const name = APIAccess.getCity(city)![lang];
         cityToAlertCountObj[name] = (cityToAlertCountObj[name] | 0) + 1;
       })
     })
