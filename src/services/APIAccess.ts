@@ -36,7 +36,7 @@ class APIAccess {
   }
 
   static updateCurrentThreat(data : RealtimeAlert | undefined) {
-    APIAccess.threat = data ? parseInt(data?.cat as string) - 1 : -1;
+    APIAccess.threat = data && data?.cat ? parseInt(data.cat as string) - 1 : -1;
     return data;
   }
 
