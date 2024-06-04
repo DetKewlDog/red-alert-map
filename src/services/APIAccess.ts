@@ -73,8 +73,9 @@ class APIAccess {
 
     APIAccess.initCollections();
 
-    const data = APIAccess.cities![city];
-    const id = data.id;
+    const data = APIAccess.cities?.[city];
+    if (!data) return undefined;
+    const id = data?.id;
     const center = data.center;
     const coord = center && new LatLng(...center);
     const polygon = APIAccess.geometry![id] || [];

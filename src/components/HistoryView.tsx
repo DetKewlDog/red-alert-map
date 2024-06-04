@@ -98,7 +98,7 @@ const calculateHistory = (history : HistoricAlertBundle[], language: SupportedLa
 
     const cityNames = [...new Set(data.alerts.flatMap(alert => alert.cities))];
     const cities = cityNames.map(city => APIAccess.getCity(city));
-    const names = cities.map(city => city[language]);
+    const names = cities.map(city => city![language]);
 
     return {
       id: data.id,
