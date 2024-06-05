@@ -859,9 +859,7 @@ body[theme=pink] {
 	}
 
 	& + button {
-		padding: 0 !important;
-		padding-inline: 20px !important;
-		width  : 64px !important;
+		min-width : 64px !important;
 		height : 64px !important;
 	}
 }
