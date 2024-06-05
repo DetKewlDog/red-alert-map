@@ -101,7 +101,7 @@ export function AlertView({ alertFetcher, alertedCities } : AlertViewProps) {
           {settings['polygons'] && <AlertLayer alerts={alertedCities} alertTemplate={PolygonAlert} />}
         </LayersControl>
         <ZoomControl position='topright' />
-        <LocationMarker />
+        {/* <LocationMarker /> */}
       </MapContainer>
     </section>
 	);
