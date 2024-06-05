@@ -181,7 +181,8 @@ body[theme=light] {
 			z-index: 4;
 			width: 80px !important;
 			height: 80px !important;
-			transform: translate(-32px, -40px);
+			transform: translate(-50%, -52px);
+			left: 50%;
 		}
 
 		& .p-button:first-child { transform: translateX( 1px); }
@@ -347,7 +348,8 @@ body[theme=dark] {
 			z-index: 4;
 			width: 80px !important;
 			height: 80px !important;
-			transform: translate(-32px, -40px);
+			transform: translate(-50%, -52px);
+			left: 50%;
 		}
 
 		& .p-button:first-child { transform: translateX( 1px); }
@@ -566,7 +568,8 @@ body[theme=pink] {
 			z-index: 4;
 			width: 80px !important;
 			height: 80px !important;
-			transform: translate(-32px, -40px);
+			transform: translate(-50%, -52px);
+			left: 50%;
 		}
 
 		& .p-button:first-child { transform: translateX( 1px); }
@@ -1025,4 +1028,10 @@ body[language="ar"] {
 
 .p-confirm-dialog-icon {
 	transform: scale(0.8);
+}
+
+.p-buttonset {
+	& .p-button:first-of-type, & .p-button:last-of-type {
+		padding-inline: 0;
+	}
 }

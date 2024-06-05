@@ -72,7 +72,7 @@ export const langDict : Record<string, LocalizedObject> = {
   MENU_REALTIME: {
     he: 'זמן אמת',
     en: 'Real Time',
-    ru: 'В Реальном Времени',
+    ru: 'Реал-Тайм',
     ar: 'الآن',
     es: 'Tiempo Real'
   },
