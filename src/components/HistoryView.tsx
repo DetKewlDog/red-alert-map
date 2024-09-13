@@ -125,7 +125,11 @@ export function HistoryView({ setAlertFetcher, hideHistory, historyFilter = () =
 
   }, [historyFilter]);
 
-  const newHistory = React.useMemo(() => calculateHistory(history, language), [history]);
+  // const newHistory = React.useMemo(() => calculateHistory(history, language), [history]);
+  const newHistory = React.useMemo(() =>
+    [...new Set(history.flatMap(x => x.alerts.flatMap(y => y.cities)))]
+    .map(x => `${x} ${!!APIAccess.getCity(x)}`),
+  [history]);
 
   const setFetcher = (id: number, threat: number) => {
     APIAccess.historyId = id;
@@ -152,8 +156,8 @@ export function HistoryView({ setAlertFetcher, hideHistory, historyFilter = () =
 
   return (
     <DataView
-      value={newHistory.filter(historyFilter)}
-      itemTemplate={HistoryCard}
+      value={newHistory}
+      itemTemplate={x => <p>{x}</p>}
       emptyMessage={langDict.NO_RESULTS_FOUND[language]}
     />
   );
