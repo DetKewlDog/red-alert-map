@@ -13,8 +13,6 @@ const args = {
   withCredentials: false,
   crossdomain: true,
   mode: 'cors',
-  cache: 'no-store',
-  'Cache-Control': 'no-cache'
 };
 
 class APIAccess {
