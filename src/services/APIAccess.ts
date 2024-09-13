@@ -13,6 +13,7 @@ const args = {
   withCredentials: false,
   crossdomain: true,
   mode: 'cors',
+  cache: 'no-store'
 };
 
 class APIAccess {
@@ -32,7 +33,7 @@ class APIAccess {
           ? new Promise({ data: APIAccess[collection]! } as any)
           : axios.get(`${BACKEND_URL}/${collection}`)
       ) as [Promise<{ data: APIcityCollection }>, Promise<{ data: APIpolygonCollection }>]
-    )).map(({ data }) => data) as [{ [name: string]: City }, APIpolygonCollection];
+    )).map(({ data }) => data) as [Record<string, City>, APIpolygonCollection];
   }
 
   static updateCurrentThreat(data : RealtimeAlert | undefined) {
