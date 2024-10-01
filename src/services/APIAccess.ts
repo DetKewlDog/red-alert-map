@@ -45,7 +45,7 @@ class APIAccess {
     return await axios.get(`${BACKEND_URL}/realtime`, args)
       .then(result => result.data as AlertNotif[])
       .then(APIAccess.updateCurrentThreat)
-      .then(data => data?.flatMap(i => i.cities)?.map(i => i.split(', ')[0]));
+      .then(data => data?.flatMap(i => i.cities));
   }
 
   static async getRedAlertsHistory() {
