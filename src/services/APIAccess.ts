@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { LatLng } from 'leaflet';
-import { AlertNotif, APIcityCollection, APIpolygonCollection, City, HistoricAlertBundle } from '../types';
+import { RealtimeAlert, APIcityCollection, APIpolygonCollection, City, HistoricAlertBundle } from '../types';
 
 const BACKEND_URL = 'https://red-alert-server.vercel.app'
 
@@ -35,7 +35,7 @@ class APIAccess {
     )).map(({ data }) => data) as [Record<string, City>, APIpolygonCollection];
   }
 
-  static updateCurrentThreat(data: AlertNotif[] | undefined) {
+  static updateCurrentThreat(data: RealtimeAlert[] | undefined) {
     APIAccess.threat = data?.length ? data.sort((a, b) => b.time - a.time)[0].threat : -1;
     return data;
   }
@@ -43,7 +43,7 @@ class APIAccess {
   static async getRedAlerts() {
     APIAccess.initCollections();
     return await axios.get(`${BACKEND_URL}/realtime`, args)
-      .then(result => result.data as AlertNotif[])
+      .then(result => result.data as RealtimeAlert[])
       .then(APIAccess.updateCurrentThreat)
       .then(data => data?.flatMap(i => i.cities));
   }
