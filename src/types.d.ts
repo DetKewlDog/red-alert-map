@@ -32,12 +32,12 @@ interface HistoricAlertBundle {
   alerts: HistoricAlert[];
 }
 
-interface RealtimeAlert {
-  id: NumericString;
-  cat: NumericString;
-  title: string;
-  data: string[];
-  desc: string;
+interface AlertNotif {
+  notificationId: string;
+  time: number;
+  threat: number;
+  isDrill: boolean;
+  cities: string[];
 }
 
 interface Settings {
