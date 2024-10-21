@@ -27,7 +27,7 @@ export default function useAlertDisplay(fetcher : AlertFetcher) {
           return;
         }
         updateAlertedCities(
-          results.map(alert =>
+          [...new Set(results)].map(alert =>
             [alert, APIAccess.getCity(alert)]
           ).filter(i => !!i[1]) as [string, City][]
         );
