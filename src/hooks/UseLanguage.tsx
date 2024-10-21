@@ -83,19 +83,12 @@ export const langDict : Record<string, LocalizedObject> = {
     ar: 'تاريخ',
     es: 'Historia'
   },
-  MENU_SEARCH: {
-    he: 'חיפוש',
-    en: 'Search',
-    ru: 'Поиск',
-    ar: 'بحث',
-    es: 'Búsqueda'
-  },
   MENU_STATISTICS: {
-    he: 'סטטיסטיקות',
+    he: 'סטטיסטיקה',
     en: 'Statistics',
     ru: 'Статистика',
-    ar: 'إحصاءات',
-    es: 'Estadísticas'
+    ar: 'احصائية',
+    es: 'Estadística'
   },
   MENU_SETTINGS: {
     he: 'הגדרות',
@@ -314,13 +307,6 @@ export const langDict : Record<string, LocalizedObject> = {
     ar: 'سجل التنبيهات',
     es: 'Historial de Alertas'
   },
-  VIEW_TITLE_SEARCH: {
-    he: 'חיפוש',
-    en: 'Search',
-    ru: 'Поиск',
-    ar: 'بحث',
-    es: 'Búsqueda'
-  },
   VIEW_TITLE_SETTINGS: {
     he: 'הגדרות',
     en: 'Settings',
@@ -329,11 +315,11 @@ export const langDict : Record<string, LocalizedObject> = {
     es: 'Configuración'
   },
   VIEW_TITLE_STATISTICS: {
-    he: 'סטטיסטיקות',
+    he: 'סטטיסטיקה',
     en: 'Statistics',
-    ru: 'Статистики',
-    ar: 'إحصاءات',
-    es: 'Estadísticas'
+    ru: 'Статистика',
+    ar: 'احصائية',
+    es: 'Estadística'
   },
 
   CONFIRM_DIALOG_ACCEPT: {

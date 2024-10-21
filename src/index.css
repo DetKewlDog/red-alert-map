@@ -110,6 +110,9 @@ section:has(section) {
 	border: none;
 	margin-bottom: 12px;
 }
+.p-card .p-card.p-component {
+	background-color: var(--dm-bg2) !important;
+}
 
 .p-card-body {
 	padding: 0;
@@ -224,6 +227,9 @@ body[theme=light] {
 	& .p-card.p-component {
 		background-color: var(--wm-bg3);
 		color: var(--wm-text);
+	}
+	& .p-card .p-card.p-component {
+		background-color: var(--wm-bg1) !important;
 	}
 	
 	& #btn-close, .p-dialog-header-close {
@@ -611,6 +617,9 @@ body[theme=pink] {
 	& .p-card.p-component {
 		background-color: var(--wm-bg3);
 		color: var(--wm-text);
+	}
+	& .p-card .p-card.p-component {
+		background-color: var(--wm-bg1) !important;
 	}
 
 	& #btn-close, .p-dialog-header-close {

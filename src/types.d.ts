@@ -19,6 +19,10 @@ interface APIpolygonCollection {
   [id: NumericString]: [number, number][];
 }
 
+interface APIareaCollection {
+  [id: NumericString]: LocalizedObject;
+}
+
 interface HistoricAlert {
   time: number;
   cities: string[];
@@ -45,6 +49,7 @@ interface Settings {
 }
 
 interface City extends Omit<APIcity, "area"> {
+  area: LocalizedObject;
   radius: number;
   polygon: [number, number][];
 }
@@ -54,7 +59,7 @@ interface History {
   title: string;
   threat: number;
   date: string;
-  cities: string[];
+  areas: Record<string, string[]>;
 }
 
 interface BeforeInstallPromptEvent extends Event {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { LatLng } from 'leaflet';
-import { RealtimeAlert, APIcityCollection, APIpolygonCollection, City, HistoricAlertBundle } from '../types';
+import { RealtimeAlert, APIcityCollection, APIpolygonCollection, City, HistoricAlertBundle, LocalizedObject, APIareaCollection } from '../types';
 
 const BACKEND_URL = 'https://red-alert-server.vercel.app'
 
@@ -16,23 +16,24 @@ const args = {
 };
 
 class APIAccess {
-  static cities : Record<string, City> | undefined = undefined;
+  static cities : APIcityCollection | undefined = undefined;
   static geometry : APIpolygonCollection | undefined = undefined;
-  static histories : Record<number, string[]> = {};
+  static areas : Record<number, LocalizedObject> | undefined = undefined;
+  static histories: Record<number, string[]> = {};
   static cityCache : Record<string, City> = {};
   static historyId = 0;
   static threat    = -1;
 
   static async initCollections() {
-    if (APIAccess.cities && APIAccess.geometry) return;
+    if (APIAccess.cities && APIAccess.geometry && APIAccess.areas) return;
 
-    [APIAccess.cities, APIAccess.geometry] = (await Promise.all(
-      (['cities', 'geometry'] as const).map(
+    [APIAccess.cities, APIAccess.geometry, APIAccess.areas] = (await Promise.all(
+      (['cities', 'geometry', 'areas'] as const).map(
         (collection) => APIAccess[collection]
           ? new Promise({ data: APIAccess[collection]! } as any)
           : axios.get(`${BACKEND_URL}/${collection}`)
-      ) as [Promise<{ data: APIcityCollection }>, Promise<{ data: APIpolygonCollection }>]
-    )).map(({ data }) => data) as [Record<string, City>, APIpolygonCollection];
+      ) as [Promise<{ data: APIcityCollection }>, Promise<{ data: APIpolygonCollection }>, Promise<{ data: APIareaCollection }>]
+    )).map(({ data }) => data) as [APIcityCollection, APIpolygonCollection, APIareaCollection];
   }
 
   static updateCurrentThreat(data: RealtimeAlert[] | undefined) {
@@ -79,6 +80,7 @@ class APIAccess {
     const center = data.center;
     const coord = center && new LatLng(...center);
     const polygon = APIAccess.geometry![id] || [];
+    const area = APIAccess.areas![data?.area] || {};
 
     const radius = polygon.length !== 0
       ? Math.max(...polygon.map(pos => coord.distanceTo(new LatLng(...pos))))
@@ -91,10 +93,11 @@ class APIAccess {
       ru: data.ru,
       ar: data.ar,
       es: data.es,
-      center: center,
-      radius: radius,
       evac_time: data.evac_time,
-      polygon: polygon
+      center,
+      radius,
+      area,
+      polygon
     };
     APIAccess.cityCache[city] = fetchedCity;
     return fetchedCity;

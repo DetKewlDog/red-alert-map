@@ -25,7 +25,6 @@ interface UILayerProps {
 export function UILayer({ setAlertFetcher, alertedCities } : UILayerProps) {
   const [ menuVisible     , setMenuVisible     ] = React.useState(false);
   const [ historyVisible  , setHistoryVisible  ] = React.useState(false);
-  const [ searchVisible   , setSearchVisible   ] = React.useState(false);
   const [ settingsVisible , setSettingsVisible ] = React.useState(false);
   const [ statsVisible    , setStatsVisible    ] = React.useState(false);
 
@@ -53,7 +52,6 @@ export function UILayer({ setAlertFetcher, alertedCities } : UILayerProps) {
           hideMenu={() => setMenuVisible(false)}
           showRealtime={showRealtime}
           showHistory={() => setHistoryVisible(true)}
-          showSearch={() => setSearchVisible(true)}
           showStats={() => setStatsVisible(true)}
           showSettings={() => setSettingsVisible(true)}
         />
@@ -65,16 +63,7 @@ export function UILayer({ setAlertFetcher, alertedCities } : UILayerProps) {
         onHide={() => setHistoryVisible(false)}
         pt={{ root: { style: isMobile ? { 'height': '75vh' } : { 'width': '40vw' } } }}
       >
-        <HistoryView setAlertFetcher={setAlertFetcher} hideHistory={() => setHistoryVisible(false)} />
-      </Sidebar>
-      <Sidebar
-        title={langDict.VIEW_TITLE_SEARCH[lang]}
-        visible={searchVisible}
-        position={isMobile ? "bottom" : "left"}
-        onHide={() => setSearchVisible(false)}
-        pt={{ root: { style: isMobile ? { 'height': '75vh' } : { 'width': '40vw' } } }}
-      >
-        <SearchView setAlertFetcher={setAlertFetcher} hideSearch={() => setSearchVisible(false)} />
+        <SearchView setAlertFetcher={setAlertFetcher} hideSearch={() => setHistoryVisible(false)} />
       </Sidebar>
       <Sidebar
         title={langDict.VIEW_TITLE_SETTINGS[lang]}
@@ -94,10 +83,10 @@ export function UILayer({ setAlertFetcher, alertedCities } : UILayerProps) {
       </Sidebar>
       <section id='dock'>
         <div className="p-buttonset">
-          <Button size="large" onClick={() => setSearchVisible(true)}>
+          <Button size="large" onClick={() => setStatsVisible(true)}>
             <span className='p-button-label p-c'>
-              <span className='pi pi-search' style={{ margin: '8px'}} />
-              {langDict.MENU_SEARCH[lang]}
+              <span className='pi pi-chart-bar' style={{ margin: '8px'}} />
+              {langDict.MENU_STATISTICS[lang]}
             </span>
           </Button>
           <PanButton alertedCities={alertedCities} />

@@ -6,12 +6,11 @@ interface MenuProps {
   hideMenu: () => void;
   showRealtime: () => void;
   showHistory: () => void;
-  showSearch: () => void;
   showStats: () => void;
   showSettings: () => void;
 }
 
-export function Menu({ hideMenu, showRealtime, showHistory, showSearch, showStats, showSettings } : MenuProps) {
+export function Menu({ hideMenu, showRealtime, showHistory, showStats, showSettings } : MenuProps) {
   const lang = useLanguage();
   const selectMenuItem = (callback: () => void) => {
     hideMenu();
@@ -37,11 +36,6 @@ export function Menu({ hideMenu, showRealtime, showHistory, showSearch, showStat
       label: langDict.MENU_HISTORY[lang],
       icon: 'history',
       command: showHistory
-    },
-    {
-      label: langDict.MENU_SEARCH[lang],
-      icon: 'search',
-      command: showSearch
     },
     {
       label: langDict.MENU_STATISTICS[lang],

@@ -1,6 +1,5 @@
 import { AutoComplete, AutoCompleteCompleteEvent } from 'primereact/autocomplete';
 import { useSearch } from '../hooks/UseSearch';
-import { Button } from './Button';
 import { HistoryView } from './HistoryView';
 import { langDict, useLanguage } from '../hooks/UseLanguage';
 import { AlertFetcher, History } from '../types';
@@ -17,7 +16,7 @@ export function SearchView({ setAlertFetcher, hideSearch } : SearchViewProps) {
   const [value, setValue] = React.useState<string>('');
   const [items, setItems] = React.useState<string[]>([]);
 
-  const [filter, setFilter] = React.useState<(value: History | undefined) => boolean>(() => () => false);
+  const [filter, setFilter] = React.useState<(value: History | undefined) => boolean>(() => () => true);
 
   const lang = useLanguage();
 
@@ -32,14 +31,14 @@ export function SearchView({ setAlertFetcher, hideSearch } : SearchViewProps) {
     setItems(names.filter(name => name.toLowerCase().startsWith(query)).slice(0, 10).sort());
   }
 
-  const searchCity = () => {
+  React.useEffect(() => {
+    const v = value.toLowerCase();
     setFilter(() =>
       (alert: History | undefined) =>
-        alert!.cities
-        .map(name => name.toLowerCase())
-        .includes(value.toLowerCase())
+        !value || Object.values(alert!.areas).flat()
+        .some(name => name.toLowerCase().startsWith(v))
     );
-  }
+  }, [value]);
 
   return (
     <>
@@ -53,7 +52,6 @@ export function SearchView({ setAlertFetcher, hideSearch } : SearchViewProps) {
           ref={inputRef}
           pt={{ panel: { className: 'pointer-events-none' } }}
         />
-        <Button icon='pi pi-search' onClick={searchCity} rounded />
       </span>
       <HistoryView
         setAlertFetcher={setAlertFetcher}

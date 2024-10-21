@@ -98,14 +98,20 @@ const calculateHistory = (history : HistoricAlertBundle[], language: SupportedLa
 
     const cityNames = [...new Set(data.alerts.flatMap(alert => alert.cities))];
     const cities = cityNames.map(city => APIAccess.getCity(city));
-    const names = cities.map(city => city![language]);
+    const areas = cities.reduce<Record<string, string[]>>((acc, city) => {
+      const area = city!.area[language];
+      return {
+        ...acc,
+        [area]: [...(acc[area] ?? []), city![language]]
+      };
+    }, {});
 
     return {
       id: data.id,
-      title: title,
-      threat: threat,
+      title,
+      threat,
       date: date.toLocaleString('he-IL'),
-      cities: names,
+      areas,
     } as History;
   });
 }
@@ -138,17 +144,21 @@ export function HistoryView({ setAlertFetcher, hideHistory, historyFilter = () =
     }, 250);
   }
 
-  const HistoryCard = ({ id, title, threat, date, cities } : History) => (
-    <Card
-      onClick={() => enabled && setFetcher(id, threat)}
-      title={title}
-      subTitle={date}
-    >
-      {cities.map((city, key) => (
-        <Chip label={city} key={key} />
-      ))}
-    </Card>
-  );
+  const HistoryCard = ({ id, title, threat, date, areas }: History) => {
+    return (
+      <Card
+        onClick={() => enabled && setFetcher(id, threat)}
+        title={title}
+        subTitle={date}
+      >
+        {Object.entries(areas).sort((a, b) => a[0].localeCompare(b[0])).map(([area, cities], k1) => (
+          <Card title={area} key={k1}>
+            {cities.map((city, k2) => <Chip label={city} key={k2} />)}
+          </Card>
+        ))}
+      </Card>
+    );
+  }
 
   return (
     <DataView

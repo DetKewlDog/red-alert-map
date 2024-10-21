@@ -1,11 +1,11 @@
 import APIAccess from '../services/APIAccess';
 import { useLanguage } from './UseLanguage';
-import { City } from '../types';
+import { APIcityCollection } from '../types';
 import React from 'react';
 
 export function useSearch() {
   let [names, setNames] = React.useState<string[]>([]);
-  let [cities, setCities] = React.useState<Record<string, City>>({});
+  let [cities, setCities] = React.useState<APIcityCollection>({});
   const lang = useLanguage();
   
   React.useEffect(() => {
@@ -17,5 +17,5 @@ export function useSearch() {
     setCities(APIAccess.cities!);
   }, []);
   
-  return [names, cities] as [string[], Record<string, City>];
+  return [names, cities] as [string[], APIcityCollection];
 }
