@@ -51,6 +51,7 @@ export function SearchView({ setAlertFetcher, hideSearch } : SearchViewProps) {
           onChange={e => setValue(e.value)}
           placeholder={langDict.SEARCH_PLACEHOLDER_CITY_NAME[lang]}
           ref={inputRef}
+          pt={{ panel: { className: 'pointer-events-none' } }}
         />
         <Button icon='pi pi-search' onClick={searchCity} rounded />
       </span>
