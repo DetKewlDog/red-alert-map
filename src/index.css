@@ -29,15 +29,6 @@
 	--pink-tile-filter: invert(20%) hue-rotate(110deg) contrast(90%) blur(0px) brightness(110%); /* pink filter */
 	--pink-alert-filter: invert(20%) hue-rotate(320deg) contrast(90%) blur(0px) brightness(125%); /* pink filter */
 }
-svg:has(path[stroke=red]) {
-	opacity: 0.3;
-	& path { fill-opacity: 1; }
-}
-
-path:not([stroke=red]) {
-	opacity: 0.8;
-	fill-opacity: 0.35;
-}
 
 .p-progress-spinner-circle {
 	stroke: var(--col-btn) !important;

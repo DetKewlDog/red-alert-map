@@ -13,6 +13,7 @@ export default function useStats() {
   }
 
   const dateToAlertCountObj : Record<string, number> = { };
+  const areaToAlertCountObj : Record<string, number> = { };
   const cityToAlertCountObj : Record<string, number> = { };
 
   history.forEach(alert => {
@@ -21,18 +22,24 @@ export default function useStats() {
 
     alert.alerts.forEach(subAlert => {
       subAlert.cities.forEach(city => {
-        const name = APIAccess.getCity(city)![lang];
-        cityToAlertCountObj[name] = (cityToAlertCountObj[name] | 0) + 1;
+        const data = APIAccess.getCity(city)!;
+        const cname = data[lang];
+        const aname = data.area[lang];
+        areaToAlertCountObj[aname] = (areaToAlertCountObj[aname] | 0) + 1;
+        cityToAlertCountObj[cname] = (cityToAlertCountObj[cname] | 0) + 1;
       })
     })
   });
 
   const dateToAlertCount = Object.entries(dateToAlertCountObj).reverse();
+  const areaToAlertCount = Object.entries(areaToAlertCountObj)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
   const cityToAlertCount = Object.entries(cityToAlertCountObj)
     .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
 
   return {
     dateToAlertCount,
-    cityToAlertCount
+    areaToAlertCount,
+    cityToAlertCount,
   };
 }

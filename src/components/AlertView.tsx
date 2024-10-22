@@ -1,7 +1,7 @@
 import { MapContainer, LayersControl, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import { MarkerAlert, CircleAlert, PolygonAlert } from './Alert';
+import { MarkerAlert, PolygonAlert } from './Alert';
 import { MapLayer } from './MapLayer';
 import { AlertLayer } from './AlertLayer';
 import { MapUtil } from '../util/MapUtil';
@@ -93,10 +93,9 @@ export function AlertView({ alertFetcher, alertedCities } : AlertViewProps) {
 
 	return (
     <section>
-      <MapContainer center={[0, 0]} zoom={7} style={{ height: '100vh' }} ref={setMap as any} zoomControl={false}>
+      <MapContainer center={[0, 0]} zoom={7} style={{ height: '100vh' }} ref={setMap as any} zoomControl={false} preferCanvas>
         <LayersControl position="topright">
           <MapLayers />
-          {settings['circles' ] && <AlertLayer alerts={alertedCities} alertTemplate={CircleAlert } />}
           {settings['markers' ] && <AlertLayer alerts={alertedCities} alertTemplate={MarkerAlert } />}
           {settings['polygons'] && <AlertLayer alerts={alertedCities} alertTemplate={PolygonAlert} />}
         </LayersControl>

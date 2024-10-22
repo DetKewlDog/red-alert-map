@@ -67,25 +67,6 @@ export class MarkerAlert extends BaseAlert {
 	}
 }
 
-export class CircleAlert extends BaseAlert {
-	render() {
-		const { center, radius } = this.props;
-
-		if (!center || !radius) {
-			return <></>;
-		}
-
-		return (
-			<Circle pathOptions={{ color: 'red' }}
-				center={center}
-				radius={radius}
-			>
-				{super.render()}
-			</Circle>
-		);
-	}
-}
-
 export class PolygonAlert extends BaseAlert {
 	render() {
 		const { polygon } = this.props;

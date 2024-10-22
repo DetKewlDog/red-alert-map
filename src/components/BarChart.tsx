@@ -21,8 +21,7 @@ export function BarChart({ data, height, horizontal=false } : BarChartProps) {
   )
   Chart.defaults.color = theme === 'dark' ? 'white' : computedStyle.getPropertyValue('--wm-text');
 
-  const labelAxis = horizontal ? 'x' : 'y';
-  const valueAxis = horizontal ? 'y' : 'x';
+  const [labelAxis, valueAxis]: ('x'|'y')[] = horizontal ? ['x', 'y'] : ['y', 'x'];
 
   return (
     <CChartBar
@@ -42,6 +41,9 @@ export function BarChart({ data, height, horizontal=false } : BarChartProps) {
             position: 'right',
             grid: {
               display: false
+            },
+            ticks: {
+              autoSkip: false
             }
           },
           [valueAxis]: {

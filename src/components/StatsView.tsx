@@ -3,7 +3,7 @@ import useStats from '../hooks/UseStats';
 import { BarChart } from './BarChart';
 
 export function StatsView() {
-  const { dateToAlertCount, cityToAlertCount } = useStats();
+  const { dateToAlertCount, areaToAlertCount, cityToAlertCount } = useStats();
   const lang = useLanguage();
 
   return (
@@ -12,6 +12,11 @@ export function StatsView() {
         {langDict.CHART_TITLE_DATE_TO_ALERT_COUNT[lang]}
       </h2>
       <BarChart data={dateToAlertCount} height='40vh' horizontal />
+
+      <h2>
+        {langDict.CHART_TITLE_AREA_TO_ALERT_COUNT[lang]}
+      </h2>
+      <BarChart data={areaToAlertCount} height='40vh' horizontal />
 
       <h2>
         {langDict.CHART_TITLE_CITY_TO_ALERT_COUNT[lang]}

@@ -84,7 +84,7 @@ export const langDict : Record<string, LocalizedObject> = {
     es: 'Historia'
   },
   MENU_STATISTICS: {
-    he: 'סטטיסטיקה',
+    he: 'נתונים',
     en: 'Statistics',
     ru: 'Статистика',
     ar: 'احصائية',
@@ -286,18 +286,25 @@ export const langDict : Record<string, LocalizedObject> = {
   },
 
   CHART_TITLE_DATE_TO_ALERT_COUNT: {
-    he: 'אזעקות במהלך השבוע',
-    en: 'Alerts over the week',
-    ru: 'Оповещения в течение недели',
-    ar: 'تنبيهات خلال الأسبوع',
-    es: 'Alertas durante la semana'
+    he: 'אזעקות בימים האחרונים',
+    en: 'Alerts in recent days',
+    ru: 'Оповещения за последние дни',
+    ar: 'تنبيهات في الأيام الأخيرة',
+    es: 'Alertas en los últimos días'
+  },
+  CHART_TITLE_AREA_TO_ALERT_COUNT: {
+    he: 'אזעקות על פי אזורים',
+    en: 'Alerts based on regions',
+    ru: 'Тревоги по регионам',
+    ar: 'الإنذارات بناءً على المناطق',
+    es: 'Alertas por regiones'
   },
   CHART_TITLE_CITY_TO_ALERT_COUNT: {
-    he: 'אזורים עם הכי הרבה אזעקות',
-    en: 'Areas with the most alerts',
-    ru: 'Районы с наибольшим количеством тревог',
-    ar: 'المناطق التي تتلقى أكبر عدد من التنبيهات',
-    es: 'Áreas con la mayor cantidad de alertas'
+    he: 'אזעקות על פי ערים',
+    en: 'Alerts based on cities',
+    ru: 'Тревоги по городам',
+    ar: 'الإنذارات بناءً على المدن',
+    es: 'Alertas por ciudades'
   },
 
   VIEW_TITLE_HISTORY: {
@@ -315,7 +322,7 @@ export const langDict : Record<string, LocalizedObject> = {
     es: 'Configuración'
   },
   VIEW_TITLE_STATISTICS: {
-    he: 'סטטיסטיקה',
+    he: 'נתונים',
     en: 'Statistics',
     ru: 'Статистика',
     ar: 'احصائية',

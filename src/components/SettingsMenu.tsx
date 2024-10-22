@@ -146,11 +146,6 @@ export function SettingsMenu({ setLang } : SettingsMenuProps) {
       component: <SettingsCheckbox name='markers' />
     },
     {
-      label: langDict.SETTINGS_OPTION_LABEL_CIRCLES[lang],
-      summary: langDict.SETTINGS_OPTION_SUMMARY_CIRCLES[lang],
-      component: <SettingsCheckbox name='circles' />
-    },
-    {
       label: langDict.SETTINGS_OPTION_LABEL_POLYGONS[lang],
       summary: langDict.SETTINGS_OPTION_SUMMARY_POLYGONS[lang],
       component: <SettingsCheckbox name='polygons' />
