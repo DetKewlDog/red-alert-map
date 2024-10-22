@@ -153,7 +153,7 @@ export function HistoryView({ setAlertFetcher, hideHistory, historyFilter = () =
       >
         {Object.entries(areas).sort((a, b) => a[0].localeCompare(b[0])).map(([area, cities], k1) => (
           <Card title={area} key={k1}>
-            {cities.map((city, k2) => <Chip label={city} key={k2} />)}
+            {[...cities].sort().map((city, k2) => <Chip label={city} key={k2} />)}
           </Card>
         ))}
       </Card>

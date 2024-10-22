@@ -28,7 +28,7 @@ export function SearchView({ setAlertFetcher, hideSearch } : SearchViewProps) {
 
   const getSuggestions = (e: AutoCompleteCompleteEvent) => {
     const query = e.query.toLowerCase();
-    setItems(names.filter(name => name.toLowerCase().startsWith(query)).slice(0, 10).sort());
+    setItems(names.filter(name => name.toLowerCase().includes(query)).slice(0, 10).sort());
   }
 
   React.useEffect(() => {
