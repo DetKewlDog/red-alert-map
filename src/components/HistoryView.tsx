@@ -98,7 +98,8 @@ const calculateHistory = (history : HistoricAlertBundle[], language: SupportedLa
 
     const cityNames = [...new Set(data.alerts.flatMap(alert => alert.cities))];
     const cities = cityNames.map(city => APIAccess.getCity(city));
-    const areas = cities.reduce<Record<string, string[]>>((acc, city) => {
+    const areas = cities.reduce<Record<string, string[]>>((acc, city, i) => {
+      if (!city) console.log(cityNames[i])
       const area = city!.area[language];
       return {
         ...acc,

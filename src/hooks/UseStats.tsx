@@ -23,6 +23,7 @@ export default function useStats() {
     alert.alerts.forEach(subAlert => {
       subAlert.cities.forEach(city => {
         const data = APIAccess.getCity(city)!;
+        if (data.id === 10000000) return;
         const cname = data[lang];
         const aname = data.area[lang];
         areaToAlertCountObj[aname] = (areaToAlertCountObj[aname] | 0) + 1;

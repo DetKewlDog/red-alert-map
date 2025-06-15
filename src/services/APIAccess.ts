@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { LatLng } from 'leaflet';
 import { RealtimeAlert, APIcityCollection, APIpolygonCollection, City, HistoricAlertBundle, LocalizedObject, APIareaCollection } from '../types';
+import { entireIsrael } from './VirtualCities';
 
 const BACKEND_URL = 'https://red-alert-server.vercel.app'
 
@@ -70,6 +71,25 @@ class APIAccess {
   static getCity(city: string) {
     if (city in APIAccess.cityCache) {
       return APIAccess.cityCache[city];
+    }
+
+    if (city == 'ברחבי הארץ') {
+      const loc = {
+        he: "כל הארץ",
+        en: "Across the country",
+        ru: "на территории Израиля",
+        ar: "في انحاء البلاد",
+        es: "تمرين الدفاع المدني"
+      }
+      return {
+        ...loc,
+        id: 10000000,
+        evac_time: 60,
+        center: [30.99735, 34.842641],
+        radius: 235000,
+        area: loc,
+        polygon: entireIsrael
+      };
     }
 
     APIAccess.initCollections();
