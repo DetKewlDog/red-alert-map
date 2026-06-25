@@ -5,7 +5,7 @@ https://red-alert-map.netlify.app/
 Red Alert Map is an application that displays real-time rocket alerts in Israel on a map. The app utilizes real-time alert data provided by Pikud HaOref.
 
 > [!IMPORTANT]  
-> As of 24/4/2026, the app itself is no longer usable due to the backend being hosted on Vercel, which has exhausted my free plan.
+> As of 24/4/2026, the app itself is no longer publicly accessible due to the backend being hosted on Vercel, which has exhausted my free plan.
 
 ## Showcase
 
